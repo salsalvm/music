@@ -3,17 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:music/MAIN/widget.dart';
 import 'package:music/module_1/home_widget.dart';
 
-
 class MostPlayed extends StatelessWidget {
   final leadImage;
   final songName;
   final singerName;
   final favour;
-  const MostPlayed({required this.leadImage,required this.favour,required this.singerName,required this.songName});
+  const MostPlayed(
+      {required this.leadImage,
+      required this.favour,
+      required this.singerName,
+      required this.songName});
 
   @override
   Widget build(BuildContext context) {
-    return Container(decoration: BoxDecoration(color: boxtColor,borderRadius: BorderRadius.circular(15)),
+    return Container(
+      decoration: BoxDecoration(
+          color: boxtColor, borderRadius: BorderRadius.circular(15)),
       child: ListTile(
           onTap: () {},
           leading: CircleAvatar(
@@ -46,26 +51,25 @@ class MostPlayed extends StatelessWidget {
                     size: 22,
                     color: favour,
                   )),
-             popupMenuHoriz(context)
+              popupMenuHoriz(context)
             ],
           )),
     );
   }
 }
 
-
 Widget mostPlayed(BuildContext context) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 13),
     child: ListView.separated(
-        physics:  BouncingScrollPhysics(),
+        physics: BouncingScrollPhysics(),
         shrinkWrap: true,
         itemBuilder: ((context, index) {
           return MostPlayed(
             leadImage: mostPlayedSong[index]['leadImage'],
             songName: mostPlayedSong[index]['songName'],
             singerName: mostPlayedSong[index]['singerName'],
-            favour: index%5==0?Colors.white:Colors.red,
+            favour: index % 5 == 0 ? Colors.white : Colors.red,
           );
         }),
         separatorBuilder: (context, index) {
@@ -84,7 +88,7 @@ List<Map<String, dynamic>> mostPlayedSong = [
     "singerName": "bts",
   },
   {
-    "leadImage": "lib/assets/nee mukhilo.webp", 
+    "leadImage": "lib/assets/nee mukhilo.webp",
     "songName": "Nee mukhilo",
     "singerName": "sithara",
   },

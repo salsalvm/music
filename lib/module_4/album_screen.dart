@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:music/MAIN/widget.dart';
 import 'package:music/module_1/home_widget.dart';
 
+
 import 'package:music/module_4/album_widget.dart';
+import 'package:music/module_4/playlist_songs_screen.dart';
 
 class AlbumPage extends StatelessWidget {
   const AlbumPage({Key? key}) : super(key: key);
@@ -27,10 +29,17 @@ class AlbumPage extends StatelessWidget {
                     mainAxisSpacing: 10),
                 itemCount: albumList.length,
                 itemBuilder: (BuildContext ctx, index) {
-                  return AlbumItems(
-                      assetImage: albumList[index]["leadImage"],
-                      albumName: albumList[index]["albumName"],
-                      songCount: albumList[index]["songCoun"]);
+                  return GestureDetector(
+                    onTap: () {
+                       Navigator.of(context)
+          .push(MaterialPageRoute(builder: ((context) => PlayListSongs())));
+    
+                    },
+                    child: AlbumItems(
+                        assetImage: albumList[index]["leadImage"],
+                        albumName: albumList[index]["albumName"],
+                        songCount: albumList[index]["songCoun"]),
+                  );
                 }),
           ),
         ),

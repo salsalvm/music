@@ -329,7 +329,7 @@ Widget bottomNavigation(BuildContext context) {
     },
     leading: const CircleAvatar(
       radius: 30,
-      backgroundColor: Colors.transparent,
+      // backgroundColor: Colors.transparent,
       backgroundImage: AssetImage('lib/assets/bheeshma.jpeg'),
     ),
     title: Text(
@@ -345,15 +345,17 @@ Widget bottomNavigation(BuildContext context) {
             padding: const EdgeInsets.only(top: 6.0),
             child: IconButton(
                 onPressed: () {},
-                icon: Container(
-                  decoration: BoxDecoration(
-                      color: textWhite,
-                      borderRadius: BorderRadius.circular(50)),
-                  child: Icon(
+                icon: 
+                // Container(
+                //   decoration: BoxDecoration(
+                //       color: textWhite,
+                //       borderRadius: BorderRadius.circular(50)),
+                  // child:
+                   Icon(
                     Icons.skip_previous_rounded,
-                    color: darkBlue,
+                    color: textWhite,
                     size: 30,
-                  ),
+                  // ),
                 )),
           ),
           IconButton(
@@ -367,15 +369,10 @@ Widget bottomNavigation(BuildContext context) {
             padding: const EdgeInsets.only(top: 6.0,left: 12),
             child: IconButton(
                 onPressed: () {},
-                icon: Container(
-                  decoration: BoxDecoration(
-                      color: textWhite,
-                      borderRadius: BorderRadius.circular(50)),
-                  child: Icon(
-                    Icons.skip_next_rounded,
-                    color: darkBlue,
-                    size: 30,
-                  ),
+                icon: Icon(
+                  Icons.skip_next_rounded,
+                  color: textWhite,
+                  size: 30,
                 )),
           ),
         ],

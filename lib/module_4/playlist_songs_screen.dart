@@ -7,10 +7,11 @@ class PlayListSongs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(backgroundColor: lightBlue,
+    return Scaffold(
+      backgroundColor: lightBlue,
       appBar: AppBar(
         backgroundColor: lightBlue,
-        title: Text('Most Played Song'),
+        title: Text('Ever green'),
         centerTitle: true,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
@@ -20,8 +21,8 @@ class PlayListSongs extends StatelessWidget {
         ),
       ),
       body: SafeArea(
-       child:SingleChildScrollView(physics: BouncingScrollPhysics(),child: playListSongs(context))
-      ),
+          child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(), child: playListSongs(context),),),
     );
   }
 }
