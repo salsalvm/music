@@ -1,6 +1,7 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:music/MAIN/widget.dart';
+import 'package:music/module_2/volume_slider.dart';
 
 class NowPlayingDesigns extends StatefulWidget {
   const NowPlayingDesigns({Key? key}) : super(key: key);
@@ -170,13 +171,14 @@ Widget addAndVol() {
           decoration: BoxDecoration(
               color: Colors.transparent,
               borderRadius: BorderRadius.circular(50)),
-          child: IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.volume_up,
-                color: textWhite,
-                size: 30,
-              )),
+          child: MyVolumeUp()
+          // IconButton(
+          //     onPressed: () {},
+          //     icon: Icon(
+          //       Icons.volume_up,
+          //       color: textWhite,
+          //       size: 30,
+          //     )),
         ),
         Container(
           decoration: BoxDecoration(
