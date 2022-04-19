@@ -1,7 +1,12 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:music/MAIN/widget.dart';
+import 'package:music/module_1/home_widget.dart';
+import 'package:music/module_2/nowplaying_widget.dart';
 import 'package:music/module_2/volume_slider.dart';
+import 'package:music/module_4/playlist_screen.dart';
+import 'package:music/module_4/playlist_songs_screen.dart';
+import 'package:music/module_4/playlist_widget.dart';
 
 class NowPlayingDesigns extends StatefulWidget {
   const NowPlayingDesigns({Key? key}) : super(key: key);
@@ -10,14 +15,28 @@ class NowPlayingDesigns extends StatefulWidget {
   State<NowPlayingDesigns> createState() => _NowPlayingDesignsState();
 }
 
-class _NowPlayingDesignsState extends State<NowPlayingDesigns> {
+class _NowPlayingDesignsState extends State<NowPlayingDesigns>
+    with TickerProviderStateMixin {
   //  AudioPlayer audioPlayer = AudioPlayer();
   dynamic totalDuration = "00:00";
   Duration position = Duration();
+  bool expanded = true;
+  late AnimationController controller;
   // dynamic position1 = "00:00";
   // String? audioState;
   // Duration duration = Duration();
   int _value = 6;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    controller = AnimationController(
+      vsync: this,
+      duration: Duration(microseconds: 400),
+      reverseDuration: Duration(microseconds: 400),
+    );
+  }
+
   //  initAudio() {
   //   audioPlayer.onDurationChanged.listen((updatedDuration) {
   //     setState(() {
@@ -38,23 +57,23 @@ class _NowPlayingDesignsState extends State<NowPlayingDesigns> {
         children: [
           bigBlankSpace,
           Container(
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.transparent),
-          borderRadius: BorderRadius.circular(15),
-        ),
-        height: 280,
-        width: 350,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(15),
-          child: Image(
-            image: AssetImage(
-              'lib/assets/bheeshma.jpeg',
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.transparent),
+              borderRadius: BorderRadius.circular(15),
             ),
-            fit: BoxFit.fill,
+            height: 280,
+            width: 350,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(15),
+              child: Image(
+                image: AssetImage(
+                  'lib/assets/bheeshma.jpeg',
+                ),
+                fit: BoxFit.fill,
+              ),
+            ),
           ),
-        ),
-      ),
-      bigBlankSpace,
+          bigBlankSpace,
           Padding(
             padding: const EdgeInsets.only(top: 5.0),
             child: listtiles(),
@@ -89,11 +108,60 @@ class _NowPlayingDesignsState extends State<NowPlayingDesigns> {
               ],
             ),
           ),
-        SizedBox(
-  height: 25,
-),
-          addAndVol(),
-          playButton()
+          SizedBox(
+            height: 25,
+          ),
+          addAndVol(context),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                child: IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.skip_previous_rounded,
+                      color: textWhite,
+                      size: 40,
+                    )),
+              ),
+              smallwidth,
+
+// play and pause
+
+              Container(
+                height: 55,
+                width: 55,
+                decoration: BoxDecoration(
+                    color: textWhite, borderRadius: BorderRadius.circular(50)),
+                child: IconButton(
+                  icon: AnimatedIcon(
+                    icon: AnimatedIcons.play_pause,
+                    progress: controller,
+                    size: 40,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      expanded ? controller.forward() : controller.reverse();
+                      expanded = !expanded;
+                    });
+                  },
+                ),
+              ),
+              smallwidth,
+              Container(
+                decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    borderRadius: BorderRadius.circular(50)),
+                child: IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.skip_next_rounded,
+                      color: textWhite,
+                      size: 40,
+                    )),
+              ),
+            ],
+          ),
         ],
       )),
     );
@@ -161,31 +229,34 @@ Widget listtiles() {
 
 // vol and add
 
-Widget addAndVol() {
+Widget addAndVol(context) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 25),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Container(
-          decoration: BoxDecoration(
-              color: Colors.transparent,
-              borderRadius: BorderRadius.circular(50)),
-          child: MyVolumeUp()
-          // IconButton(
-          //     onPressed: () {},
-          //     icon: Icon(
-          //       Icons.volume_up,
-          //       color: textWhite,
-          //       size: 30,
-          //     )),
-        ),
+            decoration: BoxDecoration(
+                color: Colors.transparent,
+                borderRadius: BorderRadius.circular(50)),
+            child: MyVolumeUp()
+            //  child: IconButton(
+            //       onPressed: () {MyVolumeUp();
+            //       },
+            //       icon: Icon(
+            //         Icons.volume_up,
+            //         color: textWhite,
+            //         size: 30,
+            //       )),
+            ),
         Container(
           decoration: BoxDecoration(
               color: Colors.transparent,
               borderRadius: BorderRadius.circular(50)),
           child: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                PlayListShowBottomSheet(context);
+              },
               icon: Icon(
                 Icons.add,
                 size: 30,
@@ -197,45 +268,72 @@ Widget addAndVol() {
   );
 }
 
-Widget playButton() {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      Container(
-        decoration: BoxDecoration(
-            color: Colors.transparent, borderRadius: BorderRadius.circular(50)),
-        child: IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.skip_previous_rounded,
-              color: textWhite,
-              size: 40,
-            )),
-      ),
-      smallwidth,
-      Container(
-        decoration: BoxDecoration(
-            color: Colors.transparent, borderRadius: BorderRadius.circular(50)),
-        child: IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.play_arrow_rounded,
-              color: textWhite,
-              size: 40,
-            )),
-      ),
-      smallwidth,
-      Container(
-        decoration: BoxDecoration(
-            color: Colors.transparent, borderRadius: BorderRadius.circular(50)),
-        child: IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.skip_next_rounded,
-              color: textWhite,
-              size: 40,
-            )),
+createPlaylistShowAlertDialog(BuildContext context) {
+  // set up the buttons
+  Widget cancelButton = TextButton(
+    child: Text("Cancel", style: TextStyle(color: textWhite, fontSize: 16)),
+    onPressed: () {
+      Navigator.of(context).pop();
+    },
+  );
+  Widget continueButton = TextButton(
+    child: Text("Save", style: TextStyle(color: textWhite, fontSize: 16)),
+    onPressed: () {},
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    backgroundColor: darkBlue,
+    alignment: Alignment.center,
+    title: Center(
+        child: Text(
+      "Give Your Playlist Name",
+      style: TextStyle(color: textWhite),
+    )),
+    content: TextFormField(
+      decoration: InputDecoration(),
+    ),
+    actions: [
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            cancelButton,
+            continueButton,
+          ],
+        ),
       ),
     ],
   );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
+
+PlayListShowBottomSheet(BuildContext context) {
+  return showModalBottomSheet(
+      backgroundColor: lightBlue,
+      context: context,
+      builder: (ctx) {
+        return Container(
+          decoration: BoxDecoration(
+            color: boxtColor,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(25.0),
+              topRight: Radius.circular(25),
+              bottomLeft: Radius.zero,
+              bottomRight: Radius.zero,
+            ),
+          ),
+          height: 300,
+          width: double.infinity,
+          child: playListBotttom(context),
+        );
+      });
 }

@@ -41,4 +41,50 @@ class _MyVolumeUpState extends State<MyVolumeUp> {
               ))
             ]);
   }
+  // volumeShowAlertDialog(BuildContext context) {
+  //   // set up the buttons
+  //   Widget cancelButton = TextButton(
+  //     child: Text("Cancel",style: TextStyle(color: textWhite,fontSize: 16)),
+  //     onPressed: () {
+  //       Navigator.of(context).pop();
+  //     },
+  //   );
+  //   Widget continueButton = TextButton(
+  //     child: Text("Save",style: TextStyle(color: textWhite,fontSize: 16)),
+  //     onPressed: () {
+        
+  //     },
+  //   );
+
+  //   // set up the AlertDialog
+  //   AlertDialog alert = AlertDialog(backgroundColor:darkBlue,alignment: Alignment.center,
+  //     title: Center(child: Text("Give Your Playlist Name",style: TextStyle(color: textWhite),)),
+  //     content: Slider(
+  //             value: _value.toDouble(),
+  //             min: 1.0,
+  //             max: 10.0,
+  //             divisions: 10,
+  //               // value: position.inSeconds.toDouble(),
+  //               activeColor: textWhite, inactiveColor: textGrey,
+  //               // max: duration.inSeconds.toDouble(),
+  //               onChanged: (double newValue) {
+  //               setState(() {
+  //                 _value = newValue.round();
+  //               });
+                
+  //             },semanticFormatterCallback: (double newValue) {
+  //               return '${newValue.round()} dollars';
+  //             }
+  //             )
+      
+  //   );
+
+  //   // show the dialog
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return alert;
+  //     },
+  //   );
+  // }
 }

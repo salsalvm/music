@@ -159,7 +159,7 @@ Widget stackItems(BuildContext context) {
           onPressed: () => Navigator.of(context)
               .push(MaterialPageRoute(builder: ((context) => HomeScreen()))),
           icon: Icon(
-            Icons.music_note,
+            Icons.dark_mode,color: Colors.black,
             size: 30,
           ),
           color: Colors.white,

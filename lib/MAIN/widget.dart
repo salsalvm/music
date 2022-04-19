@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 // var lightBlue = Color.fromRGBO(36, 112, 161, .9);
 // var darkBlue = Color.fromRGBO(0, 88, 146, 1);
 // var boxtColor = Color.fromRGBO(94, 147, 185, 1);
-var boxtColor = Color.fromARGB(255, 31, 59, 82);
+var boxtColor = Color.fromARGB(255, 22, 39, 52);
 var darkBlue = Color.fromARGB(255, 14, 62, 101);
 var lightBlue = Colors.transparent;
 var textWhite = Color.fromARGB(255, 240, 242, 244);

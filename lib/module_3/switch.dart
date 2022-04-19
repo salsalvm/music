@@ -13,7 +13,7 @@ class _SwitchFunctionState extends State<SwitchFunction> {
   bool status=false;
   @override
   Widget build(BuildContext context) {
-    return Container(decoration: BoxDecoration(color: boxtColor),
+    return Container(decoration: BoxDecoration(color: Colors.transparent),
       child: Column(
         // crossAxisAlignment: CrossAxisAlignment.baseline,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -36,7 +36,7 @@ class _SwitchFunctionState extends State<SwitchFunction> {
             },
           ),SizedBox(height: 25,),
 
-              ElevatedButton.icon(style: ElevatedButton.styleFrom(primary: darkBlue,), onPressed: (){Navigator.pop(context);}, icon: Icon(Icons.arrow_back), label: Text('Back',style: TextStyle(fontSize: 18),))
+              ElevatedButton.icon(style: ElevatedButton.styleFrom(primary: boxtColor,), onPressed: (){Navigator.pop(context);}, icon: Icon(Icons.arrow_back), label: Text('Back',style: TextStyle(fontSize: 18),))
         ],
       ),
     );

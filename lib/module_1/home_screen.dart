@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'package:music/module_1/home_widget.dart';
 import 'package:music/MAIN/widget.dart';
+import 'package:music/module_3/search_items.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -63,77 +64,78 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     double _width = MediaQuery.of(context).size.width;
     double _height = MediaQuery.of(context).size.height;
     return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-        backgroundColor: lightBlue,
-        extendBodyBehindAppBar: true,
-        appBar: AppBar(
-          brightness: Brightness.light,
-          elevation: 0, backgroundColor: lightBlue,
-          // backgroundColor: Colors.transparent,
-          leading: IconButton(
-            icon: Icon(Icons.menu_rounded),
-            splashColor: Colors.transparent,
-            onPressed: () {
-           if (_bool == true) {
-                _animationController.forward();
-              } else {
-                _animationController.reverse();
-              }
-              _bool = false;
-
-            },
-          ),
-          actions: [
-            IconButton(onPressed: () {}, icon: const Icon(Icons.search))
-          ],
-          bottom: const TabBar(
-            tabs: [
-              Tab(
-                icon: Icon(Icons.home),
-                text: 'Home',
-              ),
-              Tab(
-                icon: Icon(EvaIcons.heart),
-                text: 'favorites',
-              ),
-              Tab(
-                icon: Icon(Icons.restore),
-                text: 'Recent',
-              ),
+        length: 3,
+        child: Scaffold(
+          backgroundColor: lightBlue,
+          extendBodyBehindAppBar: true,
+          appBar: AppBar(
+            brightness: Brightness.light,
+            elevation: 0, backgroundColor: lightBlue,
+            // backgroundColor: Colors.transparent,
+            leading: IconButton(
+              icon: Icon(Icons.menu_rounded),
+              splashColor: Colors.transparent,
+              onPressed: () {
+                if (_bool == true) {
+                  _animationController.forward();
+                } else {
+                  _animationController.reverse();
+                }
+                _bool = false;
+              },
+            ),
+            actions: [
+              IconButton(onPressed: () { showSearch(context: context, delegate: MySearch());}, icon: const Icon(Icons.search))
             ],
-            labelColor: Colors.white,
+            bottom: const TabBar(
+              tabs: [
+                Tab(
+                  icon: Icon(Icons.home),
+                  text: 'Home',
+                ),
+                Tab(
+                  icon: Icon(EvaIcons.heart),
+                  text: 'favorites',
+                ),
+                Tab(
+                  icon: Icon(Icons.restore),
+                  text: 'Recent',
+                ),
+              ],
+              labelColor: Colors.white,
+            ),
+            title: const Text(
+              'Home',
+            ),
+            centerTitle: true,
           ),
-          title: const Text(
-            'Home',
-          ),
-          centerTitle: true,
-        ),
-        body: Stack(children: [
-          TabBarView(children: [
-            SingleChildScrollView(
-              child: SafeArea(child: collectionsListview()),
-            ),
-            SingleChildScrollView(
-              child: SafeArea(child: favouriteListview()),
-            ),
-            SingleChildScrollView(
-              child: SafeArea(child: recentListView(context)),
-            ),
-          ]),
+          body: Stack(children: [
+            TabBarView(children: [
+              SingleChildScrollView(
+                child: SafeArea(child: collectionsListview()),
+              ),
+              SingleChildScrollView(
+                child: SafeArea(child: favouriteListview()),
+              ),
+              SingleChildScrollView(
+                child: SafeArea(child: recentListView(context)),
+              ),
+            ]),
 
-          // ALWAYS PLACE IT ON THE BOTTOM OF EVERY WIDGET...
-          CustomNavigationDrawer(),
-          
-          
-        ]),
-         bottomNavigationBar: BottomAppBar(shape:CircularNotchedRectangle(),
-        color: lightBlue,
-        elevation: 50,
-        child: Container(child: bottomNavigation(context,),
-      ),
-      ),)
-    );
+            // ALWAYS PLACE IT ON THE BOTTOM OF EVERY WIDGET...
+            CustomNavigationDrawer(),
+          ]),
+          bottomNavigationBar: BottomAppBar(
+            shape: CircularNotchedRectangle(),
+            color: lightBlue,
+            elevation: 50,
+            child: Container(
+              child: bottomNavigation(
+                context,
+              ), 
+            ),
+          ),
+        ));
   }
 
   Widget CustomNavigationDrawer() {
@@ -162,6 +164,4 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       ),
     );
   }
-
-
 }
