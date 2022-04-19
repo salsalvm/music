@@ -159,7 +159,8 @@ Widget stackItems(BuildContext context) {
           onPressed: () => Navigator.of(context)
               .push(MaterialPageRoute(builder: ((context) => HomeScreen()))),
           icon: Icon(
-            Icons.dark_mode,color: Colors.black,
+            Icons.dark_mode,
+            color: Colors.black,
             size: 30,
           ),
           color: Colors.white,
@@ -172,8 +173,8 @@ Widget stackItems(BuildContext context) {
             Icons.library_add_check_rounded,
             'Album',
             () {
-               Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => AlbumPage()));
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => AlbumPage()));
               HapticFeedback.lightImpact();
             },
           ),
@@ -325,7 +326,6 @@ Widget bottomNavigation(BuildContext context) {
     onTap: () {
       Navigator.of(context)
           .push(MaterialPageRoute(builder: ((context) => NowPlaying())));
-    
     },
     leading: const CircleAvatar(
       radius: 30,
@@ -345,16 +345,16 @@ Widget bottomNavigation(BuildContext context) {
             padding: const EdgeInsets.only(top: 6.0),
             child: IconButton(
                 onPressed: () {},
-                icon: 
-                // Container(
-                //   decoration: BoxDecoration(
-                //       color: textWhite,
-                //       borderRadius: BorderRadius.circular(50)),
-                  // child:
-                   Icon(
-                    Icons.skip_previous_rounded,
-                    color: textWhite,
-                    size: 30,
+                icon:
+                    // Container(
+                    //   decoration: BoxDecoration(
+                    //       color: textWhite,
+                    //       borderRadius: BorderRadius.circular(50)),
+                    // child:
+                    Icon(
+                  Icons.skip_previous_rounded,
+                  color: textWhite,
+                  size: 30,
                   // ),
                 )),
           ),
@@ -366,7 +366,7 @@ Widget bottomNavigation(BuildContext context) {
                 size: 45,
               )),
           Padding(
-            padding: const EdgeInsets.only(top: 6.0,left: 12),
+            padding: const EdgeInsets.only(top: 6.0, left: 12),
             child: IconButton(
                 onPressed: () {},
                 icon: Icon(

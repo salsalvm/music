@@ -2,7 +2,7 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:music/MAIN/widget.dart';
 import 'package:music/module_1/home_widget.dart';
-import 'package:music/module_2/nowplaying_widget.dart';
+import 'package:music/module_2/nowplaying_function.dart';
 import 'package:music/module_2/volume_slider.dart';
 import 'package:music/module_4/playlist_screen.dart';
 import 'package:music/module_4/playlist_songs_screen.dart';
@@ -129,13 +129,13 @@ class _NowPlayingDesignsState extends State<NowPlayingDesigns>
 // play and pause
 
               Container(
-                height: 55,
-                width: 55,
+                height: 50,
+                width: 50,
                 decoration: BoxDecoration(
-                    color: textWhite, borderRadius: BorderRadius.circular(50)),
+                     borderRadius: BorderRadius.circular(50)),
                 child: IconButton(
                   icon: AnimatedIcon(
-                    icon: AnimatedIcons.play_pause,
+                    icon: AnimatedIcons.play_pause,color:textWhite,
                     progress: controller,
                     size: 40,
                   ),
@@ -165,175 +165,11 @@ class _NowPlayingDesignsState extends State<NowPlayingDesigns>
         ],
       )),
     );
-  }
-}
-
-Widget bigBlankSpace = SizedBox(
+  }Widget bigBlankSpace = SizedBox(
   height: 80,
 );
 
 Widget smallwidth = SizedBox(
   width: 30,
 );
-
-// row
-
-Widget listtiles() {
-  return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 20),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(
-          decoration: BoxDecoration(
-              color: Colors.transparent,
-              borderRadius: BorderRadius.circular(50)),
-          child: IconButton(
-            onPressed: () {},
-            icon: Icon(
-              EvaIcons.shuffle2,
-              color: textWhite,
-              size: 30,
-            ),
-          ),
-        ),
-        Column(
-          children: [
-            Text(
-              'Parudheesa',
-              style: TextStyle(fontSize: 22, color: textWhite),
-            ),
-            Text(
-              'sree nadh bhaasi',
-              style: TextStyle(color: textGrey, fontSize: 14),
-            )
-          ],
-        ),
-        Container(
-          decoration: BoxDecoration(
-              color: Colors.transparent,
-              borderRadius: BorderRadius.circular(50)),
-          child: IconButton(
-            onPressed: () {},
-            icon: Icon(
-              EvaIcons.heart,
-              color: Colors.red,
-              size: 30,
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-// vol and add
-
-Widget addAndVol(context) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 25),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(
-            decoration: BoxDecoration(
-                color: Colors.transparent,
-                borderRadius: BorderRadius.circular(50)),
-            child: MyVolumeUp()
-            //  child: IconButton(
-            //       onPressed: () {MyVolumeUp();
-            //       },
-            //       icon: Icon(
-            //         Icons.volume_up,
-            //         color: textWhite,
-            //         size: 30,
-            //       )),
-            ),
-        Container(
-          decoration: BoxDecoration(
-              color: Colors.transparent,
-              borderRadius: BorderRadius.circular(50)),
-          child: IconButton(
-              onPressed: () {
-                PlayListShowBottomSheet(context);
-              },
-              icon: Icon(
-                Icons.add,
-                size: 30,
-                color: textWhite,
-              )),
-        )
-      ],
-    ),
-  );
-}
-
-createPlaylistShowAlertDialog(BuildContext context) {
-  // set up the buttons
-  Widget cancelButton = TextButton(
-    child: Text("Cancel", style: TextStyle(color: textWhite, fontSize: 16)),
-    onPressed: () {
-      Navigator.of(context).pop();
-    },
-  );
-  Widget continueButton = TextButton(
-    child: Text("Save", style: TextStyle(color: textWhite, fontSize: 16)),
-    onPressed: () {},
-  );
-
-  // set up the AlertDialog
-  AlertDialog alert = AlertDialog(
-    backgroundColor: darkBlue,
-    alignment: Alignment.center,
-    title: Center(
-        child: Text(
-      "Give Your Playlist Name",
-      style: TextStyle(color: textWhite),
-    )),
-    content: TextFormField(
-      decoration: InputDecoration(),
-    ),
-    actions: [
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            cancelButton,
-            continueButton,
-          ],
-        ),
-      ),
-    ],
-  );
-
-  // show the dialog
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return alert;
-    },
-  );
-}
-
-PlayListShowBottomSheet(BuildContext context) {
-  return showModalBottomSheet(
-      backgroundColor: lightBlue,
-      context: context,
-      builder: (ctx) {
-        return Container(
-          decoration: BoxDecoration(
-            color: boxtColor,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(25.0),
-              topRight: Radius.circular(25),
-              bottomLeft: Radius.zero,
-              bottomRight: Radius.zero,
-            ),
-          ),
-          height: 300,
-          width: double.infinity,
-          child: playListBotttom(context),
-        );
-      });
 }

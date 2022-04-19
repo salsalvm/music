@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:music/MAIN/widget.dart';
 import 'package:music/module_2/nowPlaying_Transperant.dart';
-import 'package:music/module_2/nowplaying_widget.dart';
+import 'package:music/module_2/nowplaying_function.dart';
 
 class NowPlaying extends StatelessWidget {
   const NowPlaying({Key? key}) : super(key: key);
