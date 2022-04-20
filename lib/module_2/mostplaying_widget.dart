@@ -58,29 +58,6 @@ class MostPlayed extends StatelessWidget {
   }
 }
 
-Widget mostPlayed(BuildContext context) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 13),
-    child: ListView.separated(
-        physics: BouncingScrollPhysics(),
-        shrinkWrap: true,
-        itemBuilder: ((context, index) {
-          return MostPlayed(
-            leadImage: mostPlayedSong[index]['leadImage'],
-            songName: mostPlayedSong[index]['songName'],
-            singerName: mostPlayedSong[index]['singerName'],
-            favour: index % 5 == 0 ? Colors.white : Colors.red,
-          );
-        }),
-        separatorBuilder: (context, index) {
-          return const SizedBox(
-            height: 10,
-          );
-        },
-        itemCount: mostPlayedSong.length),
-  );
-}
-
 List<Map<String, dynamic>> mostPlayedSong = [
   {
     "leadImage": "lib/assets/butter.webp",

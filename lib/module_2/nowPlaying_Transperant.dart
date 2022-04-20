@@ -1,4 +1,3 @@
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:music/MAIN/widget.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
@@ -17,12 +16,16 @@ class _NowPlayingDesignsState extends State<NowPlayingDesigns>
   //  AudioPlayer audioPlayer = AudioPlayer();
   dynamic totalDuration = "00:00";
   Duration position = Duration();
-  bool expanded = true;
+
   late AnimationController controller;
   // dynamic position1 = "00:00";
   // String? audioState;
   // Duration duration = Duration();
   int _value = 6;
+  bool isAnimated = false;
+  bool showPlay = true;
+  bool shopPause = false;
+  AssetsAudioPlayer player = AssetsAudioPlayer();
   @override
   void initState() {
     // TODO: implement initState
@@ -32,6 +35,8 @@ class _NowPlayingDesignsState extends State<NowPlayingDesigns>
       duration: Duration(microseconds: 400),
       reverseDuration: Duration(microseconds: 400),
     );
+    player.open(Audio('lib/assets/audio/Parudeesa.mp3'),
+        autoStart: false, showNotification: true);
   }
 
   //  initAudio() {
@@ -108,7 +113,12 @@ class _NowPlayingDesignsState extends State<NowPlayingDesigns>
           SizedBox(
             height: 25,
           ),
+
+// add nad volume
+
           addAndVol(context),
+
+          // previous
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -128,23 +138,32 @@ class _NowPlayingDesignsState extends State<NowPlayingDesigns>
               Container(
                 height: 50,
                 width: 50,
-                decoration: BoxDecoration(
-                     borderRadius: BorderRadius.circular(50)),
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(50)),
                 child: IconButton(
                   icon: AnimatedIcon(
-                    icon: AnimatedIcons.play_pause,color:textWhite,
+                    icon: AnimatedIcons.play_pause,
+                    color: textWhite,
                     progress: controller,
                     size: 40,
                   ),
                   onPressed: () {
                     setState(() {
-                      expanded ? controller.forward() : controller.reverse();
-                      expanded = !expanded;
+                      isAnimated = !isAnimated;
+                      if (isAnimated) {
+                        controller.forward();
+                        player.play();
+                      } else {
+                        controller.reverse();
+                        player.pause();
+                      }
                     });
                   },
                 ),
               ),
               smallwidth,
+
+              //  next
               Container(
                 decoration: BoxDecoration(
                     color: Colors.transparent,
@@ -162,11 +181,13 @@ class _NowPlayingDesignsState extends State<NowPlayingDesigns>
         ],
       )),
     );
-  }Widget bigBlankSpace = SizedBox(
-  height: 80,
-);
+  }
 
-Widget smallwidth = SizedBox(
-  width: 30,
-);
+  Widget bigBlankSpace = SizedBox(
+    height: 80,
+  );
+
+  Widget smallwidth = SizedBox(
+    width: 30,
+  );
 }

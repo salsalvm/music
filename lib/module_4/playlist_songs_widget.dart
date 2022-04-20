@@ -53,30 +53,6 @@ class PlayListSongsItems extends StatelessWidget {
   }
 }
 
-
-Widget playListSongs(BuildContext context) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
-    child: ListView.separated(
-        physics:  BouncingScrollPhysics(),
-        shrinkWrap: true,
-        itemBuilder: ((context, index) {
-          return PlayListSongsItems(
-            leadImage: playListSong[index]['leadImage'],
-            songName: playListSong[index]['songName'],
-            singerName: playListSong[index]['singerName'],
-            favour: index%5==0?Colors.white:Colors.red,
-          );
-        }),
-        separatorBuilder: (context, index) {
-          return const SizedBox(
-            height: 10,
-          );
-        },
-        itemCount: playListSong.length),
-  );
-}
-
 List<Map<String, dynamic>> playListSong = [
   {
     "leadImage": "lib/assets/onakka mundhiry.webp",

@@ -22,7 +22,29 @@ class PlayListSongs extends StatelessWidget {
       ),
       body: SafeArea(
           child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(), child: playListSongs(context),),),
+              physics: BouncingScrollPhysics(), child: 
+ Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
+    child: ListView.separated(
+        physics:  BouncingScrollPhysics(),
+        shrinkWrap: true,
+        itemBuilder: ((context, index) {
+          return PlayListSongsItems(
+            leadImage: playListSong[index]['leadImage'],
+            songName: playListSong[index]['songName'],
+            singerName: playListSong[index]['singerName'],
+            favour: index%5==0?Colors.white:Colors.red,
+          );
+        }),
+        separatorBuilder: (context, index) {
+          return const SizedBox(
+            height: 10,
+          );
+        },
+        itemCount: playListSong.length),
+          )
+
+),),
     );
   }
 }

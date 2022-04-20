@@ -85,7 +85,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               },
             ),
             actions: [
-              IconButton(onPressed: () { showSearch(context: context, delegate: MySearch());}, icon: const Icon(Icons.search))
+              IconButton(
+                  onPressed: () {
+                    showSearch(context: context, delegate: MySearch());
+                  },
+                  icon: const Icon(Icons.search))
             ],
             bottom: const TabBar(
               tabs: [
@@ -132,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             child: Container(
               child: bottomNavigation(
                 context,
-              ), 
+              ),
             ),
           ),
         ));

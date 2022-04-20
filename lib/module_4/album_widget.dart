@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:music/MAIN/widget.dart';
-import 'package:music/module_2/nowplaying_function.dart';
 
-final List<Map> myProducts =
-    List.generate(100000, (index) => {"id": index, "name": "Product $index"})
-        .toList();
+// final List<Map> myProducts =
+//     List.generate(100000, (index) => {"id": index, "name": "Product $index"})
+//         .toList();
 
 class AlbumItems extends StatelessWidget {
   final assetImage;
