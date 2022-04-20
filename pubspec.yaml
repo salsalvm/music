@@ -27,6 +27,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  assets_audio_player: ^3.0.4+1
   audioplayers: ^0.20.1
   cupertino_icons: ^1.0.2
   curved_navigation_bar: ^1.0.3
@@ -36,6 +37,7 @@ dependencies:
   flutter_switch: ^0.3.2
   fluttertoast: ^8.0.9
   font_awesome_flutter: ^10.1.0
+
 
 dev_dependencies:
 

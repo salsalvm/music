@@ -1,12 +1,9 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:music/MAIN/widget.dart';
-import 'package:music/module_1/home_widget.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
+
 import 'package:music/module_2/nowplaying_function.dart';
-import 'package:music/module_2/volume_slider.dart';
-import 'package:music/module_4/playlist_screen.dart';
-import 'package:music/module_4/playlist_songs_screen.dart';
-import 'package:music/module_4/playlist_widget.dart';
 
 class NowPlayingDesigns extends StatefulWidget {
   const NowPlayingDesigns({Key? key}) : super(key: key);
