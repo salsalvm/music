@@ -1,6 +1,6 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:music/MAIN/widget.dart';
+
 import 'package:music/main.dart';
 import 'package:music/module_1/home_widget.dart';
 

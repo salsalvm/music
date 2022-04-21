@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
-import 'package:music/MAIN/widget.dart';
+
 import 'package:music/main.dart';
 
 class SwitchFunction extends StatefulWidget {

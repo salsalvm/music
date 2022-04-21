@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:music/module_1/home_widget.dart';
-import 'package:music/MAIN/widget.dart';
+
 
 import 'package:music/module_3/search_items.dart';
 
@@ -165,7 +165,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                     onTap: () {},
                                     leading: QueryArtworkWidget(
                                         id: item.data![index].id,
-                                        type: ArtworkType.AUDIO),
+                                        type: ArtworkType.AUDIO), 
                                     title: Padding(
                                       padding: const EdgeInsets.only(
                                           left: 5.0, bottom: 3, top: 3),
