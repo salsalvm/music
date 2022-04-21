@@ -37,6 +37,8 @@ dependencies:
   flutter_switch: ^0.3.2
   fluttertoast: ^8.0.9
   font_awesome_flutter: ^10.1.0
+  on_audio_query: ^2.6.0
+  permission_handler: ^9.2.0
 
 
 dev_dependencies:

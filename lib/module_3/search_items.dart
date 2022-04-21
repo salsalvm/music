@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:music/MAIN/widget.dart';
+import 'package:music/main.dart';
 
 
 class MySearch extends SearchDelegate {

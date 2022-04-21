@@ -1,152 +1,16 @@
+
+
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:music/module_1/favourite_widget.dart';
-
+import 'package:music/MAIN/widget.dart';
+import 'package:music/main.dart';
 import 'package:music/module_1/home_screen.dart';
-import 'package:music/module_1/recent_widget.dart';
 import 'package:music/module_2/most_played_screen.dart';
 import 'package:music/module_2/nowplaying_screen.dart';
 import 'package:music/module_3/setting_screen.dart';
-
-import 'package:music/MAIN/widget.dart';
-
 import 'package:music/module_4/album_screen.dart';
 import 'package:music/module_4/playlist_screen.dart';
-
-class MusicList extends StatelessWidget {
-  final leadImage;
-  final String songName;
-  final String singerName;
-  final favour;
-  MusicList(
-      {required this.leadImage,
-      required this.songName,
-      required this.singerName,
-      this.favour});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(0.0),
-      padding: const EdgeInsets.all(0.0),
-      decoration: BoxDecoration(
-          color: boxtColor, borderRadius: BorderRadius.circular(15)),
-      child: ListTile(
-          onTap: () {},
-          leading: CircleAvatar(
-            radius: 30,
-            backgroundColor: Colors.transparent,
-            backgroundImage: AssetImage(
-              leadImage,
-            ),
-          ),
-          title: Padding(
-            padding: const EdgeInsets.only(left: 5.0, bottom: 3, top: 3),
-            child: Text(
-              songName,
-              style: TextStyle(color: textWhite, fontSize: 18),
-            ),
-          ),
-          subtitle: Padding(
-            padding: const EdgeInsets.only(left: 5.0),
-            child: Text(
-              singerName,
-              style: TextStyle(color: textGrey),
-            ),
-          ),
-          trailing: Wrap(
-            children: [
-              IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    EvaIcons.heart,
-                    size: 22,
-                    color: favour,
-                  )),
-              popupMenuHoriz(context)
-            ],
-          )),
-    );
-  }
-}
-
-// whole music
-
-Widget collectionsListview() {
-  return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 13),
-    child: ListView.separated(
-        physics: const BouncingScrollPhysics(),
-        shrinkWrap: true,
-        itemBuilder: ((context, index) {
-          return MusicList(
-            leadImage: musicCollection[index]['leadImage'],
-            songName: musicCollection[index]['songName'],
-            singerName: musicCollection[index]['singerName'],
-            favour: index % 4 == 0 ? Colors.white : Colors.red[800],
-          );
-        }),
-        separatorBuilder: (context, index) {
-          return const SizedBox(
-            height: 10,
-          );
-        },
-        itemCount: musicCollection.length),
-  );
-}
-
-// favourites
-
-Widget favouriteListview() {
-  return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 13),
-    child: ListView.separated(
-        physics: const BouncingScrollPhysics(),
-        shrinkWrap: true,
-        itemBuilder: ((context, index) {
-          return MusicList(
-            leadImage: favoritesSong[index]['leadImage'],
-            songName: favoritesSong[index]['songName'],
-            singerName: favoritesSong[index]['singerName'],
-            favour: Colors.red[800],
-          );
-        }),
-        separatorBuilder: (context, index) {
-          return const SizedBox(
-            height: 10,
-          );
-        },
-        itemCount: favoritesSong.length),
-  );
-}
-
-// recent
-
-Widget recentListView(BuildContext context) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 13),
-    child: ListView.separated(
-        physics: const BouncingScrollPhysics(),
-        shrinkWrap: true,
-        itemBuilder: ((context, index) {
-          return MusicList(
-            leadImage: recentSong[index]['leadImage'],
-            songName: recentSong[index]['songName'],
-            singerName: recentSong[index]['singerName'],
-            favour: Colors.red[800],
-          );
-        }),
-        separatorBuilder: (context, index) {
-          return const SizedBox(
-            height: 10,
-          );
-        },
-        itemCount: recentSong.length),
-  );
-}
-
-// menu items
 
 Widget stackItems(BuildContext context) {
   return Column(
@@ -333,7 +197,7 @@ Widget bottomNavigation(BuildContext context) {
       backgroundImage: AssetImage('lib/assets/bheeshma.jpeg'),
     ),
     title: Text(
-      'Parudheesa',
+      'Parudeesa',
       style: TextStyle(color: textWhite),
     ),
     subtitle: Text('sree nadh bhasi', style: TextStyle(color: textGrey)),
@@ -380,3 +244,57 @@ Widget bottomNavigation(BuildContext context) {
     ),
   );
 }
+
+
+// List<Map<String, dynamic>> musicCollection = [
+//   {
+//     "leadImage": "lib/assets/onakka mundhiry.webp",
+//     "songName": "Onaka mundhiri",
+//     "singerName": "vineedh sreenivasan",
+//   },
+//   {
+//     "leadImage": "lib/assets/bheeshma.jpeg",
+//     "songName": "Parudheesa",
+//     "singerName": "sree nadh bhasi",
+//   },
+//   {
+//     "leadImage": "lib/assets/dingiri.webp",
+//     "songName": "Dingiri Dingale",
+//     "singerName": "dulquar salman",
+//   },
+//   {
+//     "leadImage": "lib/assets/uyire.webp",
+//     "songName": "Uyire",
+//     "singerName": "narayani",
+//   },
+//   {
+//     "leadImage": "lib/assets/saami.webp",
+//     "songName": "Saami saami",
+//     "singerName": "sithara",
+//   },
+//   {
+//     "leadImage": "lib/assets/fakelove.webp",
+//     "songName": "Fake love",
+//     "singerName": "bts",
+//   },
+//   {
+//     "leadImage": "lib/assets/agarthum.webp",
+//     "songName": "Agar thum saath",
+//     "singerName": "arjith sing",
+//   },
+//   {
+//     "leadImage": "lib/assets/nee mukhilo.webp",
+//     "songName": "Nee mukhilo",
+//     "singerName": "sithara",
+//   },
+//   {
+//     "leadImage": "lib/assets/butter.webp",
+//     "songName": "Butter",
+//     "singerName": "bts",
+//   },
+//   {
+//     "leadImage": "lib/assets/pal.webp",
+//     "songName": "Pal",
+//     "singerName": "arjith sing",
+//   }
+// ];

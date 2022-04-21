@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:music/main.dart';
 import 'package:music/module_3/setting_widget.dart';
 import 'package:music/MAIN/widget.dart';
 import 'package:music/module_3/switch.dart';
