@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:music/main.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
@@ -7,16 +8,18 @@ import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:music/module_1/home_widget.dart';
 
-
 import 'package:music/module_3/search_items.dart';
 
 class HomeScreen extends StatefulWidget {
+  List<Audio> allSongs=[];
+   HomeScreen({Key? key, required this.allSongs }) : super(key: key);
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
-  final _audioQuery = new OnAudioQuery();
+  final _audioQuery = OnAudioQuery();
 
   late AnimationController _animationController;
   late Animation<double> _animation1;
@@ -29,8 +32,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   void initState() {
     requestPermision();
     super.initState();
-
-    _animationController =
+animationDrawer();
+    
+  }
+void animationDrawer(){_animationController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 600));
 
     _animation1 = Tween<double>(begin: 0, end: 20).animate(CurvedAnimation(
@@ -56,9 +61,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         reverseCurve: Curves.ease))
       ..addListener(() {
         setState(() {});
-      });
-  }
-
+      });}
   void requestPermision() {
     Permission.storage.request();
   }
@@ -165,7 +168,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                     onTap: () {},
                                     leading: QueryArtworkWidget(
                                         id: item.data![index].id,
-                                        type: ArtworkType.AUDIO), 
+                                        type: ArtworkType.AUDIO),
                                     title: Padding(
                                       padding: const EdgeInsets.only(
                                           left: 5.0, bottom: 3, top: 3),
@@ -176,7 +179,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                       ),
                                     ),
                                     subtitle: Padding(
-                                      padding: const EdgeInsets.only(left: 5.0),
+                                      padding: const EdgeInsets.only(left: 7.0),
                                       child: Text(
                                         "${item.data![index].artist}",
                                         style: TextStyle(color: textGrey),

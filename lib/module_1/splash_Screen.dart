@@ -1,7 +1,7 @@
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:music/module_1/home_screen.dart';
-import 'package:music/module_1/static.dart';
-import 'package:music/module_3/setting_screen.dart';
+import 'package:on_audio_query/on_audio_query.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -13,8 +13,43 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
+    requestStoragePermissiono();
     goTo();
     super.initState();
+  }
+
+  final OnAudioQuery _audioQuery = OnAudioQuery();
+
+  List<SongModel> fetchedSongs = [];
+  List<SongModel> allSongs = [];
+  List<Audio> fullSong = [];
+
+  requestStoragePermissiono() async {
+    bool permissionStatus = await _audioQuery.permissionsStatus();
+    if (!permissionStatus) {
+      _audioQuery.permissionsRequest();
+    }
+    setState(() {});
+
+    // allmedia fetched from storage
+    fetchedSongs = await _audioQuery.querySongs();
+    for (var element in fetchedSongs) {
+      if (element.fileExtension == "mp3") {
+        allSongs.add(element);
+      }
+    }
+
+// seperat song details
+    for (var element in allSongs) {
+      fullSong.add(
+        Audio.file(element.uri.toString(),
+            metas: Metas(
+              title: element.title,
+              id: element.id.toString(),
+              artist: element.artist,
+            )),
+      );
+    }
   }
 
   @override
@@ -38,16 +73,20 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 
+// delayed
+
   Future goTo() async {
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 3));
     Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (ctx) => HomeScreen()));
+        .pushReplacement(MaterialPageRoute(builder: (ctx) => HomeScreen(allSongs: fullSong)));
   }
 }
 
+// design
+
 Widget splash({required String content}) {
   return Column(children: [
-    const SizedBox(
+    SizedBox(
       height: 350,
     ),
     const Icon(
@@ -55,9 +94,7 @@ Widget splash({required String content}) {
       size: 50,
       color: Colors.white,
     ),
-    const SizedBox(
-      height: 30,
-    ),
+    SizedBox(height: 30),
     Text(
       content,
       style: const TextStyle(

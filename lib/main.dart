@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:music/module_1/splash_Screen.dart';
+import 'package:sizer/sizer.dart';
 
 
 void main(List<String> args) {
@@ -11,12 +12,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
-      debugShowCheckedModeBanner: false,color: lightBlue,
-      
-      
-
-      home: SplashScreen(),
+    return  Sizer(builder: (context, orientation, deviceType) {
+      return MaterialApp(
+        debugShowCheckedModeBanner: false,color: lightBlue,
+        
+        
+    
+        home: SplashScreen(),
+      );
+    },
+     
     );
   }
 }

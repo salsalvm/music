@@ -39,6 +39,7 @@ dependencies:
   font_awesome_flutter: ^10.1.0
   on_audio_query: ^2.6.0
   permission_handler: ^9.2.0
+  sizer: ^2.0.15
 
 
 dev_dependencies:

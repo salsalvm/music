@@ -18,8 +18,7 @@ Widget stackItems(BuildContext context) {
         backgroundColor: Colors.black12,
         radius: 35,
         child: IconButton(
-          onPressed: () => Navigator.of(context)
-              .push(MaterialPageRoute(builder: ((context) => HomeScreen()))),
+          onPressed: () {},
           icon: Icon(
             Icons.dark_mode,
             color: Colors.black,
