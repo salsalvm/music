@@ -4,9 +4,12 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:music/main.dart';
 
 import 'package:music/module_2/nowplaying_function.dart';
+import 'package:on_audio_query/on_audio_query.dart';
 
 class NowPlayingDesigns extends StatefulWidget {
-  const NowPlayingDesigns({Key? key}) : super(key: key);
+  int index;
+  List<SongModel>allSongs=[];
+   NowPlayingDesigns({Key? key,required this.index,required this.allSongs}) : super(key: key);
 
   @override
   State<NowPlayingDesigns> createState() => _NowPlayingDesignsState();

@@ -1,10 +1,12 @@
 import 'dart:ui';
 import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:marquee/marquee.dart';
 import 'package:music/main.dart';
 import 'package:music/module_1/openp_palyer.dart';
-import 'package:permission_handler/permission_handler.dart';
+
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:music/module_2/nowPlaying_Transperant.dart';
 
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:music/module_1/home_widget.dart';
@@ -24,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   late Animation<double> _animation2;
   late Animation<double> _animation3;
 
+final AssetsAudioPlayer assetsAudioPlayer = AssetsAudioPlayer.withId('0');
   bool _bool = true;
   final OnAudioQuery _audioQuery = OnAudioQuery();
 
@@ -42,6 +45,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   void dispose() {
     _animationController.dispose();
     super.dispose();
+  }
+   Audio find(List<Audio> source, String fromPath) {
+    return source.firstWhere((element) => element.path == fromPath);
   }
 
   @override
@@ -137,15 +143,15 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                     color: boxtColor,
                                     borderRadius: BorderRadius.circular(15)),
                                 child: ListTile(
-                                    
-                                   onTap: (() async {
-                    await OpenPlayer(fullSongs: [], index: index)
-                        .openAssetPlayer(
-                      index: index,
-                      songs: fullSongs,
-                    );
-                  }),        
-                                    leading: QueryArtworkWidget(
+                                    onTap: (() async {
+                                      await OpenPlayer(
+                                              fullSongs: [], index: index)
+                                          .openAssetPlayer(
+                                        index: index,
+                                        songs: fullSongs,
+                                      );
+                                    }),
+                                    leading: QueryArtworkWidget(artworkHeight: 65,artworkWidth: 60,
                                         id: item.data![index].id,
                                         type: ArtworkType.AUDIO),
                                     title: Padding(
@@ -199,16 +205,123 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             // ALWAYS PLACE IT ON THE BOTTOM OF EVERY WIDGET...
             CustomNavigationDrawer(),
           ]),
-          bottomNavigationBar: BottomAppBar(
-            shape: CircularNotchedRectangle(),
-            color: lightBlue,
-            elevation: 50,
-            child: Container(
-              child: bottomNavigation(
-                context,
+          // bottomNavigationBar: BottomAppBar(
+          //   shape: CircularNotchedRectangle(),
+          //   color: lightBlue,
+          //   elevation: 50,
+          //   child: Container(
+          //     child: bottomNavigation(
+          //       context,
+          //     ),
+          //   ),
+          // ),
+           bottomSheet: GestureDetector(
+        onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => NowPlayingDesigns(
+                      index: 0,
+                      allSongs: allSongs,
+                    )));
+      }, child: assetsAudioPlayer.builderCurrent(
+          builder: (BuildContext context, Playing? playing) {
+        final myAudio = find(fullSongs, playing!.audio.assetAudioPath);
+
+        return Container(
+          height: 80,
+          color: Color.fromARGB(255, 218, 180, 236),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Wrap(
+                crossAxisAlignment: WrapCrossAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      height: 60,width: 60,
+                    decoration: BoxDecoration(  borderRadius: BorderRadius.circular(5.0), ),
+                      child: QueryArtworkWidget(
+                          id: int.parse(myAudio.metas.id!),
+                          artworkBorder: BorderRadius.circular(5.0),
+                          type: ArtworkType.AUDIO),
+                    ),
+                  ),
+                  Column(
+                    children: [
+                      SizedBox(height:20,width: 180,
+                        child: Marquee(
+                          velocity: 20,
+                          startAfter: Duration.zero,
+                          blankSpace: 100,
+                          text:
+                             myAudio.metas.title!,
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        ),
+                      SizedBox(height:20,width: 180,
+                        child: Marquee(
+                          
+                          
+                          startAfter: Duration.zero,
+                          blankSpace: 150,
+                          velocity: 20,
+                          text:
+                             myAudio.metas.artist!,
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        ),
+                    ],
+                  ),
+                    
+                  
+                ],
               ),
-            ),
+              SizedBox(width: 50,),
+              Wrap(
+                spacing: 15.0,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                children: [
+                 IconButton(
+                      onPressed: () {
+                        assetsAudioPlayer.previous();
+                      },
+                      icon: const Icon(Icons.skip_previous,size: 35,)
+                    ),
+                    PlayerBuilder.isPlaying(
+                        player: assetsAudioPlayer,
+                        builder: (context, isPlaying) {
+                          return Container(
+                            height: 50,width: 50,
+                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(50),color: Colors.white),
+                            child: IconButton(
+                              onPressed: () async {
+                                await assetsAudioPlayer.playOrPause();
+                              },
+                              icon: Icon(
+                                isPlaying
+                                    ? Icons.pause
+                                    : Icons.play_arrow,size: 35,
+                              ),
+                            ),
+                          );
+                        }),
+                    GestureDetector(
+                      child: IconButton(
+                        onPressed: () {
+                          assetsAudioPlayer.next();
+                        },
+                        icon: const Icon(Icons.skip_next,size: 35,),
+                      ),
+                    ),
+                ],
+              ),
+            ],
           ),
+        );
+      })),
         ));
   }
 

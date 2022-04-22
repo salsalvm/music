@@ -28,7 +28,7 @@ class NowPlaying extends StatelessWidget {
         ),
         body: SafeArea(
           child: SingleChildScrollView(
-            child: NowPlayingDesigns(),
+            // child: NowPlayingDesigns(),
           ),
         ));
   }

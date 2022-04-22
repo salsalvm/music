@@ -37,18 +37,12 @@ dependencies:
   flutter_switch: ^0.3.2
   fluttertoast: ^8.0.9
   font_awesome_flutter: ^10.1.0
+  marquee: ^2.2.1
   on_audio_query: ^2.6.0
   permission_handler: ^9.2.0
   sizer: ^2.0.15
 
-
 dev_dependencies:
-
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
   flutter_lints: ^1.0.0
   flutter_test:
     sdk: flutter
@@ -58,9 +52,9 @@ dev_dependencies:
 # The following section is specific to Flutter.
 flutter:
   fonts:
-     - family: mono
-       fonts:
-         - asset: lib/assets/font/Syne_Mono/SyneMono-Regular.ttf
+    - family: mono
+      fonts:
+        - asset: lib/assets/font/Syne_Mono/SyneMono-Regular.ttf
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
