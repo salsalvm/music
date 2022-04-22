@@ -13,44 +13,44 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    requestStoragePermissiono();
+   
     goTo();
     super.initState();
   }
 
-  final OnAudioQuery _audioQuery = OnAudioQuery();
+//   final OnAudioQuery _audioQuery = OnAudioQuery();
 
-  List<SongModel> fetchedSongs = [];
-  List<SongModel> allSongs = [];
-  List<Audio> fullSong = [];
+//   List<SongModel> fetchedSongs = [];
+//   List<SongModel> allSongs = [];
+//   List<Audio> fullSong = [];
 
-  requestStoragePermissiono() async {
-    bool permissionStatus = await _audioQuery.permissionsStatus();
-    if (!permissionStatus) {
-      _audioQuery.permissionsRequest();
-    }
-    setState(() {});
+//   requestStoragePermissiono() async {
+//     bool permissionStatus = await _audioQuery.permissionsStatus();
+//     if (!permissionStatus) {
+//       _audioQuery.permissionsRequest();
+//     }
+//     setState(() {});
 
-    // allmedia fetched from storage
-    fetchedSongs = await _audioQuery.querySongs();
-    for (var element in fetchedSongs) {
-      if (element.fileExtension == "mp3") {
-        allSongs.add(element);
-      }
-    }
+//     // allmedia fetched from storage
+//     fetchedSongs = await _audioQuery.querySongs();
+//     for (var element in fetchedSongs) {
+//       if (element.fileExtension == "mp3") {
+//         allSongs.add(element);
+//       }
+//     }
 
-// seperat song details
-    for (var element in allSongs) {
-      fullSong.add(
-        Audio.file(element.uri.toString(),
-            metas: Metas(
-              title: element.title,
-              id: element.id.toString(),
-              artist: element.artist,
-            )),
-      );
-    }
-  }
+// // seperat song details
+//     for (var element in allSongs) {
+//       fullSong.add(
+//         Audio.file(element.uri.toString(),
+//             metas: Metas(
+//               title: element.title,
+//               id: element.id.toString(),
+//               artist: element.artist,
+//             )),
+//       );
+//     }
+//   }
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +78,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Future goTo() async {
     await Future.delayed(const Duration(seconds: 3));
     Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (ctx) => HomeScreen(allSongs: fullSong)));
+        .pushReplacement(MaterialPageRoute(builder: (ctx) => HomeScreen()));
   }
 }
 

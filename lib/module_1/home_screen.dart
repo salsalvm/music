@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:music/main.dart';
+import 'package:music/module_1/openp_palyer.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
@@ -11,59 +12,30 @@ import 'package:music/module_1/home_widget.dart';
 import 'package:music/module_3/search_items.dart';
 
 class HomeScreen extends StatefulWidget {
-  List<Audio> allSongs=[];
-   HomeScreen({Key? key, required this.allSongs }) : super(key: key);
+  HomeScreen({Key? key}) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
-  final _audioQuery = OnAudioQuery();
-
   late AnimationController _animationController;
   late Animation<double> _animation1;
   late Animation<double> _animation2;
   late Animation<double> _animation3;
 
   bool _bool = true;
+  final OnAudioQuery _audioQuery = OnAudioQuery();
+
+  List<SongModel> fetchedSongs = [];
+  List<SongModel> allSongs = [];
+  List<Audio> fullSongs = [];
 
   @override
   void initState() {
-    requestPermision();
+    requestStoragePermissiono();
     super.initState();
-animationDrawer();
-    
-  }
-void animationDrawer(){_animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 600));
-
-    _animation1 = Tween<double>(begin: 0, end: 20).animate(CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.easeOut,
-      reverseCurve: Curves.easeIn,
-    ))
-      ..addListener(() {
-        setState(() {});
-      })
-      ..addStatusListener((status) {
-        if (status == AnimationStatus.dismissed) {
-          _bool = true;
-        }
-      });
-    _animation2 = Tween<double>(begin: 0, end: .3).animate(_animationController)
-      ..addListener(() {
-        setState(() {});
-      });
-    _animation3 = Tween<double>(begin: .9, end: 1).animate(CurvedAnimation(
-        parent: _animationController,
-        curve: Curves.fastLinearToSlowEaseIn,
-        reverseCurve: Curves.ease))
-      ..addListener(() {
-        setState(() {});
-      });}
-  void requestPermision() {
-    Permission.storage.request();
+    animationDrawer();
   }
 
   @override
@@ -165,7 +137,14 @@ void animationDrawer(){_animationController =
                                     color: boxtColor,
                                     borderRadius: BorderRadius.circular(15)),
                                 child: ListTile(
-                                    onTap: () {},
+                                    
+                                   onTap: (() async {
+                    await OpenPlayer(fullSongs: [], index: index)
+                        .openAssetPlayer(
+                      index: index,
+                      songs: fullSongs,
+                    );
+                  }),        
                                     leading: QueryArtworkWidget(
                                         id: item.data![index].id,
                                         type: ArtworkType.AUDIO),
@@ -232,6 +211,66 @@ void animationDrawer(){_animationController =
           ),
         ));
   }
+
+  requestStoragePermissiono() async {
+    bool permissionStatus = await _audioQuery.permissionsStatus();
+    if (!permissionStatus) {
+      _audioQuery.permissionsRequest();
+    }
+    setState(() {});
+
+    // allmedia fetched from storage
+    fetchedSongs = await _audioQuery.querySongs();
+    for (var element in fetchedSongs) {
+      if (element.fileExtension == "mp3") {
+        allSongs.add(element);
+      }
+    }
+
+// seperat song details
+    for (var element in allSongs) {
+      fullSongs.add(
+        Audio.file(element.uri.toString(),
+            metas: Metas(
+              title: element.title,
+              id: element.id.toString(),
+              artist: element.artist,
+            )),
+      );
+    }
+  }
+
+  void animationDrawer() {
+    _animationController =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 600));
+
+    _animation1 = Tween<double>(begin: 0, end: 20).animate(CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeOut,
+      reverseCurve: Curves.easeIn,
+    ))
+      ..addListener(() {
+        setState(() {});
+      })
+      ..addStatusListener((status) {
+        if (status == AnimationStatus.dismissed) {
+          _bool = true;
+        }
+      });
+    _animation2 = Tween<double>(begin: 0, end: .3).animate(_animationController)
+      ..addListener(() {
+        setState(() {});
+      });
+    _animation3 = Tween<double>(begin: .9, end: 1).animate(CurvedAnimation(
+        parent: _animationController,
+        curve: Curves.fastLinearToSlowEaseIn,
+        reverseCurve: Curves.ease))
+      ..addListener(() {
+        setState(() {});
+      });
+  }
+
+  // menu bar
 
   Widget CustomNavigationDrawer() {
     double _height = MediaQuery.of(context).size.height;
