@@ -4,9 +4,9 @@ import 'package:marquee/marquee.dart';
 import 'package:music/main.dart';
 import 'package:music/module_1/openp_palyer.dart';
 
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:music/module_2/nowPlaying_Transperant.dart';
+
+import 'package:music/module_2/nowplaying_screen.dart';
 
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:music/module_1/home_widget.dart';
@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   late Animation<double> _animation2;
   late Animation<double> _animation3;
 
-final AssetsAudioPlayer assetsAudioPlayer = AssetsAudioPlayer.withId('0');
+  final AssetsAudioPlayer assetsAudioPlayer = AssetsAudioPlayer.withId('0');
   bool _bool = true;
   final OnAudioQuery _audioQuery = OnAudioQuery();
 
@@ -46,7 +46,8 @@ final AssetsAudioPlayer assetsAudioPlayer = AssetsAudioPlayer.withId('0');
     _animationController.dispose();
     super.dispose();
   }
-   Audio find(List<Audio> source, String fromPath) {
+
+  Audio find(List<Audio> source, String fromPath) {
     return source.firstWhere((element) => element.path == fromPath);
   }
 
@@ -64,7 +65,7 @@ final AssetsAudioPlayer assetsAudioPlayer = AssetsAudioPlayer.withId('0');
             elevation: 0, backgroundColor: lightBlue,
             // backgroundColor: Colors.transparent,
             leading: IconButton(
-              icon: Icon(Icons.menu_rounded),
+              icon: Icon(Icons.menu),
               splashColor: Colors.transparent,
               onPressed: () {
                 if (_bool == true) {
@@ -89,7 +90,7 @@ final AssetsAudioPlayer assetsAudioPlayer = AssetsAudioPlayer.withId('0');
                   text: 'Home',
                 ),
                 Tab(
-                  icon: Icon(EvaIcons.heart),
+                  icon: Icon(Icons.favorite),
                   text: 'favorites',
                 ),
                 Tab(
@@ -151,7 +152,9 @@ final AssetsAudioPlayer assetsAudioPlayer = AssetsAudioPlayer.withId('0');
                                         songs: fullSongs,
                                       );
                                     }),
-                                    leading: QueryArtworkWidget(artworkHeight: 65,artworkWidth: 60,
+                                    leading: QueryArtworkWidget(
+                                        artworkHeight: 60,
+                                        artworkWidth: 60,
                                         id: item.data![index].id,
                                         type: ArtworkType.AUDIO),
                                     title: Padding(
@@ -159,6 +162,7 @@ final AssetsAudioPlayer assetsAudioPlayer = AssetsAudioPlayer.withId('0');
                                           left: 5.0, bottom: 3, top: 3),
                                       child: Text(
                                         item.data![index].displayNameWOExt,
+                                        overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                             color: textWhite, fontSize: 18),
                                       ),
@@ -166,7 +170,9 @@ final AssetsAudioPlayer assetsAudioPlayer = AssetsAudioPlayer.withId('0');
                                     subtitle: Padding(
                                       padding: const EdgeInsets.only(left: 7.0),
                                       child: Text(
-                                        "${item.data![index].artist}",
+                                        "${item.data![index].artist}"
+                                            .toLowerCase(),
+                                        overflow: TextOverflow.ellipsis,
                                         style: TextStyle(color: textGrey),
                                       ),
                                     ),
@@ -175,7 +181,7 @@ final AssetsAudioPlayer assetsAudioPlayer = AssetsAudioPlayer.withId('0');
                                         IconButton(
                                             onPressed: () {},
                                             icon: Icon(
-                                              EvaIcons.heart,
+                                              Icons.favorite,
                                               size: 22,
                                               color: index % 4 == 0
                                                   ? Colors.white
@@ -210,118 +216,179 @@ final AssetsAudioPlayer assetsAudioPlayer = AssetsAudioPlayer.withId('0');
           //   color: lightBlue,
           //   elevation: 50,
           //   child: Container(
-          //     child: bottomNavigation(
+          // child: bottomNavigation(
           //       context,
           //     ),
           //   ),
           // ),
-           bottomSheet: GestureDetector(
-        onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => NowPlayingDesigns(
-                      index: 0,
-                      allSongs: allSongs,
-                    )));
-      }, child: assetsAudioPlayer.builderCurrent(
-          builder: (BuildContext context, Playing? playing) {
-        final myAudio = find(fullSongs, playing!.audio.assetAudioPath);
 
-        return Container(
-          height: 80,
-          color: Color.fromARGB(255, 218, 180, 236),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Wrap(
-                crossAxisAlignment: WrapCrossAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      height: 60,width: 60,
-                    decoration: BoxDecoration(  borderRadius: BorderRadius.circular(5.0), ),
-                      child: QueryArtworkWidget(
-                          id: int.parse(myAudio.metas.id!),
-                          artworkBorder: BorderRadius.circular(5.0),
-                          type: ArtworkType.AUDIO),
-                    ),
-                  ),
-                  Column(
-                    children: [
-                      SizedBox(height:20,width: 180,
-                        child: Marquee(
-                          velocity: 20,
-                          startAfter: Duration.zero,
-                          blankSpace: 100,
-                          text:
-                             myAudio.metas.title!,
-                            style: TextStyle(fontSize: 20),
-                          ),
-                        ),
-                      SizedBox(height:20,width: 180,
-                        child: Marquee(
-                          
-                          
-                          startAfter: Duration.zero,
-                          blankSpace: 150,
-                          velocity: 20,
-                          text:
-                             myAudio.metas.artist!,
-                            style: TextStyle(fontSize: 20),
-                          ),
-                        ),
-                    ],
-                  ),
-                    
-                  
-                ],
-              ),
-              SizedBox(width: 50,),
-              Wrap(
-                spacing: 15.0,
-                crossAxisAlignment: WrapCrossAlignment.center,
-                children: [
-                 IconButton(
-                      onPressed: () {
-                        assetsAudioPlayer.previous();
-                      },
-                      icon: const Icon(Icons.skip_previous,size: 35,)
-                    ),
+          // bottm tile
+          bottomSheet: GestureDetector(onTap: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => NowPlaying()));
+          }, child: assetsAudioPlayer.builderCurrent(
+              builder: (BuildContext context, Playing? playing) {
+            final myAudio = find(fullSongs, playing!.audio.assetAudioPath);
+            return Container(
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(0)),
+              child: ListTile(
+                tileColor: boxtColor,
+                onTap: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: ((context) => NowPlaying())));
+                },
+                leading: QueryArtworkWidget(
+                  artworkHeight: 60,
+                  artworkWidth: 60,
+                  id: int.parse(myAudio.metas.id!),
+                  type: ArtworkType.AUDIO,
+                  artworkBorder: BorderRadius.circular(8),
+                ),
+                title: SizedBox(
+                    height: 18,
+                    child: Marquee(
+                      text: myAudio.metas.title!,
+                      style: TextStyle(color: textWhite),
+                      velocity: 20,
+                      startAfter: Duration.zero,
+                      blankSpace: 100,
+                    )),
+                subtitle: Text(
+                  'sree nadh bhasi',
+                  style: TextStyle(color: textGrey),
+                  overflow: TextOverflow.ellipsis,
+                ),
+                trailing: Wrap(
+                  alignment: WrapAlignment.center,
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          assetsAudioPlayer.previous();
+                        },
+                        icon: Icon(
+                          Icons.skip_previous_rounded,
+                          color: textWhite,
+                          size: 43,
+                          // ),
+                        )),
                     PlayerBuilder.isPlaying(
                         player: assetsAudioPlayer,
                         builder: (context, isPlaying) {
-                          return Container(
-                            height: 50,width: 50,
-                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(50),color: Colors.white),
-                            child: IconButton(
-                              onPressed: () async {
-                                await assetsAudioPlayer.playOrPause();
-                              },
-                              icon: Icon(
-                                isPlaying
-                                    ? Icons.pause
-                                    : Icons.play_arrow,size: 35,
-                              ),
+                          return IconButton(
+                            icon: Icon(
+                             isPlaying? Icons.pause_circle:Icons.play_circle,
+                              size: 43,
                             ),
+                            onPressed: () {assetsAudioPlayer.playOrPause();},
+                            color: textWhite,
                           );
                         }),
-                    GestureDetector(
-                      child: IconButton(
+                    IconButton(
                         onPressed: () {
                           assetsAudioPlayer.next();
                         },
-                        icon: const Icon(Icons.skip_next,size: 35,),
-                      ),
-                    ),
-                ],
+                        icon: Icon(
+                          Icons.skip_next_rounded,
+                          color: textWhite,
+                          size: 43,
+                        )),
+                  ],
+                ),
               ),
-            ],
-          ),
-        );
-      })),
+            );
+
+            // return Container(
+            //   height: 80,
+            //   color: Color.fromARGB(255, 218, 180, 236),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //     crossAxisAlignment: CrossAxisAlignment.center,
+            //     children: [
+            //       Wrap(
+            //         crossAxisAlignment: WrapCrossAlignment.center,
+            //         children: [
+            //           Padding(
+            //             padding: const EdgeInsets.all(8.0),
+            //             child: Container(
+            //               height: 60,width: 60,
+            //             decoration: BoxDecoration(  borderRadius: BorderRadius.circular(5.0), ),
+            //               child: QueryArtworkWidget(
+            //                   id: int.parse(myAudio.metas.id!),
+            //                   artworkBorder: BorderRadius.circular(5.0),
+            //                   type: ArtworkType.AUDIO),
+            //             ),
+            //           ),
+            //           Column(
+            //             children: [
+            //               SizedBox(height:20,width: 180,
+            //                 child: Marquee(
+            //                   velocity: 20,
+            //                   startAfter: Duration.zero,
+            //                   blankSpace: 100,
+            //                   text:
+            //                      myAudio.metas.title!,
+            //                     style: TextStyle(fontSize: 20),
+            //                   ),
+            //                 ),
+            //               SizedBox(height:20,width: 180,
+            //                 child: Marquee(
+
+            //                   startAfter: Duration.zero,
+            //                   blankSpace: 150,
+            //                   velocity: 20,
+            //                   text:
+            //                      myAudio.metas.artist!,
+            //                     style: TextStyle(fontSize: 20),
+            //                   ),
+            //                 ),
+            //             ],
+            //           ),
+
+            //         ],
+            //       ),
+            //       SizedBox(width: 50,),
+            //       Wrap(
+            //         spacing: 15.0,
+            //         crossAxisAlignment: WrapCrossAlignment.center,
+            //         children: [
+            //          IconButton(
+            //               onPressed: () {
+            //                 assetsAudioPlayer.previous();
+            //               },
+            //               icon: const Icon(Icons.skip_previous,size: 35,)
+            //             ),
+            //             PlayerBuilder.isPlaying(
+            //                 player: assetsAudioPlayer,
+            //                 builder: (context, isPlaying) {
+            //                   return Container(
+            //                     height: 50,width: 50,
+            //                     decoration: BoxDecoration(borderRadius: BorderRadius.circular(50),color: Colors.white),
+            //                     child: IconButton(
+            //                       onPressed: () async {
+            //                         await assetsAudioPlayer.playOrPause();
+            //                       },
+            //                       icon: Icon(
+            //                         isPlaying
+            //                             ? Icons.pause
+            //                             : Icons.play_arrow,size: 35,
+            //                       ),
+            //                     ),
+            //                   );
+            //                 }),
+            //             GestureDetector(
+            //               child: IconButton(
+            //                 onPressed: () {
+            //                   assetsAudioPlayer.next();
+            //                 },
+            //                 icon: const Icon(Icons.skip_next,size: 35,),
+            //               ),
+            //             ),
+            //         ],
+            //       ),
+            //     ],
+            //   ),
+            // );
+          })),
         ));
   }
 

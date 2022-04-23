@@ -108,13 +108,13 @@ import 'package:music/module_2/volume_slider.dart';
 
 // }
 
-Widget bigBlankSpace = SizedBox(
-  height: 60,
+Widget bigBlankSpace =const SizedBox(
+  height: 80,
 );
-Widget smallBlankSpace = SizedBox(
+Widget smallBlankSpace =const SizedBox(
   height: 25,
 );
-Widget smallwidth = SizedBox(
+Widget smallwidth =const SizedBox(
   width: 30,
 );
 
@@ -494,3 +494,4 @@ PlayListShowBottomSheet(BuildContext context) {
         );
       });
 }
+  

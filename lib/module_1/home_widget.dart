@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:music/main.dart';
 import 'package:music/module_1/home_screen.dart';
 import 'package:music/module_2/most_played_screen.dart';
+import 'package:music/module_2/nowPlaying_Transperant.dart';
 import 'package:music/module_2/nowplaying_screen.dart';
 import 'package:music/module_3/setting_screen.dart';
 import 'package:music/module_4/album_screen.dart';
@@ -18,10 +19,12 @@ Widget stackItems(BuildContext context) {
         backgroundColor: Colors.black12,
         radius: 35,
         child: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>NowPlaying()));
+          },
           icon: Icon(
             Icons.dark_mode,
-            color: Colors.black,
+            color: black,
             size: 30,
           ),
           color: Colors.white,
@@ -72,7 +75,7 @@ Widget MyTile(
       ListTile(
         tileColor: Colors.black.withOpacity(.08),
         leading: CircleAvatar(
-          backgroundColor: Colors.black12,
+          backgroundColor: Colors.black38,
           child: Icon(
             icon,
             color: Colors.white,
@@ -182,64 +185,63 @@ Widget popupMenuHoriz(BuildContext context) {
   );
 }
 
-Widget bottomNavigation(BuildContext context) {
-  return ListTile(
-    onTap: () {
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: ((context) => NowPlaying())));
-    },
-    leading: const CircleAvatar(
-      radius: 30,
-      // backgroundColor: Colors.transparent,
-      backgroundImage: AssetImage('lib/assets/bheeshma.jpeg'),
-    ),
-    title: Text(
-      'Parudeesa',
-      style: TextStyle(color: textWhite),
-    ),
-    subtitle: Text('sree nadh bhasi', style: TextStyle(color: textGrey)),
-    trailing: Padding(
-      padding: const EdgeInsets.only(left: 10.0, bottom: 20),
-      child: Wrap(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 6.0),
-            child: IconButton(
-                onPressed: () {},
-                icon:
-                    // Container(
-                    //   decoration: BoxDecoration(
-                    //       color: textWhite,
-                    //       borderRadius: BorderRadius.circular(50)),
-                    // child:
-                    Icon(
-                  Icons.skip_previous_rounded,
-                  color: textWhite,
-                  size: 30,
-                  // ),
-                )),
+ bottomNavigation(BuildContext context)  {
+  
+   
+    return   ListTile(
+        onTap: () {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: ((context) => NowPlaying())));
+        },
+        leading: const CircleAvatar(
+          radius: 30,
+          // backgroundColor: Colors.transparent,
+          backgroundImage: AssetImage('lib/assets/bheeshma.jpeg'),
+        ),
+        title: Text(
+          'Parudeesa',
+          style: TextStyle(color: textWhite),
+        ),
+        subtitle: Text('sree nadh bhasi', style: TextStyle(color: textGrey)),
+       
+        
+        trailing: Padding(
+          padding: const EdgeInsets.only(left: 10.0, bottom: 20),
+          child: Wrap(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 6.0),
+                child: IconButton(
+                    onPressed: () {},
+                    icon:
+                        Icon(
+                      Icons.skip_previous_rounded,
+                      color: textWhite,
+                      size: 30,
+                      // ),
+                    )),
+              ),
+              IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    EvaIcons.playCircleOutline,
+                    color: textWhite,
+                    size: 45,
+                  )),
+              Padding(
+                padding: const EdgeInsets.only(top: 6.0, left: 12),
+                child: IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.skip_next_rounded,
+                      color: textWhite,
+                      size: 30,
+                    )),
+              ),
+            ],
           ),
-          IconButton(
-              onPressed: () {},
-              icon: Icon(
-                EvaIcons.playCircle,
-                color: textWhite,
-                size: 45,
-              )),
-          Padding(
-            padding: const EdgeInsets.only(top: 6.0, left: 12),
-            child: IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.skip_next_rounded,
-                  color: textWhite,
-                  size: 30,
-                )),
-          ),
-        ],
-      ),
-    ),
-  );
+        ),
+         );
 }
 
 
