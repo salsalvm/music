@@ -1,12 +1,11 @@
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:music/main.dart';
-import 'package:music/module_1/home_screen.dart';
+
 import 'package:music/module_2/most_played_screen.dart';
-import 'package:music/module_2/nowPlaying_Transperant.dart';
-import 'package:music/module_2/nowplaying_screen.dart';
+
 import 'package:music/module_3/setting_screen.dart';
 import 'package:music/module_4/album_screen.dart';
 import 'package:music/module_4/playlist_screen.dart';
@@ -20,7 +19,7 @@ Widget stackItems(BuildContext context) {
         radius: 35,
         child: IconButton(
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>NowPlaying()));
+           
           },
           icon: Icon(
             Icons.dark_mode,
@@ -185,64 +184,64 @@ Widget popupMenuHoriz(BuildContext context) {
   );
 }
 
- bottomNavigation(BuildContext context)  {
+//  bottomNavigation(BuildContext context)  {
   
    
-    return   ListTile(
-        onTap: () {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: ((context) => NowPlaying())));
-        },
-        leading: const CircleAvatar(
-          radius: 30,
-          // backgroundColor: Colors.transparent,
-          backgroundImage: AssetImage('lib/assets/bheeshma.jpeg'),
-        ),
-        title: Text(
-          'Parudeesa',
-          style: TextStyle(color: textWhite),
-        ),
-        subtitle: Text('sree nadh bhasi', style: TextStyle(color: textGrey)),
+//     return   ListTile(
+//         onTap: () {
+//           Navigator.of(context)
+//               .push(MaterialPageRoute(builder: ((context) => NowPlaying())));
+//         },
+//         leading: const CircleAvatar(
+//           radius: 30,
+//           // backgroundColor: Colors.transparent,
+//           backgroundImage: AssetImage('lib/assets/bheeshma.jpeg'),
+//         ),
+//         title: Text(
+//           'Parudeesa',
+//           style: TextStyle(color: textWhite),
+//         ),
+//         subtitle: Text('sree nadh bhasi', style: TextStyle(color: textGrey)),
        
         
-        trailing: Padding(
-          padding: const EdgeInsets.only(left: 10.0, bottom: 20),
-          child: Wrap(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 6.0),
-                child: IconButton(
-                    onPressed: () {},
-                    icon:
-                        Icon(
-                      Icons.skip_previous_rounded,
-                      color: textWhite,
-                      size: 30,
-                      // ),
-                    )),
-              ),
-              IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    EvaIcons.playCircleOutline,
-                    color: textWhite,
-                    size: 45,
-                  )),
-              Padding(
-                padding: const EdgeInsets.only(top: 6.0, left: 12),
-                child: IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.skip_next_rounded,
-                      color: textWhite,
-                      size: 30,
-                    )),
-              ),
-            ],
-          ),
-        ),
-         );
-}
+//         trailing: Padding(
+//           padding: const EdgeInsets.only(left: 10.0, bottom: 20),
+//           child: Wrap(
+//             children: [
+//               Padding(
+//                 padding: const EdgeInsets.only(top: 6.0),
+//                 child: IconButton(
+//                     onPressed: () {},
+//                     icon:
+//                         Icon(
+//                       Icons.skip_previous_rounded,
+//                       color: textWhite,
+//                       size: 30,
+//                       // ),
+//                     )),
+//               ),
+//               IconButton(
+//                   onPressed: () {},
+//                   icon: Icon(
+//                     EvaIcons.playCircleOutline,
+//                     color: textWhite,
+//                     size: 45,
+//                   )),
+//               Padding(
+//                 padding: const EdgeInsets.only(top: 6.0, left: 12),
+//                 child: IconButton(
+//                     onPressed: () {},
+//                     icon: Icon(
+//                       Icons.skip_next_rounded,
+//                       color: textWhite,
+//                       size: 30,
+//                     )),
+//               ),
+//             ],
+//           ),
+//         ),
+//          );
+// }
 
 
 // List<Map<String, dynamic>> musicCollection = [

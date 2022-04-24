@@ -42,14 +42,15 @@ class AlbumPage extends StatelessWidget {
                 }),
           ),
         ),
-        bottomNavigationBar: BottomAppBar(
-            shape: CircularNotchedRectangle(),
-            color: lightBlue,
-            elevation: 50,
-            child: Container(
-              child: bottomNavigation(
-                context,
-              ),
-            )));
+        // bottomNavigationBar: BottomAppBar(
+        //     shape: CircularNotchedRectangle(),
+        //     color: lightBlue,
+        //     elevation: 50,
+        //     child: Container(
+        //       child: bottomNavigation(
+        //         context,
+        //       ),
+            // )
+            );
   }
 }

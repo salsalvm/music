@@ -335,54 +335,54 @@ Widget bottomPlaylist({onTap, required playListName, required countSong}) {
 
 // row
 
-Widget listtiles() {
-  return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 20),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(
-          decoration: BoxDecoration(
-              color: Colors.transparent,
-              borderRadius: BorderRadius.circular(50)),
-          child: IconButton(
-            onPressed: () {},
-            icon: Icon(
-              EvaIcons.shuffle2,
-              color: textWhite,
-              size: 30,
-            ),
-          ),
-        ),
-        Column(
-          children: [
-            Text(
-              'Parudheesa',
-              style: TextStyle(fontSize: 22, color: textWhite),
-            ),
-            Text(
-              'sree nadh bhaasi',
-              style: TextStyle(color: textGrey, fontSize: 14),
-            )
-          ],
-        ),
-        Container(
-          decoration: BoxDecoration(
-              color: Colors.transparent,
-              borderRadius: BorderRadius.circular(50)),
-          child: IconButton(
-            onPressed: () {},
-            icon: Icon(
-              EvaIcons.heart,
-              color: Colors.red,
-              size: 30,
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
-}
+// Widget listtiles() {
+//   return Padding(
+//     padding: const EdgeInsets.symmetric(horizontal: 20),
+//     child: Row(
+//       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//       children: [
+//         Container(
+//           decoration: BoxDecoration(
+//               color: Colors.transparent,
+//               borderRadius: BorderRadius.circular(50)),
+//           child: IconButton(
+//             onPressed: () {},
+//             icon: Icon(
+//               EvaIcons.shuffle2,
+//               color: textWhite,
+//               size: 30,
+//             ),
+//           ),
+//         ),
+//         Column(
+//           children: [
+//             Text(
+//               'Parudheesa',
+//               style: TextStyle(fontSize: 22, color: textWhite),
+//             ),
+//             Text(
+//               'sree nadh bhaasi',
+//               style: TextStyle(color: textGrey, fontSize: 14),
+//             )
+//           ],
+//         ),
+//         Container(
+//           decoration: BoxDecoration(
+//               color: Colors.transparent,
+//               borderRadius: BorderRadius.circular(50)),
+//           child: IconButton(
+//             onPressed: () {},
+//             icon: Icon(
+//               EvaIcons.heart,
+//               color: Colors.red,
+//               size: 30,
+//             ),
+//           ),
+//         ),
+//       ],
+//     ),
+//   );
+// }
 
 // vol and add
 

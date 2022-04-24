@@ -1,20 +1,25 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:marquee/marquee.dart';
 import 'package:music/main.dart';
-import 'package:music/module_2/nowPlaying_Transperant.dart';
 import 'package:music/module_2/nowplaying_function.dart';
+import 'package:on_audio_query/on_audio_query.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
 
 class NowPlaying extends StatefulWidget {
-  const NowPlaying({Key? key}) : super(key: key);
+  List<Audio> allSongs = [];
+  int index;
+  NowPlaying({Key? key, required this.allSongs, required this.index})
+      : super(key: key);
 
   @override
   State<NowPlaying> createState() => _NowPlayingState();
 }
 
-class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin{
+class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
   dynamic totalDuration = "00:00";
   Duration position = Duration();
-
   late AnimationController controller;
   // dynamic position1 = "00:00";
   // String? audioState;
@@ -23,7 +28,12 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin{
   bool isAnimated = false;
   bool showPlay = true;
   bool shopPause = false;
-  AssetsAudioPlayer player = AssetsAudioPlayer();
+  final AssetsAudioPlayer player = AssetsAudioPlayer.withId('0');
+
+  Audio find(List<Audio> source, String fromPath) {
+    return source.firstWhere((element) => element.path == fromPath);
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -36,157 +46,191 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin{
     // player.open(Audio('lib/assets/audio/Parudeesa.mp3'),
     //     autoStart: false, showNotification: true);
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
+      appBar: AppBar(
         backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          title: Text(
-            'Now Playing',
-            style: TextStyle(),
-          ),
-          centerTitle: true,
-          leading: IconButton(
-            icon: Icon(
-              Icons.arrow_drop_down_outlined,
-              size: 35,
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
+        title: Text(
+          'Now Playing',
+          style: TextStyle(),
         ),
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: SafeArea(
-      child: Column(
-        children: [
-      bigBlankSpace,
-      Container(
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.transparent),
-          borderRadius: BorderRadius.circular(15),
-        ),
-        height: 280,
-        width: 350,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(15),
-          child: Image(
-            image: AssetImage(
-              'lib/assets/bheeshma.jpeg',
-            ),
-            fit: BoxFit.fill,
+        centerTitle: true,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_drop_down_outlined,
+            size: 35,
           ),
-        ),
-      ),
-      bigBlankSpace,
-      Padding(
-        padding: const EdgeInsets.only(top: 5.0),
-        child: listtiles(),
-      ),
-      Slider(
-          value: _value.toDouble(),
-          min: 1.0,
-          max: 20.0,
-          divisions: 10,
-          activeColor: textWhite,
-          inactiveColor: textGrey,
-          // label: '',
-          onChanged: (double newValue) {
-            setState(() {
-              _value = newValue.round();
-            });
+          onPressed: () {
+            Navigator.pop(context);
           },
-          semanticFormatterCallback: (double newValue) {
-            return '${newValue.round()} dollars';
-          }),
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 18.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              position.toString().split(".").first,
-              style: TextStyle(color: textWhite),
-            ),
-            Text(totalDuration.toString().split(".").first,
-                style: TextStyle(color: textWhite)),
-          ],
         ),
       ),
-      SizedBox(
-        height: 25,
-      ),
-
-// add nad volume
-
-      addAndVol(context),
-
-  // previous
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            child: IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.skip_previous_rounded,
-                  color: textWhite,
-                  size: 40,
-                )),
-          ),
-          smallwidth,
-
-// play and pause
-
-          Container(
-            height: 50,
-            width: 50,
-            decoration:
-                BoxDecoration(borderRadius: BorderRadius.circular(50)),
-            child: IconButton(
-              icon: AnimatedIcon(
-                icon: AnimatedIcons.play_pause,
-                color: textWhite,
-                progress: controller,
-                size: 40,
+      body: player.builderCurrent(builder: (context, Playing? playing) {
+        final myAudio = find(widget.allSongs, playing!.audio.assetAudioPath);
+        return Center(
+          child: Column(
+            children: [
+              bigBlankSpace,
+              Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.teal.shade200),
+                  borderRadius: BorderRadius.circular(25),
+                ),
+                height: 280,
+                width: 350,
+                child: QueryArtworkWidget(
+                    artworkHeight: 280,
+                    artworkWidth: 350,
+                    artworkBorder: BorderRadius.circular(25),
+                    id: int.parse(myAudio.metas.id!),
+                    type: ArtworkType.AUDIO),
               ),
-              onPressed: () {
-                setState(() {
-                  isAnimated = !isAnimated;
-                  if (isAnimated) {
-                    controller.forward();
-                    player.play();
-                  } else {
-                    controller.reverse();
-                    player.pause();
-                  }
-                });
-              },
-            ),
-          ),
-          smallwidth,
+              bigBlankSpace,
+              Padding(
+                padding: const EdgeInsets.only(top: 5.0),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(50)),
+                        child: IconButton(
+                          onPressed: () {},
+                          icon: Icon(
+                            EvaIcons.shuffle2,
+                            color: textWhite,
+                            size: 30,
+                          ),
+                        ),
+                      ),
+                      Column(
+                        children: [
+                          // SizedBox(width: 1,
+                          //   child: Marquee(blankSpace: 0,
+                          //     startAfter: Duration.zero,
+                          //     velocity: 20,
+                          //     text: myAudio.metas.title!,
+                          //     style: TextStyle(fontSize: 22, color: textWhite),
+                          //   ),
+                          // ),
+                          Text(
+                            myAudio.metas.title!.substring(0,10),
+                            style: TextStyle(fontSize: 22, color: textWhite),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          Text(
+                            myAudio.metas.artist!,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(color: textGrey, fontSize: 14),
+                          )
+                        ],
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(50)),
+                        child: IconButton(
+                          onPressed: () {},
+                          icon: Icon(
+                            Icons.favorite,
+                            color: Colors.red,
+                            size: 30,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Slider(
+                  value: _value.toDouble(),
+                  min: 1.0,
+                  max: 20.0,
+                  divisions: 10,
+                  activeColor: textWhite,
+                  inactiveColor: textGrey,
+                  // label: '',
+                  onChanged: (double newValue) {
+                    setState(() {
+                      _value = newValue.round();
+                    });
+                  },
+                  semanticFormatterCallback: (double newValue) {
+                    return '${newValue.round()} dollars';
+                  }),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      position.toString().split(".").first,
+                      style: TextStyle(color: textWhite),
+                    ),
+                    Text(totalDuration.toString().split(".").first,
+                        style: TextStyle(color: textWhite)),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 25,
+              ),
 
-  //  next
-          Container(
-            decoration: BoxDecoration(
-                color: Colors.transparent,
-                borderRadius: BorderRadius.circular(50)),
-            child: IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.skip_next_rounded,
-                  color: textWhite,
-                  size: 40,
-                )),
-          ),
-        ],
-      ),
-        ],
-      ),
-    ),)
+              // add nad volume
+
+              addAndVol(context),
+
+              // previous
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(iconSize: 45,
+                      onPressed: () {
+                        player.previous();
+                      },
+                      icon: Icon(
+                        Icons.skip_previous_rounded,
+                        color: textWhite,
+                       
+                      )),
+                  smallwidth,
+
+                  // play and pause
+                  PlayerBuilder.isPlaying(
+                      player: player,
+                      builder: (context, isPlaying) {
+                        return IconButton(color: textWhite,iconSize: 55,
+                          icon:
+                              Icon(isPlaying ? Icons.pause:Icons.play_arrow ),
+                          onPressed: () {
+                            player.playOrPause();
+                          },
+                        );
+                      }),
+                  smallwidth,
+
+                  //  next
+                  IconButton(iconSize: 45,
+                      onPressed: () {
+                        player.next();
+                      },
+                      icon: Icon(
+                        Icons.skip_next_rounded,
+                        color: textWhite,
+                        
+                      )),
+                ],
+              ),
+            ],
           ),
         );
+      }),
+    );
   }
 }
