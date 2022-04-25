@@ -28,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   final AssetsAudioPlayer assetsAudioPlayer = AssetsAudioPlayer.withId('0');
   bool _bool = true;
+  bool pressed = false;
   final OnAudioQuery _audioQuery = OnAudioQuery();
 
   List<SongModel> fetchedSongs = [];
@@ -191,6 +192,17 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                                     ? Colors.white
                                                     : Colors.red[800],
                                               )),
+                                          // setState(() {
+                                          //   pressed = !pressed;
+                                          // });
+
+                                          // icon: pressed
+                                          //     ? Icon(Icons.favorite,
+                                          //         color: Colors.red[800])
+                                          //     : Icon(
+                                          //         Icons.favorite,
+                                          //         color: textWhite,
+                                          //       )),
                                           popupMenuHoriz(context)
                                         ],
                                       ),
@@ -232,14 +244,16 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           //   ),
           // ),
 
-  // bottm tile
+          // bottm tile
           bottomSheet: GestureDetector(onTap: () {
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => NowPlaying(
-                  allSongs: fullSongs,index: 0,
-                  )));
-          }, child: 
-          assetsAudioPlayer.builderCurrent(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => NowPlaying(
+                          allSongs: fullSongs,
+                          index: 0,
+                        )));
+          }, child: assetsAudioPlayer.builderCurrent(
               builder: (BuildContext context, Playing? playing) {
             final myAudio = find(fullSongs, playing!.audio.assetAudioPath);
             return Container(
@@ -485,7 +499,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   color: Colors.white.withOpacity(_animation2.value),
                   borderRadius: BorderRadius.circular(30),
                 ),
-                child: stackItems(context)),
+                child: StackItems()),
           ),
         ),
       ),

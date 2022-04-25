@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -10,58 +9,82 @@ import 'package:music/module_3/setting_screen.dart';
 import 'package:music/module_4/album_screen.dart';
 import 'package:music/module_4/playlist_screen.dart';
 
-Widget stackItems(BuildContext context) {
-  return Column(
-    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    children: [
-      CircleAvatar(
-        backgroundColor: Colors.black12,
-        radius: 35,
-        child: IconButton(
-          onPressed: () {
-           
-          },
-          icon: Icon(
-            Icons.dark_mode,
-            color: black,
-            size: 30,
-          ),
-          color: Colors.white,
-        ),
-      ),
-      Column(
-        children: [
-          MyTile(
-            context,
-            Icons.library_add_check_rounded,
-            'Album',
-            () {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => AlbumPage()));
-              HapticFeedback.lightImpact();
-            },
-          ),
-          MyTile(context, Icons.queue_music_sharp, 'Playlist', () {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => PlayListScreen()));
-            HapticFeedback.lightImpact();
-          }),
-          MyTile(context, Icons.loop_sharp, 'Most Played Song', () {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: ((context) => MostPlayedSong())));
-          }),
-          MyTile(
-              context,
-              Icons.settings_outlined,
-              'Settings',
-              () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => SettingsScreen()))),
-        ],
-      ),
-      SizedBox(),
-    ],
-  );
+class StackItems extends StatefulWidget {
+  const StackItems({Key? key}) : super(key: key);
+
+  @override
+  State<StackItems> createState() => _StackItemsState();
 }
+
+class _StackItemsState extends State<StackItems> {
+  bool _mode = true;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        CircleAvatar(
+          backgroundColor: Colors.black12,
+          radius: 35,
+          child: IconButton(
+            onPressed: () {
+              setState(() {
+                _mode = !_mode;
+//               if (_mode==true) {
+//              var boxtColor = Color.fromRGBO(94, 147, 185, 1);
+// var darkBlue = Color.fromRGBO(0, 88, 146, 1);
+// var lightBlue = Color.fromRGBO(36, 112, 161, .9);
+//               }
+              });
+            },
+            icon: _mode
+                ? Icon(
+                    Icons.dark_mode,
+                    color: black,
+                    size: 30,
+                  )
+                : Icon(Icons.sunny),
+            color: Colors.white,
+          ),
+        ),
+        Column(
+          children: [
+            MyTile(
+              context,
+              Icons.library_add_check_rounded,
+              'Album',
+              () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) => AlbumPage()));
+                HapticFeedback.lightImpact();
+              },
+            ),
+            MyTile(context, Icons.queue_music_sharp, 'Playlist', () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => PlayListScreen()));
+              HapticFeedback.lightImpact();
+            }),
+            MyTile(context, Icons.loop_sharp, 'Most Played Song', () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: ((context) => MostPlayedSong())));
+            }),
+            MyTile(
+                context,
+                Icons.settings_outlined,
+                'Settings',
+                () => Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => SettingsScreen()))),
+          ],
+        ),
+        SizedBox(),
+      ],
+    );
+  }
+}
+
+// Widget stackItems(BuildContext context ) {
+//   return
+// }
 
 Widget MyTile(
   BuildContext context,
@@ -185,8 +208,7 @@ Widget popupMenuHoriz(BuildContext context) {
 }
 
 //  bottomNavigation(BuildContext context)  {
-  
-   
+
 //     return   ListTile(
 //         onTap: () {
 //           Navigator.of(context)
@@ -202,8 +224,7 @@ Widget popupMenuHoriz(BuildContext context) {
 //           style: TextStyle(color: textWhite),
 //         ),
 //         subtitle: Text('sree nadh bhasi', style: TextStyle(color: textGrey)),
-       
-        
+
 //         trailing: Padding(
 //           padding: const EdgeInsets.only(left: 10.0, bottom: 20),
 //           child: Wrap(
@@ -242,7 +263,6 @@ Widget popupMenuHoriz(BuildContext context) {
 //         ),
 //          );
 // }
-
 
 // List<Map<String, dynamic>> musicCollection = [
 //   {

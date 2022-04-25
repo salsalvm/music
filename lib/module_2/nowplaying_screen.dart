@@ -46,7 +46,7 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
     // player.open(Audio('lib/assets/audio/Parudeesa.mp3'),
     //     autoStart: false, showNotification: true);
   }
-
+bool pressed=true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -111,21 +111,22 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
                       ),
                       Column(
                         children: [
-                          // SizedBox(width: 1,
-                          //   child: Marquee(blankSpace: 0,
-                          //     startAfter: Duration.zero,
-                          //     velocity: 20,
-                          //     text: myAudio.metas.title!,
-                          //     style: TextStyle(fontSize: 22, color: textWhite),
-                          //   ),
+                          Container(height: 30,width: 180,
+                            child: Marquee(blankSpace: 50,
+                              startAfter: Duration.zero,
+                              velocity: 60,
+                              text: myAudio.metas.title!,
+                              style: TextStyle(fontSize: 22, color: textWhite),
+                              
+                            ),
+                          ),
+                          // Text(
+                          //   myAudio.metas.title!,
+                          //   style: TextStyle(fontSize: 22, color: textWhite),
+                          //   overflow: TextOverflow.ellipsis,
                           // ),
                           Text(
-                            myAudio.metas.title!.substring(0,10),
-                            style: TextStyle(fontSize: 22, color: textWhite),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          Text(
-                            myAudio.metas.artist!,
+                            myAudio.metas.artist!.toLowerCase(),
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(color: textGrey, fontSize: 14),
                           )
@@ -136,12 +137,17 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
                             color: Colors.transparent,
                             borderRadius: BorderRadius.circular(50)),
                         child: IconButton(
-                          onPressed: () {},
-                          icon: Icon(
+                          onPressed: () {
+                            setState(() {
+                              pressed=!pressed;
+                            });
+                          },
+                          icon: pressed? Icon(Icons.favorite,color: textWhite,size: 30,):Icon(
                             Icons.favorite,
                             color: Colors.red,
                             size: 30,
                           ),
+                         
                         ),
                       ),
                     ],
