@@ -2,7 +2,7 @@ import 'dart:ui';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:marquee/marquee.dart';
 import 'package:music/main.dart';
-import 'package:music/module_1/openp_palyer.dart';
+import 'package:music/module_1/open_palyer.dart';
 
 import 'package:flutter/material.dart';
 
@@ -148,7 +148,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                         borderRadius:
                                             BorderRadius.circular(15)),
                                     child: ListTile(
-                                      onTap: (() async {
+                                      onTap:
+                                      (() async {
                                         await OpenPlayer(
                                                 fullSongs: [], index: index)
                                             .openAssetPlayer(

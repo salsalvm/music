@@ -1,4 +1,5 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart';
@@ -20,6 +21,8 @@ class NowPlaying extends StatefulWidget {
 class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
   dynamic totalDuration = "00:00";
   Duration position = Duration();
+  Duration _duration = Duration();
+  Duration _position = Duration();
   late AnimationController controller;
   // dynamic position1 = "00:00";
   // String? audioState;
@@ -154,17 +157,18 @@ bool pressed=true;
                   ),
                 ),
               ),
-              Slider(
+              Slider.adaptive(
                   value: _value.toDouble(),
-                  min: 1.0,
-                  max: 20.0,
+                  min: 0.0,
+                  max: 20,
+                  
                   divisions: 10,
                   activeColor: textWhite,
                   inactiveColor: textGrey,
                   // label: '',
                   onChanged: (double newValue) {
                     setState(() {
-                      _value = newValue.round();
+                      player.seek(Duration(seconds: newValue.toInt()));
                     });
                   },
                   semanticFormatterCallback: (double newValue) {
