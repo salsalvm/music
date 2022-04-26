@@ -19,7 +19,10 @@ class PlayListSongs extends StatelessWidget {
           icon: Icon(
             Icons.arrow_back,
           ),
-        ),
+        ),actions: [Padding(
+          padding: const EdgeInsets.only(right:10.0,top: 8),
+          child: IconButton(onPressed: (){}, icon: Icon(Icons.add_sharp)),
+        )],
       ),
       body: SafeArea(
           child: SingleChildScrollView(

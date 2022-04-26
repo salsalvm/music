@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:music/main.dart';
+import 'package:music/module_2/nowplaying_function.dart';
 import 'package:music/module_4/playlist_songs_screen.dart';
 
 import 'package:music/module_4/playlist_widget.dart';
@@ -50,7 +51,9 @@ class PlayListScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 6),
           child: ElevatedButton.icon(
             style: ElevatedButton.styleFrom(elevation: 0, primary: darkBlue),
-            onPressed: () {},
+            onPressed: () {
+              createPlaylistShowAlertDialog(context);
+            },
             icon: Icon(Icons.add),
             label: Text(
               'Add a New Playlist',

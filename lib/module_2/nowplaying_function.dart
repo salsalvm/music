@@ -434,7 +434,7 @@ createPlaylistShowAlertDialog(BuildContext context) {
     },
   );
   Widget continueButton = TextButton(
-    child: Text("Save", style: TextStyle(color: textWhite, fontSize: 16)),
+    child: Text("Create", style: TextStyle(color: textWhite, fontSize: 16)),
     onPressed: () {},
   );
 
@@ -448,7 +448,7 @@ createPlaylistShowAlertDialog(BuildContext context) {
       style: TextStyle(color: textWhite),
     )),
     content: TextFormField(
-      decoration: InputDecoration(),
+      decoration: InputDecoration(fillColor: textWhite,hintText: 'Playlist Name'),
     ),
     actions: [
       Padding(
