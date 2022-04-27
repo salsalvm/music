@@ -1,12 +1,12 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
-import 'package:audioplayers/audioplayers.dart';
+
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart';
 import 'package:music/main.dart';
 import 'package:music/module_2/nowplaying_function.dart';
+
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:assets_audio_player/assets_audio_player.dart';
 
 class NowPlaying extends StatefulWidget {
   List<Audio> allSongs = [];
@@ -19,14 +19,10 @@ class NowPlaying extends StatefulWidget {
 }
 
 class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
-  dynamic totalDuration = "00:00";
-  Duration position = Duration();
-  Duration _duration = Duration();
-  Duration _position = Duration();
+  dynamic duration = "00:00";
+  dynamic position = "00:00";
+
   late AnimationController controller;
-  // dynamic position1 = "00:00";
-  // String? audioState;
-  // Duration duration = Duration();
   int _value = 6;
   bool isAnimated = false;
   bool showPlay = true;
@@ -49,7 +45,8 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
     // player.open(Audio('lib/assets/audio/Parudeesa.mp3'),
     //     autoStart: false, showNotification: true);
   }
-bool pressed=true;
+
+  bool pressed = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -114,13 +111,15 @@ bool pressed=true;
                       ),
                       Column(
                         children: [
-                          Container(height: 30,width: 180,
-                            child: Marquee(blankSpace: 50,
+                          Container(
+                            height: 30,
+                            width: 180,
+                            child: Marquee(
+                              blankSpace: 50,
                               startAfter: Duration.zero,
                               velocity: 60,
                               text: myAudio.metas.title!,
                               style: TextStyle(fontSize: 22, color: textWhite),
-                              
                             ),
                           ),
                           // Text(
@@ -142,38 +141,64 @@ bool pressed=true;
                         child: IconButton(
                           onPressed: () {
                             setState(() {
-                              pressed=!pressed;
+                              pressed = !pressed;
                             });
                           },
-                          icon: pressed? Icon(Icons.favorite,color: textWhite,size: 30,):Icon(
-                            Icons.favorite,
-                            color: Colors.red,
-                            size: 30,
-                          ),
-                         
+                          icon: pressed
+                              ? Icon(
+                                  Icons.favorite,
+                                  color: textWhite,
+                                  size: 30,
+                                )
+                              : Icon(
+                                  Icons.favorite,
+                                  color: Colors.red,
+                                  size: 30,
+                                ),
                         ),
                       ),
                     ],
                   ),
                 ),
               ),
-              Slider.adaptive(
-                  value: _value.toDouble(),
-                  min: 0.0,
-                  max: 20,
-                  
-                  divisions: 10,
-                  activeColor: textWhite,
-                  inactiveColor: textGrey,
-                  // label: '',
-                  onChanged: (double newValue) {
-                    setState(() {
-                      player.seek(Duration(seconds: newValue.toInt()));
-                    });
-                  },
-                  semanticFormatterCallback: (double newValue) {
-                    return '${newValue.round()} dollars';
-                  }),
+              // StreamBuilder<Duration>(
+              //     stream: player.currentPosition,
+              //     builder:
+              //         (BuildContext context, AsyncSnapshot<Duration> snapshot) {
+              //       final Duration? _currentDuration = snapshot.data;
+              //       final int _milliseconds = _currentDuration!.inMilliseconds;
+              //       final int _songDurationInMilliseconds =
+              //           snapshot.data!.inSeconds;
+              //       return Slider(
+              //           value: _songDurationInMilliseconds > _milliseconds
+              //               ? _milliseconds.toDouble()
+              //               : _songDurationInMilliseconds.toDouble(),
+              //           onChanged: (double value) {
+              //             player.seek(
+              //                 Duration(milliseconds: (value / 1000.0).toInt()));
+              //           });
+              //     }),
+
+              seekBarWidget(context),
+              // Slider.adaptive(
+              //     value: _position.inSeconds.toDouble(),
+              //     min: 0.0,
+              //     max: 20,
+
+              //     divisions: 10,
+              //     activeColor: textWhite,
+              //     inactiveColor: textGrey,
+              //     // label: '',
+              //     onChanged: (double value) {
+              //       setState(() {
+              //        value=value;
+              //       });
+
+              //     },)
+              // semanticFormatterCallback: (double newValue) {
+              //   return '${newValue.round()} dollars';
+              // }
+
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 18.0),
                 child: Row(
@@ -183,7 +208,7 @@ bool pressed=true;
                       position.toString().split(".").first,
                       style: TextStyle(color: textWhite),
                     ),
-                    Text(totalDuration.toString().split(".").first,
+                    Text(duration.toString().split(".").first,
                         style: TextStyle(color: textWhite)),
                   ],
                 ),
@@ -200,14 +225,14 @@ bool pressed=true;
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  IconButton(iconSize: 45,
+                  IconButton(
+                      iconSize: 45,
                       onPressed: () {
                         player.previous();
                       },
                       icon: Icon(
                         Icons.skip_previous_rounded,
                         color: textWhite,
-                       
                       )),
                   smallwidth,
 
@@ -215,9 +240,11 @@ bool pressed=true;
                   PlayerBuilder.isPlaying(
                       player: player,
                       builder: (context, isPlaying) {
-                        return IconButton(color: textWhite,iconSize: 55,
+                        return IconButton(
+                          color: textWhite,
+                          iconSize: 55,
                           icon:
-                              Icon(isPlaying ? Icons.pause:Icons.play_arrow ),
+                              Icon(isPlaying ? Icons.pause : Icons.play_arrow),
                           onPressed: () {
                             player.playOrPause();
                           },
@@ -226,14 +253,14 @@ bool pressed=true;
                   smallwidth,
 
                   //  next
-                  IconButton(iconSize: 45,
+                  IconButton(
+                      iconSize: 45,
                       onPressed: () {
                         player.next();
                       },
                       icon: Icon(
                         Icons.skip_next_rounded,
                         color: textWhite,
-                        
                       )),
                 ],
               ),
@@ -242,5 +269,27 @@ bool pressed=true;
         );
       }),
     );
+  }
+
+  Widget seekBarWidget(BuildContext ctx) {
+    return player.builderRealtimePlayingInfos(builder: (ctx, index) {
+      Duration _position = index.currentPosition;
+      Duration _duration = index.duration;
+      return Slider.adaptive(
+          value: _position.inSeconds.toDouble(),
+          min: 0.0,
+          max: _duration.inSeconds.toDouble(),
+         
+          activeColor: textWhite,
+          inactiveColor: textGrey,
+          // label: '',
+          onChanged: (double value) {
+            setState(() {
+              // value = value;
+              player.seek(Duration(seconds: value.toInt()));
+            });
+          });
+    
+    });
   }
 }

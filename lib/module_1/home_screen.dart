@@ -139,7 +139,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             return ListView.separated(
                                 physics: const BouncingScrollPhysics(),
                                 shrinkWrap: true,
-                                itemBuilder: ((context, index) {
+                                itemBuilder: (context, index) {
                                   return Container(
                                     margin: const EdgeInsets.all(0.0),
                                     padding: const EdgeInsets.all(0.0),
@@ -210,7 +210,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                     ),
                                   );
                                   // return ListTile(
-                                }),
+                                },
                                 separatorBuilder: (context, index) {
                                   return const SizedBox(
                                     height: 10,
