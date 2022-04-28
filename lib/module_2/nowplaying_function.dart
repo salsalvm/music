@@ -3,8 +3,61 @@ import 'package:flutter/material.dart';
 
 import 'package:music/main.dart';
 
-import 'package:music/module_2/volume_slider.dart';
 
+
+class PlayListItem extends StatelessWidget {
+  final onTap;
+  final playListName;
+  final countSong;
+  const PlayListItem(
+      {Key? key,
+      required this.onTap,
+      required this.countSong,
+      required this.playListName})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+              color: boxtColor, borderRadius: BorderRadius.circular(15)),
+          child: ListTile(
+            onTap: onTap,
+            leading: Padding(
+              padding: const EdgeInsets.only(left: 6.0, top: 5),
+              child: Icon(
+                Icons.queue_music_rounded,
+                color: textWhite,
+                size: 30,
+              ),
+            ),
+            title: Padding(
+              padding: const EdgeInsets.only(left: 3.0, bottom: 3, top: 5),
+              child: Text(
+                playListName,
+                style: TextStyle(color: textWhite, fontSize: 18),
+              ),
+            ),
+            subtitle: Padding(
+              padding: const EdgeInsets.only(left: 3.0),
+              child: Text(
+                countSong,
+                style: TextStyle(
+                  color: textGrey,
+                ),
+              ),
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 10,
+        )
+      ],
+    );
+  }
+}
 // class NowPlayingDesign extends StatefulWidget {
 //   const NowPlayingDesign({Key? key}) : super(key: key);
 
@@ -108,13 +161,13 @@ import 'package:music/module_2/volume_slider.dart';
 
 // }
 
-Widget bigBlankSpace =const SizedBox(
+Widget bigBlankSpace = const SizedBox(
   height: 80,
 );
-Widget smallBlankSpace =const SizedBox(
+Widget smallBlankSpace = const SizedBox(
   height: 25,
 );
-Widget smallwidth =const SizedBox(
+Widget smallwidth = const SizedBox(
   width: 30,
 );
 
@@ -245,52 +298,27 @@ Widget smallwidth =const SizedBox(
 //   );
 // }
 
-Widget playListBotttom(context) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-    child: Stack(
-      children: [
-        ListView(
-          children: [
-            bottomPlaylist(
-              playListName: 'Ever green',
-              countSong: '5 song',
-              onTap: () {},
-            ),
-            bottomPlaylist(
-              playListName: 'English Song',
-              countSong: ' song',
-            ),
-            bottomPlaylist(playListName: 'Hindi Song', countSong: '2 song'),
-            bottomPlaylist(
-              playListName: 'Ever green',
-              countSong: '5 song',
-              onTap: () {},
-            ),
-            bottomPlaylist(
-              playListName: 'English Song',
-              countSong: ' song',
-            ),
-            bottomPlaylist(playListName: 'Hindi Song', countSong: '2 song'),
-            // PlayList(playListName: 'Sithara', countSong: '2 song'),
-            // PlayList(playListName: 'Arjith sing', countSong: '2 song'),
-          ],
-        ),
-        
-        
-        Container(
-            alignment: Alignment.bottomRight,
-            child: FloatingActionButton(
-              onPressed: () {
-                createPlaylistShowAlertDialog(context);
-              },
-              backgroundColor: darkBlue,
-              child: Icon(Icons.add),
-            )),
-      ],
-    ),
-  );
-}
+// Widget playListBotttom(context) {
+//   return Padding(
+//     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+//     child: Stack(
+//       children: [
+//         SingleChildScrollView(
+//           child: ListView.builder(itemCount: 5,shrinkWrap: true,  itemBuilder:(context, index) {
+//             return
+//            PlayListItem(
+//               playListName: 'Ever green',
+//               countSong: '5 song',
+//               onTap: () {},
+//             );
+//           },
+//           ),
+//         ),Container(alignment: Alignment.bottomRight,
+//           child: FloatingActionButton( onPressed: (){createPlaylistShowAlertDialog(context);},backgroundColor: darkBlue,child: Icon(Icons.add),))
+//       ],
+//     ),
+//   );
+// }
 
 Widget bottomPlaylist({onTap, required playListName, required countSong}) {
   return Column(
@@ -386,45 +414,6 @@ Widget bottomPlaylist({onTap, required playListName, required countSong}) {
 
 // vol and add
 
-Widget addAndVol(context) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 25),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(
-            decoration: BoxDecoration(
-                color: Colors.transparent,
-                borderRadius: BorderRadius.circular(50)),
-            child: MyVolumeUp()
-            //  child: IconButton(
-            //       onPressed: () {MyVolumeUp();
-            //       },
-            //       icon: Icon(
-            //         Icons.volume_up,
-            //         color: textWhite,
-            //         size: 30,
-            //       )),
-            ),
-        Container(
-          decoration: BoxDecoration(
-              color: Colors.transparent,
-              borderRadius: BorderRadius.circular(50)),
-          child: IconButton(
-              onPressed: () {
-                PlayListShowBottomSheet(context);
-              },
-              icon: Icon(
-                Icons.add,
-                size: 30,
-                color: textWhite,
-              )),
-        )
-      ],
-    ),
-  );
-}
-
 createPlaylistShowAlertDialog(BuildContext context) {
   // set up the buttons
   Widget cancelButton = TextButton(
@@ -448,8 +437,17 @@ createPlaylistShowAlertDialog(BuildContext context) {
       style: TextStyle(color: textWhite),
     )),
     content: TextFormField(
-      decoration: InputDecoration(fillColor: textWhite,hintText: 'Playlist Name'),
-    ),
+        style: TextStyle(color: textWhite),
+        decoration: InputDecoration(
+          focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: textWhite, width: 5)),
+          fillColor: textWhite,
+          hintText: 'Playlist Name',
+          hintStyle: TextStyle(color: textGrey),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: textGrey, width: 5.0),
+          ),
+        )),
     actions: [
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -490,8 +488,35 @@ PlayListShowBottomSheet(BuildContext context) {
           ),
           height: 300,
           width: double.infinity,
-          child: playListBotttom(context),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            child: Stack(
+              children: [
+                SingleChildScrollView(
+                  child: ListView.builder(
+                    itemCount: 5,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return PlayListItem(
+                        playListName: 'Ever green',
+                        countSong: '5 song',
+                        onTap: () {},
+                      );
+                    },
+                  ),
+                ),
+                Container(
+                    alignment: Alignment.bottomRight,
+                    child: FloatingActionButton(
+                      onPressed: () {
+                        createPlaylistShowAlertDialog(context);
+                      },
+                      backgroundColor: darkBlue,
+                      child: Icon(Icons.add),
+                    ))
+              ],
+            ),
+          ),
         );
       });
 }
-  

@@ -1,10 +1,14 @@
+
 import 'package:assets_audio_player/assets_audio_player.dart';
+
+import 'package:audioplayers/audioplayers.dart';
 
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart';
 import 'package:music/main.dart';
 import 'package:music/module_2/nowplaying_function.dart';
+
 
 import 'package:on_audio_query/on_audio_query.dart';
 
@@ -19,8 +23,13 @@ class NowPlaying extends StatefulWidget {
 }
 
 class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
-  dynamic duration = "00:00";
-  dynamic position = "00:00";
+ 
+  // dynamic position = "00:00";
+  // dynamic duration = "00:00";
+// String? audioState;
+Duration position =Duration();
+
+Duration duration =Duration();
 
   late AnimationController controller;
   int _value = 6;
@@ -28,22 +37,52 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
   bool showPlay = true;
   bool shopPause = false;
   final AssetsAudioPlayer player = AssetsAudioPlayer.withId('0');
-
+AudioPlayer audioPlayer =AudioPlayer();
   Audio find(List<Audio> source, String fromPath) {
     return source.firstWhere((element) => element.path == fromPath);
   }
 
+     
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     controller = AnimationController(
       vsync: this,
-      duration: Duration(microseconds: 400),
-      reverseDuration: Duration(microseconds: 400),
+      // duration: Duration(microseconds: 100),
+      // reverseDuration: Duration(microseconds: 100),
     );
     // player.open(Audio('lib/assets/audio/Parudeesa.mp3'),
     //     autoStart: false, showNotification: true);
+  
+    // player.onReadyToPlay.listen((p) {setState(() {
+    //  position=p as Duration; 
+    // }
+    
+    // ); });
+  player.currentPosition.listen((updatedPosition) {setState(() {
+     position = updatedPosition;
+  });});
+
+      // audioPlayer.onAudioPositionChanged.listen((updatedPosition) {
+      // setState(() {
+      //   position = updatedPosition;
+      // });
+    // });
+ //Listen to the current playing song
+
+
+
+
+player.current.listen((updatedPosition) {setState(() {
+     duration = updatedPosition as Duration;
+  });});
+
+    // audioPlayer.onDurationChanged.listen((updatedDuration) {
+    //   setState(() {
+    //     duration = updatedDuration;
+    //   });
+    // });
   }
 
   bool pressed = true;
@@ -161,6 +200,7 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
                   ),
                 ),
               ),
+        
               // StreamBuilder<Duration>(
               //     stream: player.currentPosition,
               //     builder:
@@ -179,7 +219,7 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
               //           });
               //     }),
 
-              seekBarWidget(context),
+              seekBarSlider(context),
               // Slider.adaptive(
               //     value: _position.inSeconds.toDouble(),
               //     min: 0.0,
@@ -203,13 +243,21 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
                 padding: const EdgeInsets.symmetric(horizontal: 18.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      position.toString().split(".").first,
-                      style: TextStyle(color: textWhite),
-                    ),
-                    Text(duration.toString().split(".").first,
-                        style: TextStyle(color: textWhite)),
+                  children: [Text(position.toString().split(".").first,style: TextStyle(color: textWhite),),
+                 Text(duration.toString().split(".").first,style: TextStyle(color: textWhite),),
+                    // Text(
+                    //   position.toString(),
+                    //   // .split(".").first,
+                    //   style: TextStyle(color: textWhite),
+                    // ),
+                    // Text(duration.toString(),
+                    // // .split(".").first,
+                    //     style: TextStyle(color: textWhite)),
+                      
+                    // Text(formateTime(position),style: TextStyle(color: textWhite),),
+                    // Text(
+                    //   formateTime(duration),style: TextStyle(color: textWhite),
+                    // ),
                   ],
                 ),
               ),
@@ -217,9 +265,44 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
                 height: 25,
               ),
 
-              // add nad volume
+   // add nad recent
 
-              addAndVol(context),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                        decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(50)),
+                       
+                         child: IconButton(
+                              onPressed: () {;
+                              },
+                              icon: Icon(
+                                Icons.repeat,
+                                color: textWhite,
+                                size: 30,
+                              )),
+                        ),
+                    Container(
+                      decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.circular(50)),
+                      child: IconButton(
+                          onPressed: () {
+                            PlayListShowBottomSheet(context);
+                          },
+                          icon: Icon(
+                            Icons.add,
+                            size: 30,
+                            color: textWhite,
+                          )),
+                    )
+                  ],
+                ),
+              ),
 
               // previous
               Row(
@@ -235,7 +318,7 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
                         color: textWhite,
                       )),
                   smallwidth,
-
+                  
                   // play and pause
                   PlayerBuilder.isPlaying(
                       player: player,
@@ -271,7 +354,7 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
     );
   }
 
-  Widget seekBarWidget(BuildContext ctx) {
+  Widget seekBarSlider(BuildContext ctx) {
     return player.builderRealtimePlayingInfos(builder: (ctx, index) {
       Duration _position = index.currentPosition;
       Duration _duration = index.duration;
@@ -279,17 +362,27 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
           value: _position.inSeconds.toDouble(),
           min: 0.0,
           max: _duration.inSeconds.toDouble(),
-         
           activeColor: textWhite,
           inactiveColor: textGrey,
           // label: '',
-          onChanged: (double value) {
+          onChanged: (double value) async {
+            //  ( final _position =Duration(seconds: value.toInt());
+            // await  player.seek(position);)its not dragging
             setState(() {
               // value = value;
               player.seek(Duration(seconds: value.toInt()));
             });
-          });
-    
+          },
+          );
     });
+    
   }
+}
+
+String formateTime(Duration duration) {
+  String twoDigits(int n) => n.toString().padLeft(2, '0');
+  final hours = twoDigits(duration.inHours);
+  final minutes = twoDigits(duration.inMinutes.remainder(60));
+  final seconds = twoDigits(duration.inSeconds.remainder(60));
+  return [if (duration.inHours > 0) hours, minutes, seconds].join(':');
 }
