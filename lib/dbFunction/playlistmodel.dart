@@ -1,6 +1,7 @@
 import 'package:hive/hive.dart';
+part 'playlistmodel.g.dart';
 @HiveType(typeId: 0)
-class PlaylistModel {
+class PlaylistModel extends HiveObject {
   @HiveField(0)
   String? artist;
   @HiveField(1)
@@ -18,10 +19,12 @@ class PlaylistModel {
       required this.songname,
       required this.songurl});
 }
-String boxname="songs";
+
+String boxname = "songs";
+
 class PlaylistBox {
-  static Box<List>?_box;
-  static Box<List> getInstance(){
-    return _box ??=Hive.box(boxname);
+  static Box<List>? _box;
+  static Box<List> getInstance() {
+    return _box ??= Hive.box(boxname);
   }
 }
