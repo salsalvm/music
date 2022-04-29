@@ -5,6 +5,7 @@ import 'package:music/main.dart';
 import 'package:music/module_1/open_palyer.dart';
 
 import 'package:flutter/material.dart';
+import 'package:music/module_2/a.dart';
 
 import 'package:music/module_2/nowplaying_screen.dart';
 

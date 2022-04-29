@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/module_1/splash_Screen.dart';
-import 'package:sizer/sizer.dart';
+
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
