@@ -44,6 +44,7 @@ dependencies:
   permission_handler: ^9.2.0
   sizer: ^2.0.15
   audioplayer: ^0.8.1
+  audio_video_progress_bar: ^0.10.0
 
 dev_dependencies:
   flutter_lints: ^1.0.0

@@ -1,4 +1,3 @@
-
 import 'package:assets_audio_player/assets_audio_player.dart';
 
 import 'package:audioplayers/audioplayers.dart';
@@ -8,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart';
 import 'package:music/main.dart';
 import 'package:music/module_2/nowplaying_function.dart';
-
+import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 
 import 'package:on_audio_query/on_audio_query.dart';
 
@@ -23,66 +22,24 @@ class NowPlaying extends StatefulWidget {
 }
 
 class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
- 
-  // dynamic position = "00:00";
-  // dynamic duration = "00:00";
-// String? audioState;
-Duration position =Duration();
-
-Duration duration =Duration();
-
   late AnimationController controller;
   int _value = 6;
   bool isAnimated = false;
   bool showPlay = true;
   bool shopPause = false;
   final AssetsAudioPlayer player = AssetsAudioPlayer.withId('0');
-AudioPlayer audioPlayer =AudioPlayer();
+  AudioPlayer audioPlayer = AudioPlayer();
   Audio find(List<Audio> source, String fromPath) {
     return source.firstWhere((element) => element.path == fromPath);
   }
 
-     
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     controller = AnimationController(
       vsync: this,
-      // duration: Duration(microseconds: 100),
-      // reverseDuration: Duration(microseconds: 100),
     );
-    // player.open(Audio('lib/assets/audio/Parudeesa.mp3'),
-    //     autoStart: false, showNotification: true);
-  
-    // player.onReadyToPlay.listen((p) {setState(() {
-    //  position=p as Duration; 
-    // }
-    
-    // ); });
-  player.currentPosition.listen((updatedPosition) {setState(() {
-     position = updatedPosition;
-  });});
-
-      // audioPlayer.onAudioPositionChanged.listen((updatedPosition) {
-      // setState(() {
-      //   position = updatedPosition;
-      // });
-    // });
- //Listen to the current playing song
-
-
-
-
-player.current.listen((updatedPosition) {setState(() {
-     duration = updatedPosition as Duration;
-  });});
-
-    // audioPlayer.onDurationChanged.listen((updatedDuration) {
-    //   setState(() {
-    //     duration = updatedDuration;
-    //   });
-    // });
   }
 
   bool pressed = true;
@@ -112,22 +69,24 @@ player.current.listen((updatedPosition) {setState(() {
         return Center(
           child: Column(
             children: [
-              bigBlankSpace,
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.teal.shade200),
-                  borderRadius: BorderRadius.circular(25),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 75),
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.teal.shade200),
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                  height: 280,
+                  width: 350,
+                  child: QueryArtworkWidget(
+                      artworkHeight: 280,
+                      artworkWidth: 350,
+                      artworkBorder: BorderRadius.circular(25),
+                      id: int.parse(myAudio.metas.id!),
+                      type: ArtworkType.AUDIO),
                 ),
-                height: 280,
-                width: 350,
-                child: QueryArtworkWidget(
-                    artworkHeight: 280,
-                    artworkWidth: 350,
-                    artworkBorder: BorderRadius.circular(25),
-                    id: int.parse(myAudio.metas.id!),
-                    type: ArtworkType.AUDIO),
               ),
-              bigBlankSpace,
+
               Padding(
                 padding: const EdgeInsets.only(top: 5.0),
                 child: Padding(
@@ -161,11 +120,6 @@ player.current.listen((updatedPosition) {setState(() {
                               style: TextStyle(fontSize: 22, color: textWhite),
                             ),
                           ),
-                          // Text(
-                          //   myAudio.metas.title!,
-                          //   style: TextStyle(fontSize: 22, color: textWhite),
-                          //   overflow: TextOverflow.ellipsis,
-                          // ),
                           Text(
                             myAudio.metas.artist!.toLowerCase(),
                             overflow: TextOverflow.ellipsis,
@@ -200,72 +154,25 @@ player.current.listen((updatedPosition) {setState(() {
                   ),
                 ),
               ),
-        
-              // StreamBuilder<Duration>(
-              //     stream: player.currentPosition,
-              //     builder:
-              //         (BuildContext context, AsyncSnapshot<Duration> snapshot) {
-              //       final Duration? _currentDuration = snapshot.data;
-              //       final int _milliseconds = _currentDuration!.inMilliseconds;
-              //       final int _songDurationInMilliseconds =
-              //           snapshot.data!.inSeconds;
-              //       return Slider(
-              //           value: _songDurationInMilliseconds > _milliseconds
-              //               ? _milliseconds.toDouble()
-              //               : _songDurationInMilliseconds.toDouble(),
-              //           onChanged: (double value) {
-              //             player.seek(
-              //                 Duration(milliseconds: (value / 1000.0).toInt()));
-              //           });
-              //     }),
 
-              seekBarSlider(context),
-              // Slider.adaptive(
-              //     value: _position.inSeconds.toDouble(),
-              //     min: 0.0,
-              //     max: 20,
-
-              //     divisions: 10,
-              //     activeColor: textWhite,
-              //     inactiveColor: textGrey,
-              //     // label: '',
-              //     onChanged: (double value) {
-              //       setState(() {
-              //        value=value;
-              //       });
-
-              //     },)
-              // semanticFormatterCallback: (double newValue) {
-              //   return '${newValue.round()} dollars';
-              // }
-
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [Text(position.toString().split(".").first,style: TextStyle(color: textWhite),),
-                 Text(duration.toString().split(".").first,style: TextStyle(color: textWhite),),
-                    // Text(
-                    //   position.toString(),
-                    //   // .split(".").first,
-                    //   style: TextStyle(color: textWhite),
-                    // ),
-                    // Text(duration.toString(),
-                    // // .split(".").first,
-                    //     style: TextStyle(color: textWhite)),
-                      
-                    // Text(formateTime(position),style: TextStyle(color: textWhite),),
-                    // Text(
-                    //   formateTime(duration),style: TextStyle(color: textWhite),
-                    // ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 25,
-              ),
-
-   // add nad recent
+              player.builderRealtimePlayingInfos(
+                  builder: (context, RealtimePlayingInfos infos) {
+                return Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: ProgressBar(
+                      onSeek: (slide) {
+                        player.seek(slide);
+                      },
+                      timeLabelPadding: 15,
+                      progressBarColor: textWhite,
+                      baseBarColor: textGrey,
+                      barHeight: 7,
+                      thumbColor: textWhite,
+                      timeLabelTextStyle: TextStyle(color: textWhite),
+                      progress: infos.currentPosition,
+                      total: infos.duration),
+                );
+              }),
 
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -273,19 +180,19 @@ player.current.listen((updatedPosition) {setState(() {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                        decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            borderRadius: BorderRadius.circular(50)),
-                       
-                         child: IconButton(
-                              onPressed: () {;
-                              },
-                              icon: Icon(
-                                Icons.repeat,
-                                color: textWhite,
-                                size: 30,
-                              )),
-                        ),
+                      decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.circular(50)),
+                      child: IconButton(
+                          onPressed: () {
+                            ;
+                          },
+                          icon: Icon(
+                            Icons.repeat,
+                            color: textWhite,
+                            size: 30,
+                          )),
+                    ),
                     Container(
                       decoration: BoxDecoration(
                           color: Colors.transparent,
@@ -318,7 +225,7 @@ player.current.listen((updatedPosition) {setState(() {
                         color: textWhite,
                       )),
                   smallwidth,
-                  
+
                   // play and pause
                   PlayerBuilder.isPlaying(
                       player: player,
@@ -353,36 +260,4 @@ player.current.listen((updatedPosition) {setState(() {
       }),
     );
   }
-
-  Widget seekBarSlider(BuildContext ctx) {
-    return player.builderRealtimePlayingInfos(builder: (ctx, index) {
-      Duration _position = index.currentPosition;
-      Duration _duration = index.duration;
-      return Slider.adaptive(
-          value: _position.inSeconds.toDouble(),
-          min: 0.0,
-          max: _duration.inSeconds.toDouble(),
-          activeColor: textWhite,
-          inactiveColor: textGrey,
-          // label: '',
-          onChanged: (double value) async {
-            //  ( final _position =Duration(seconds: value.toInt());
-            // await  player.seek(position);)its not dragging
-            setState(() {
-              // value = value;
-              player.seek(Duration(seconds: value.toInt()));
-            });
-          },
-          );
-    });
-    
-  }
-}
-
-String formateTime(Duration duration) {
-  String twoDigits(int n) => n.toString().padLeft(2, '0');
-  final hours = twoDigits(duration.inHours);
-  final minutes = twoDigits(duration.inMinutes.remainder(60));
-  final seconds = twoDigits(duration.inSeconds.remainder(60));
-  return [if (duration.inHours > 0) hours, minutes, seconds].join(':');
 }

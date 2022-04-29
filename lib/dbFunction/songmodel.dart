@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-part 'playlistmodel.g.dart';
+part 'songmodel.g.dart';
 @HiveType(typeId: 0)
 class PlaylistModel extends HiveObject {
   @HiveField(0)

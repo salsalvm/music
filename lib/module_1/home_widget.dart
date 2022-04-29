@@ -30,11 +30,7 @@ class _StackItemsState extends State<StackItems> {
             onPressed: () {
               setState(() {
                 _mode = !_mode;
-//               if (_mode==true) {
-//              var boxtColor = Color.fromRGBO(94, 147, 185, 1);
-// var darkBlue = Color.fromRGBO(0, 88, 146, 1);
-// var lightBlue = Color.fromRGBO(36, 112, 161, .9);
-//               }
+
               });
             },
             icon: _mode
@@ -167,6 +163,9 @@ showAlertDialog(BuildContext context) {
   );
 }
 
+
+// horiz
+
 Widget popupMenuHoriz(BuildContext context) {
   return PopupMenuButton(
     color: darkBlue,
@@ -194,7 +193,7 @@ Widget popupMenuHoriz(BuildContext context) {
       ),
       PopupMenuItem(
         onTap: () {
-          showAlertDialog(context);
+          
         },
         value: 2,
         child: Text(
@@ -207,112 +206,4 @@ Widget popupMenuHoriz(BuildContext context) {
   );
 }
 
-//  bottomNavigation(BuildContext context)  {
 
-//     return   ListTile(
-//         onTap: () {
-//           Navigator.of(context)
-//               .push(MaterialPageRoute(builder: ((context) => NowPlaying())));
-//         },
-//         leading: const CircleAvatar(
-//           radius: 30,
-//           // backgroundColor: Colors.transparent,
-//           backgroundImage: AssetImage('lib/assets/bheeshma.jpeg'),
-//         ),
-//         title: Text(
-//           'Parudeesa',
-//           style: TextStyle(color: textWhite),
-//         ),
-//         subtitle: Text('sree nadh bhasi', style: TextStyle(color: textGrey)),
-
-//         trailing: Padding(
-//           padding: const EdgeInsets.only(left: 10.0, bottom: 20),
-//           child: Wrap(
-//             children: [
-//               Padding(
-//                 padding: const EdgeInsets.only(top: 6.0),
-//                 child: IconButton(
-//                     onPressed: () {},
-//                     icon:
-//                         Icon(
-//                       Icons.skip_previous_rounded,
-//                       color: textWhite,
-//                       size: 30,
-//                       // ),
-//                     )),
-//               ),
-//               IconButton(
-//                   onPressed: () {},
-//                   icon: Icon(
-//                     EvaIcons.playCircleOutline,
-//                     color: textWhite,
-//                     size: 45,
-//                   )),
-//               Padding(
-//                 padding: const EdgeInsets.only(top: 6.0, left: 12),
-//                 child: IconButton(
-//                     onPressed: () {},
-//                     icon: Icon(
-//                       Icons.skip_next_rounded,
-//                       color: textWhite,
-//                       size: 30,
-//                     )),
-//               ),
-//             ],
-//           ),
-//         ),
-//          );
-// }
-
-// List<Map<String, dynamic>> musicCollection = [
-//   {
-//     "leadImage": "lib/assets/onakka mundhiry.webp",
-//     "songName": "Onaka mundhiri",
-//     "singerName": "vineedh sreenivasan",
-//   },
-//   {
-//     "leadImage": "lib/assets/bheeshma.jpeg",
-//     "songName": "Parudheesa",
-//     "singerName": "sree nadh bhasi",
-//   },
-//   {
-//     "leadImage": "lib/assets/dingiri.webp",
-//     "songName": "Dingiri Dingale",
-//     "singerName": "dulquar salman",
-//   },
-//   {
-//     "leadImage": "lib/assets/uyire.webp",
-//     "songName": "Uyire",
-//     "singerName": "narayani",
-//   },
-//   {
-//     "leadImage": "lib/assets/saami.webp",
-//     "songName": "Saami saami",
-//     "singerName": "sithara",
-//   },
-//   {
-//     "leadImage": "lib/assets/fakelove.webp",
-//     "songName": "Fake love",
-//     "singerName": "bts",
-//   },
-//   {
-//     "leadImage": "lib/assets/agarthum.webp",
-//     "songName": "Agar thum saath",
-//     "singerName": "arjith sing",
-//   },
-//   {
-//     "leadImage": "lib/assets/nee mukhilo.webp",
-//     "songName": "Nee mukhilo",
-//     "singerName": "sithara",
-//   },
-//   {
-//     "leadImage": "lib/assets/butter.webp",
-//     "songName": "Butter",
-//     "singerName": "bts",
-//   },
-//   {
-//     "leadImage": "lib/assets/pal.webp",
-//     "songName": "Pal",
-//     "singerName": "arjith sing",
-//   }
-// ];

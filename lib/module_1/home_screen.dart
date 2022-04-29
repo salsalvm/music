@@ -193,17 +193,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                                     ? Colors.white
                                                     : Colors.red[800],
                                               )),
-                                          // setState(() {
-                                          //   pressed = !pressed;
-                                          // });
-
-                                          // icon: pressed
-                                          //     ? Icon(Icons.favorite,
-                                          //         color: Colors.red[800])
-                                          //     : Icon(
-                                          //         Icons.favorite,
-                                          //         color: textWhite,
-                                          //       )),
+                                         
                                           popupMenuHoriz(context)
                                         ],
                                       ),
@@ -234,17 +224,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             ],
           ),
 
-          // bottomNavigationBar: BottomAppBar(
-          //   shape: CircularNotchedRectangle(),
-          //   color: lightBlue,
-          //   elevation: 50,
-          //   child: Container(
-          // child: bottomNavigation(
-          //       context,
-          //     ),
-          //   ),
-          // ),
-
+  
           // bottm tile
           bottomSheet: GestureDetector(onTap: () {
             Navigator.push(

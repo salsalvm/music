@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'playlistmodel.dart';
+part of 'songmodel.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
