@@ -9,6 +9,7 @@ void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   Hive.registerAdapter(PlaylistModelAdapter());
+ await Hive.openBox<List>(boxname);
   runApp(MyApp());
 }
 
