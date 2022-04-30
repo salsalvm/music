@@ -194,7 +194,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                                     ? Colors.white
                                                     : Colors.red[800],
                                               )),
-                                          MenuHoriz()
+                                          MenuHoriz( songId:fullSongs[index].metas.id.toString())
                                         ],
                                       ),
                                     ),

@@ -5,6 +5,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart';
+import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/main.dart';
 import 'package:music/module_2/refactor/nowplaying_function.dart';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
@@ -15,7 +16,8 @@ import 'package:on_audio_query/on_audio_query.dart';
 class NowPlaying extends StatefulWidget {
   List<Audio> allSongs = [];
   int index;
-  NowPlaying({Key? key, required this.allSongs, required this.index})
+    
+  NowPlaying({Key? key, required this.allSongs,required this.index})
       : super(key: key);
 
   @override
@@ -23,6 +25,14 @@ class NowPlaying extends StatefulWidget {
 }
 
 class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
+
+final box = PlaylistBox.getInstance();
+
+  List<SongsModel> dbSongs = [];
+  List<Audio> fullsong = [];
+  List playlist = [];
+  List<dynamic> playlistSongs = [];
+
   late AnimationController controller;
   int _value = 6;
   bool isAnimated = false;
@@ -46,6 +56,8 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
   bool pressed = true;
   @override
   Widget build(BuildContext context) {
+    dbSongs = box.get("music") as List<SongsModel>;
+    // final temp = databaseSongs(dbSongs, songId);
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
@@ -200,7 +212,7 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
                           borderRadius: BorderRadius.circular(50)),
                       child: IconButton(
                           onPressed: () {
-                            PlayListShowBottomSheet(context);
+                            // PlayListShowBottomSheet(context,temp);
                           },
                           icon: Icon(
                             Icons.add,
@@ -259,6 +271,11 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
           ),
         );
       }),
+    );
+  }
+   SongsModel databaseSongs(List<SongsModel> songs, String id) {
+    return songs.firstWhere(
+      (element) => element.songurl.toString().contains(id),
     );
   }
 }

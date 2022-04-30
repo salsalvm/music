@@ -1,56 +1,75 @@
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
+import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/main.dart';
 import 'package:music/module_2/refactor/nowplaying_function.dart';
-import 'package:music/module_4/refactor/create_playlist_bottom.dart';
+import 'package:music/module_4/refactor/get_and_create_playlist_bottom.dart';
+import 'package:on_audio_query/on_audio_query.dart';
 
 class MenuHoriz extends StatelessWidget {
-  const MenuHoriz({ Key? key }) : super(key: key);
+  final String songId;
+  MenuHoriz({Key? key, required this.songId}) : super(key: key);
 
+  final box = PlaylistBox.getInstance();
+
+  List<SongsModel> dbSongs = [];
+  List<Audio> fullsong = [];
+  List playlist = [];
+  List<dynamic> playlistSongs = [];
   @override
   Widget build(BuildContext context) {
+    dbSongs = box.get("music") as List<SongsModel>;
+    final temp = databaseSongs(dbSongs, songId);
     return PopupMenuButton(
-    color: darkBlue,
-    icon: Icon(
-      Icons.more_vert_outlined,
-      color: textWhite,
-    ), //don't specify icon if you want 3 dot menu
-    // color: Colors.blue,
-    itemBuilder: (context) => [
-      PopupMenuItem(
-        onTap: () {},
-        value: 0,
-        child: Text(
-          "Add to Playlist",
-          style: TextStyle(color: textWhite),
+      color: darkBlue,
+      icon: Icon(
+        Icons.more_vert_outlined,
+        color: textWhite,
+      ), //don't specify icon if you want 3 dot menu
+      // color: Colors.blue,
+      itemBuilder: (context) => [
+        PopupMenuItem(
+          onTap: () {},
+          value: 0,
+          child: Text(
+            "Add to Playlist",
+            style: TextStyle(color: textWhite),
+          ),
         ),
-      ),
-      PopupMenuItem(
-        onTap: () {},
-        value: 1,
-        child: Text(
-          "View Details",
-          style: TextStyle(color: textWhite),
+        PopupMenuItem(
+          onTap: () {},
+          value: 1,
+          child: Text(
+            "View Details",
+            style: TextStyle(color: textWhite),
+          ),
         ),
-      ),
-      PopupMenuItem(
-        onTap: () {
-         
-        },
-        value: 2,
-        child: Text(
-          "Delete Song",
-          style: TextStyle(color: textWhite),
+        PopupMenuItem(
+          onTap: () {},
+          value: 2,
+          child: Text(
+            "Delete Song",
+            style: TextStyle(color: textWhite),
+          ),
         ),
-      ),
-    ],
-    onSelected: (item) => {if (item==0) {
-      PlayListShowBottomSheet(context),
-    }},
-  );
+      ],
+      onSelected: (item) => {
+        if (item == 0)
+          {
+            PlayListShowBottomSheet(context, temp),
+          }
+      },
+    );
+  }
+
+  SongsModel databaseSongs(List<SongsModel> songs, String id) {
+    return songs.firstWhere(
+      (element) => element.songurl.toString().contains(id),
+    );
   }
 }
 
-PlayListShowBottomSheet(BuildContext context) {
+PlayListShowBottomSheet(BuildContext context, temp) {
   return showModalBottomSheet(
       backgroundColor: black,
       context: context,
@@ -58,7 +77,7 @@ PlayListShowBottomSheet(BuildContext context) {
         return Container(
           decoration: BoxDecoration(
             color: boxtColor,
-            borderRadius:const BorderRadius.only(
+            borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(25.0),
               topRight: Radius.circular(25),
               bottomLeft: Radius.zero,
@@ -71,37 +90,27 @@ PlayListShowBottomSheet(BuildContext context) {
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
             child: Stack(
               children: [
-                ListView.builder(
-                  itemCount: 5,
+                ListView(
                   shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return PlayListItem(
-                      playListName: 'Ever green',
-                      countSong: '5 song',
-                      onTap: () {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            behavior: SnackBarBehavior.floating,
-                            backgroundColor: boxtColor,
-                            margin: EdgeInsets.all(10),
-                            content: Text('Song Added ')));
-                        Navigator.pop(context);
-                      },
-                    );
-                  },
-                ),
+                 children: [
+                     PlayListItem(
+                      song: temp,
+                      countSong: "",
+                    )]
+                )
+                ,
 
-        //  floatting       
+                //  floatting
                 Container(
                     alignment: Alignment.bottomRight,
                     child: FloatingActionButton(
                       onPressed: () {
-                                 showDialog(
-    context: context,
-    builder: (BuildContext context) {
-     return CreatePlaylistShowAlert();
-    },
-  );
-                        
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return CreatePlaylistForm();
+                          },
+                        );
                       },
                       backgroundColor: darkBlue,
                       child: Icon(Icons.add),

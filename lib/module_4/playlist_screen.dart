@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:music/main.dart';
 
-import 'package:music/module_4/refactor/create_playlist_bottom.dart';
+import 'package:music/module_4/refactor/get_and_create_playlist_bottom.dart';
 import 'package:music/module_4/playlist_songs_screen.dart';
 
 import 'package:music/module_4/refactor/playlist_widget.dart';
@@ -14,11 +14,11 @@ class PlayListScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: lightBlue,
       appBar: AppBar(
-        title: Text('Playlist'),
+        title:const Text('Playlist'),
         centerTitle: true,
         leading: IconButton(
             onPressed: () => Navigator.pop(context),
-            icon: Icon(Icons.arrow_back)),
+            icon:const Icon(Icons.arrow_back)),
         backgroundColor: lightBlue,
       ),
       body: SafeArea(
@@ -56,12 +56,12 @@ class PlayListScreen extends StatelessWidget {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return CreatePlaylistShowAlert();
+                  return CreatePlaylistForm();
                 },
               );
             },
-            icon: Icon(Icons.add),
-            label: Text(
+            icon:const Icon(Icons.add),
+            label:const Text(
               'Add a New Playlist',
               style: TextStyle(fontSize: 18),
             ),

@@ -49,11 +49,11 @@ class MostPlayed extends StatelessWidget {
               IconButton(
                   onPressed: () {},
                   icon: Icon(
-                    EvaIcons.heart,
+                    Icons.favorite,
                     size: 22,
                     color: favour,
                   )),
-             MenuHoriz()
+            // MenuHoriz(songId: songId)
             ],
           )),
     );
