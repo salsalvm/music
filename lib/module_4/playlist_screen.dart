@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:music/main.dart';
 
-import 'package:music/module_4/create_playlist_bottom.dart';
+import 'package:music/module_4/refactor/create_playlist_bottom.dart';
 import 'package:music/module_4/playlist_songs_screen.dart';
 
 import 'package:music/module_4/refactor/playlist_widget.dart';
@@ -34,11 +34,11 @@ class PlayListScreen extends StatelessWidget {
                       builder: ((context) => PlayListSongs())));
                 },
               ),
-              PlayList(
+            const PlayList(
                 playListName: 'English Song',
                 countSong: ' song',
               ),
-              PlayList(playListName: 'Hindi Song', countSong: '2 song'),
+             const  PlayList(playListName: 'Hindi Song', countSong: '2 song'),
               // PlayList(playListName: 'Sithara', countSong: '2 song'),
               // PlayList(playListName: 'Arjith sing', countSong: '2 song'),
             ],
@@ -53,7 +53,12 @@ class PlayListScreen extends StatelessWidget {
           child: ElevatedButton.icon(
             style: ElevatedButton.styleFrom(elevation: 0, primary: boxtColor),
             onPressed: () {
-              createPlaylistShowAlertDialog(context);
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return CreatePlaylistShowAlert();
+                },
+              );
             },
             icon: Icon(Icons.add),
             label: Text(

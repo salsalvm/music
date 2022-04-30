@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:music/main.dart';
 import 'package:music/module_2/refactor/nowplaying_function.dart';
-import 'package:music/module_4/create_playlist_bottom.dart';
+import 'package:music/module_4/refactor/create_playlist_bottom.dart';
 
 class MenuHoriz extends StatelessWidget {
   const MenuHoriz({ Key? key }) : super(key: key);
@@ -89,12 +89,19 @@ PlayListShowBottomSheet(BuildContext context) {
                     );
                   },
                 ),
+
+        //  floatting       
                 Container(
                     alignment: Alignment.bottomRight,
                     child: FloatingActionButton(
                       onPressed: () {
-                        Navigator.pop(context);
-                        createPlaylistShowAlertDialog(context);
+                                 showDialog(
+    context: context,
+    builder: (BuildContext context) {
+     return CreatePlaylistShowAlert();
+    },
+  );
+                        
                       },
                       backgroundColor: darkBlue,
                       child: Icon(Icons.add),
