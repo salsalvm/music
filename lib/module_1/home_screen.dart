@@ -5,7 +5,6 @@ import 'package:music/main.dart';
 import 'package:music/module_1/open_palyer.dart';
 
 import 'package:flutter/material.dart';
-import 'package:music/module_2/a.dart';
 
 import 'package:music/module_2/nowplaying_screen.dart';
 
@@ -35,6 +34,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   List<SongModel> fetchedSongs = [];
   List<SongModel> allSongs = [];
   List<Audio> fullSongs = [];
+  List<PlaylistModel> mappedSongs = [];
+  List<PlaylistModel> dbSongs = [];
 
   @override
   void initState() {
@@ -149,8 +150,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                         borderRadius:
                                             BorderRadius.circular(15)),
                                     child: ListTile(
-                                      onTap:
-                                      (() async {
+                                      onTap: (() async {
                                         await OpenPlayer(
                                                 fullSongs: [], index: index)
                                             .openAssetPlayer(
@@ -194,7 +194,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                                     ? Colors.white
                                                     : Colors.red[800],
                                               )),
-                                         
                                           popupMenuHoriz(context)
                                         ],
                                       ),
@@ -225,7 +224,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             ],
           ),
 
-  
           // bottm tile
           bottomSheet: GestureDetector(onTap: () {
             Navigator.push(
@@ -305,98 +303,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 ),
               ),
             );
-
-            // return Container(
-            //   height: 80,
-            //   color: Color.fromARGB(255, 218, 180, 236),
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //     crossAxisAlignment: CrossAxisAlignment.center,
-            //     children: [
-            //       Wrap(
-            //         crossAxisAlignment: WrapCrossAlignment.center,
-            //         children: [
-            //           Padding(
-            //             padding: const EdgeInsets.all(8.0),
-            //             child: Container(
-            //               height: 60,width: 60,
-            //             decoration: BoxDecoration(  borderRadius: BorderRadius.circular(5.0), ),
-            //               child: QueryArtworkWidget(
-            //                   id: int.parse(myAudio.metas.id!),
-            //                   artworkBorder: BorderRadius.circular(5.0),
-            //                   type: ArtworkType.AUDIO),
-            //             ),
-            //           ),
-            //           Column(
-            //             children: [
-            //               SizedBox(height:20,width: 180,
-            //                 child: Marquee(
-            //                   velocity: 20,
-            //                   startAfter: Duration.zero,
-            //                   blankSpace: 100,
-            //                   text:
-            //                      myAudio.metas.title!,
-            //                     style: TextStyle(fontSize: 20),
-            //                   ),
-            //                 ),
-            //               SizedBox(height:20,width: 180,
-            //                 child: Marquee(
-
-            //                   startAfter: Duration.zero,
-            //                   blankSpace: 150,
-            //                   velocity: 20,
-            //                   text:
-            //                      myAudio.metas.artist!,
-            //                     style: TextStyle(fontSize: 20),
-            //                   ),
-            //                 ),
-            //             ],
-            //           ),
-
-            //         ],
-            //       ),
-            //       SizedBox(width: 50,),
-            //       Wrap(
-            //         spacing: 15.0,
-            //         crossAxisAlignment: WrapCrossAlignment.center,
-            //         children: [
-            //          IconButton(
-            //               onPressed: () {
-            //                 assetsAudioPlayer.previous();
-            //               },
-            //               icon: const Icon(Icons.skip_previous,size: 35,)
-            //             ),
-            //             PlayerBuilder.isPlaying(
-            //                 player: assetsAudioPlayer,
-            //                 builder: (context, isPlaying) {
-            //                   return Container(
-            //                     height: 50,width: 50,
-            //                     decoration: BoxDecoration(borderRadius: BorderRadius.circular(50),color: Colors.white),
-            //                     child: IconButton(
-            //                       onPressed: () async {
-            //                         await assetsAudioPlayer.playOrPause();
-            //                       },
-            //                       icon: Icon(
-            //                         isPlaying
-            //                             ? Icons.pause
-            //                             : Icons.play_arrow,size: 35,
-            //                       ),
-            //                     ),
-            //                   );
-            //                 }),
-            //             GestureDetector(
-            //               child: IconButton(
-            //                 onPressed: () {
-            //                   assetsAudioPlayer.next();
-            //                 },
-            //                 icon: const Icon(Icons.skip_next,size: 35,),
-            //               ),
-            //             ),
-            //         ],
-            //       ),
-            //     ],
-            //   ),
-            // );
           })),
         ));
   }
