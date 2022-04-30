@@ -47,7 +47,40 @@ class PlayListSongsItems extends StatelessWidget {
                     size: 22,
                     color: favour,
                   )),
-             popupMenuHoriz(context)
+            
+   PopupMenuButton(
+    color: darkBlue,
+    icon: Icon(
+      Icons.more_vert_outlined,
+      color: textWhite,
+    ), //don't specify icon if you want 3 dot menu
+    // color: Colors.blue,
+    itemBuilder: (context) => [
+      PopupMenuItem(
+        onTap: () { ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                behavior: SnackBarBehavior.floating,
+                backgroundColor: boxtColor,
+                margin: EdgeInsets.all(10),
+                content: Text('Playlist Removed')));},
+        value: 0,
+        child: Text(
+          "Remove from Playlist",
+          style: TextStyle(color: textWhite),
+        ),
+      ),
+      PopupMenuItem(
+        onTap: () {},
+        value: 1,
+        child: Text(
+          "View Details",
+          style: TextStyle(color: textWhite),
+        ),
+      ),
+      
+    ],
+    onSelected: (item) => {print(item)},
+  )
+
             ],
           )),
     );

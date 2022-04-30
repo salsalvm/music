@@ -1,18 +1,13 @@
 import 'dart:ui';
 import 'package:assets_audio_player/assets_audio_player.dart';
-import 'package:hive/hive.dart';
 import 'package:marquee/marquee.dart';
 import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/main.dart';
 import 'package:music/module_1/open_palyer.dart';
-
 import 'package:flutter/material.dart';
-
 import 'package:music/module_2/nowplaying_screen.dart';
-
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:music/module_1/home_widget.dart';
-
 import 'package:music/module_3/search_items.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -34,11 +29,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   final OnAudioQuery _audioQuery = OnAudioQuery();
   final box = PlaylistBox.getInstance();
+
   List<SongModel> fetchedSongs = [];
   List<SongModel> allSongs = [];
-  List<Audio> fullSongs = [];
   List<SongsModel> mappedSongs = [];
   List<SongsModel> dbSongs = [];
+  List<Audio> fullSongs = [];
 
   @override
   void initState() {
@@ -107,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               labelColor: Colors.white,
             ),
             title: const Text(
-              'Home',
+              'name',
             ),
             centerTitle: true,
           ),
@@ -324,6 +320,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         allSongs.add(element);
       }
     }
+
     mappedSongs = allSongs
         .map((audio) => SongsModel(
             id: audio.id,
@@ -332,8 +329,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             songname: audio.title,
             songurl: audio.uri))
         .toList();
+
     await box.put("music", mappedSongs);
     dbSongs = box.get("music") as List<SongsModel>;
+
 // seperat song details
     for (var element in dbSongs) {
       fullSongs.add(

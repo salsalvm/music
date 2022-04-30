@@ -45,12 +45,12 @@ class PlayListScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: BottomAppBar(
-        color: darkBlue,
+        color: boxtColor,
         elevation: 50,
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 6),
+          padding: const EdgeInsets.symmetric(vertical: 8),
           child: ElevatedButton.icon(
-            style: ElevatedButton.styleFrom(elevation: 0, primary: darkBlue),
+            style: ElevatedButton.styleFrom(elevation: 0, primary: boxtColor),
             onPressed: () {
               createPlaylistShowAlertDialog(context);
             },

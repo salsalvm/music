@@ -116,7 +116,15 @@ createPlaylistShowAlertDialog(BuildContext context) {
   );
   Widget continueButton = TextButton(
     child: Text("Create", style: TextStyle(color: textWhite, fontSize: 16)),
-    onPressed: () {},
+    onPressed: () {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: boxtColor,
+          margin: EdgeInsets.all(10),
+          content: Text('Playlist Added ')));
+      Navigator.pop(context);
+    
+    },
   );
 
   // set up the AlertDialog
@@ -171,7 +179,7 @@ PlayListShowBottomSheet(BuildContext context) {
         return Container(
           decoration: BoxDecoration(
             color: boxtColor,
-            borderRadius: BorderRadius.only(
+            borderRadius:const BorderRadius.only(
               topLeft: Radius.circular(25.0),
               topRight: Radius.circular(25),
               bottomLeft: Radius.zero,
@@ -192,7 +200,14 @@ PlayListShowBottomSheet(BuildContext context) {
                       return PlayListItem(
                         playListName: 'Ever green',
                         countSong: '5 song',
-                        onTap: () {},
+                        onTap: () {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              behavior: SnackBarBehavior.floating,
+                              backgroundColor: boxtColor,
+                              margin: EdgeInsets.all(10),
+                              content: Text('Song Added ')));
+                          Navigator.pop(context);
+                        },
                       );
                     },
                   ),
@@ -201,6 +216,7 @@ PlayListShowBottomSheet(BuildContext context) {
                     alignment: Alignment.bottomRight,
                     child: FloatingActionButton(
                       onPressed: () {
+                        Navigator.pop(context);
                         createPlaylistShowAlertDialog(context);
                       },
                       backgroundColor: darkBlue,

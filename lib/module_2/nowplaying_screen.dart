@@ -185,7 +185,7 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
                           borderRadius: BorderRadius.circular(50)),
                       child: IconButton(
                           onPressed: () {
-                            ;
+                            
                           },
                           icon: Icon(
                             Icons.repeat,
