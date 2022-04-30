@@ -8,7 +8,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  Hive.registerAdapter(PlaylistModelAdapter());
+  Hive.registerAdapter(SongsModelAdapter());
  await Hive.openBox<List>(boxname);
   runApp(MyApp());
 }

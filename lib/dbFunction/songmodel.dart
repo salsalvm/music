@@ -1,18 +1,18 @@
 import 'package:hive/hive.dart';
 part 'songmodel.g.dart';
 @HiveType(typeId: 0)
-class PlaylistModel extends HiveObject {
+class SongsModel extends HiveObject {
   @HiveField(0)
   String? artist;
   @HiveField(1)
   String? songname;
   @HiveField(2)
-  String? duration;
+  int? duration;
   @HiveField(3)
   String? songurl;
   @HiveField(4)
-  String? id;
-  PlaylistModel(
+  int? id;
+  SongsModel(
       {required this.id,
       required this.artist,
       required this.duration,

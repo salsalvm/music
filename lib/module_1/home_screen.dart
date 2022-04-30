@@ -1,6 +1,8 @@
 import 'dart:ui';
 import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:hive/hive.dart';
 import 'package:marquee/marquee.dart';
+import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/main.dart';
 import 'package:music/module_1/open_palyer.dart';
 
@@ -29,13 +31,14 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   final AssetsAudioPlayer assetsAudioPlayer = AssetsAudioPlayer.withId('0');
   bool _bool = true;
   bool pressed = false;
-  final OnAudioQuery _audioQuery = OnAudioQuery();
 
+  final OnAudioQuery _audioQuery = OnAudioQuery();
+  final box = PlaylistBox.getInstance();
   List<SongModel> fetchedSongs = [];
   List<SongModel> allSongs = [];
   List<Audio> fullSongs = [];
-  List<PlaylistModel> mappedSongs = [];
-  List<PlaylistModel> dbSongs = [];
+  List<SongsModel> mappedSongs = [];
+  List<SongsModel> dbSongs = [];
 
   @override
   void initState() {
@@ -321,18 +324,30 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         allSongs.add(element);
       }
     }
-
+    mappedSongs = allSongs
+        .map((audio) => SongsModel(
+            id: audio.id,
+            artist: audio.artist,
+            duration: audio.duration,
+            songname: audio.title,
+            songurl: audio.uri))
+        .toList();
+    await box.put("music", mappedSongs);
+    dbSongs = box.get("music") as List<SongsModel>;
 // seperat song details
-    for (var element in allSongs) {
+    for (var element in dbSongs) {
       fullSongs.add(
-        Audio.file(element.uri.toString(),
-            metas: Metas(
-              title: element.title,
-              id: element.id.toString(),
-              artist: element.artist,
-            )),
+        Audio.file(
+          element.songurl.toString(),
+          metas: Metas(
+            title: element.songname,
+            id: element.id.toString(),
+            artist: element.artist,
+          ),
+        ),
       );
     }
+    setState(() {});
   }
 
   void animationDrawer() {
