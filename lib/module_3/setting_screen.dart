@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:music/main.dart';
-import 'package:music/module_3/setting_widget.dart';
+import 'package:music/module_3/refactor/setting_widget.dart';
 
-import 'package:music/module_3/switch.dart';
+import 'package:music/module_3/refactor/switch.dart';
 
 class SettingsScreen extends StatefulWidget {
   SettingsScreen({Key? key}) : super(key: key);
