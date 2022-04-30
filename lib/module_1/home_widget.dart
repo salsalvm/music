@@ -112,17 +112,14 @@ Widget MyTile(
           color: Colors.white,
         ),
       ),
-      divider(context)
+      Container(
+    height: 5,
+    width: MediaQuery.of(context).size.width,
+  ),
     ],
   );
 }
 
-Widget divider(BuildContext context) {
-  return Container(
-    height: 5,
-    width: MediaQuery.of(context).size.width,
-  );
-}
 // delete a song
 
 showAlertDialog(BuildContext context) {
@@ -165,45 +162,4 @@ showAlertDialog(BuildContext context) {
 
 
 // horiz
-
-Widget popupMenuHoriz(BuildContext context) {
-  return PopupMenuButton(
-    color: darkBlue,
-    icon: Icon(
-      Icons.more_vert_outlined,
-      color: textWhite,
-    ), //don't specify icon if you want 3 dot menu
-    // color: Colors.blue,
-    itemBuilder: (context) => [
-      PopupMenuItem(
-        onTap: () {},
-        value: 0,
-        child: Text(
-          "Add to Playlist",
-          style: TextStyle(color: textWhite),
-        ),
-      ),
-      PopupMenuItem(
-        onTap: () {},
-        value: 1,
-        child: Text(
-          "View Details",
-          style: TextStyle(color: textWhite),
-        ),
-      ),
-      PopupMenuItem(
-        onTap: () {
-         
-        },
-        value: 2,
-        child: Text(
-          "Delete Song",
-          style: TextStyle(color: textWhite),
-        ),
-      ),
-    ],
-    onSelected: (item) => {print(item)},
-  );
-}
-
 

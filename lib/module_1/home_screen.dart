@@ -6,6 +6,7 @@ import 'package:music/main.dart';
 import 'package:music/module_1/open_palyer.dart';
 import 'package:flutter/material.dart';
 import 'package:music/module_2/nowplaying_screen.dart';
+import 'package:music/module_4/menu_popup_horiz.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:music/module_1/home_widget.dart';
 import 'package:music/module_3/search_items.dart';
@@ -193,7 +194,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                                     ? Colors.white
                                                     : Colors.red[800],
                                               )),
-                                          popupMenuHoriz(context)
+                                          MenuHoriz()
                                         ],
                                       ),
                                     ),

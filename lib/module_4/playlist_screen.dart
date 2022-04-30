@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:music/main.dart';
-import 'package:music/module_2/nowplaying_function.dart';
+
+import 'package:music/module_4/create_playlist.dart';
 import 'package:music/module_4/playlist_songs_screen.dart';
 
 import 'package:music/module_4/playlist_widget.dart';
