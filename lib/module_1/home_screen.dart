@@ -225,7 +225,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           ),
 
           // bottm tile
-          bottomSheet: GestureDetector(onTap: () {
+          bottomSheet: GestureDetector(
+            onTap: () {
             Navigator.push(
                 context,
                 MaterialPageRoute(
