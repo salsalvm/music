@@ -22,7 +22,8 @@ class _PlayListScreenState extends State<PlayListScreen> {
         backgroundColor: lightBlue,
         appBar: AppBar(
           actions: [
-            IconButton(padding: EdgeInsets.only(right: 20),
+            IconButton(
+                padding: EdgeInsets.only(right: 20),
                 onPressed: () {
                   showDialog(
                       context: context,
@@ -30,7 +31,10 @@ class _PlayListScreenState extends State<PlayListScreen> {
                         return CreatePlaylistForm();
                       });
                 },
-                icon: Icon(Icons.add,size: 30,))
+                icon: Icon(
+                  Icons.add,
+                  size: 30,
+                ))
           ],
           title: const Text('Playlist'),
           centerTitle: true,
@@ -51,81 +55,81 @@ class _PlayListScreenState extends State<PlayListScreen> {
                   itemBuilder: (context, index) {
                     return Container(
                         child: playlists[index] != "music"
-                            ? 
-                            ListTile(
-          // onTap: (){},
-          leading: Padding(
-            padding: const EdgeInsets.only(left: 6.0, top: 5),
-            child: Icon(
-              Icons.queue_music_rounded,
-              color: textWhite,
-              size: 30,
-            ),
-          ),
-          title: Padding(
-            padding: const EdgeInsets.only(left: 3.0, bottom: 3, top: 5),
-            child: Text(
-              playlists[index].toString(),
-              style: TextStyle(color: textWhite, fontSize: 18),
-            ),
-          ),
-          subtitle: Padding(
-            padding: const EdgeInsets.only(left: 3.0),
-            child: Text(
-              "",
-              style: TextStyle(
-                color: textGrey,
-              ),
-            ),
-          ),
-          trailing: PopupMenuButton(
-        color: darkBlue,
-        icon: Icon(
-      Icons.more_vert_outlined,
-      color: textWhite,
-        ), 
-        itemBuilder: (context) => [
-      PopupMenuItem(
-        // onTap: () {
-        //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        //       behavior: SnackBarBehavior.floating,
-        //       backgroundColor: boxtColor,
-        //       margin: EdgeInsets.all(10),
-        //       content: Text('Playlist Removed')));
-        // },
-        value: 0,
-        child: Text(
-          "Remove Playlist",
-          style: TextStyle(color: textWhite),
-        ),
-      ),
-      PopupMenuItem(
-        // onTap: () {
-        //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        //       behavior: SnackBarBehavior.floating,
-        //       backgroundColor: boxtColor,
-        //       margin: EdgeInsets.all(10),
-        //       content: Text('Playlist Renamed')));
-        // },
-        value: 1,
-        child: Text(
-          "Rename Playlist",
-          style: TextStyle(color: textWhite),
-        ),
-      ),
-        ],
-         onSelected: (value) {
-                                  if (value == "0") {
-                                    box.delete(playlists[index]);
-                                    setState(() {
-                                      playlists = box.keys.toList();
-                                    });
-                                  }
-                                },
-      ),
-        )
-                            
-
+                            ? ListTile(
+                                // onTap: (){},
+                                leading: Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 6.0, top: 5),
+                                  child: Icon(
+                                    Icons.queue_music_rounded,
+                                    color: textWhite,
+                                    size: 30,
+                                  ),
+                                ),
+                                title: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 3.0, bottom: 3, top: 5),
+                                  child: Text(
+                                    playlists[index].toString(),
+                                    style: TextStyle(
+                                        color: textWhite, fontSize: 18),
+                                  ),
+                                ),
+                                subtitle: Padding(
+                                  padding: const EdgeInsets.only(left: 3.0),
+                                  child: Text(
+                                    "",
+                                    style: TextStyle(
+                                      color: textGrey,
+                                    ),
+                                  ),
+                                ),
+                                trailing: PopupMenuButton(
+                                  color: darkBlue,
+                                  icon: Icon(
+                                    Icons.more_vert_outlined,
+                                    color: textWhite,
+                                  ),
+                                  itemBuilder: (context) => [
+                                    PopupMenuItem(
+                                      // onTap: () {
+                                      //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                      //       behavior: SnackBarBehavior.floating,
+                                      //       backgroundColor: boxtColor,
+                                      //       margin: EdgeInsets.all(10),
+                                      //       content: Text('Playlist Removed')));
+                                      // },
+                                      value: 0,
+                                      child: Text(
+                                        "Remove Playlist",
+                                        style: TextStyle(color: textWhite),
+                                      ),
+                                    ),
+                                    PopupMenuItem(
+                                      // onTap: () {
+                                      //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                      //       behavior: SnackBarBehavior.floating,
+                                      //       backgroundColor: boxtColor,
+                                      //       margin: EdgeInsets.all(10),
+                                      //       content: Text('Playlist Renamed')));
+                                      // },
+                                      value: 1,
+                                      child: Text(
+                                        "Rename Playlist",
+                                        style: TextStyle(color: textWhite),
+                                      ),
+                                    ),
+                                  ],
+                                  onSelected: (value) {
+                                    if (value == 0) {
+                                      box.delete(playlists[index]);
+                                      setState(() {
+                                        playlists = box.keys.toList();
+                                      });
+                                    }
+                                  },
+                                ),
+                              )
                             : Container());
                   },
                   itemCount: playlists.length,
