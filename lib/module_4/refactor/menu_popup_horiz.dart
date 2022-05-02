@@ -2,9 +2,7 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/main.dart';
-import 'package:music/module_2/refactor/nowplaying_function.dart';
 import 'package:music/module_4/refactor/get_and_create_playlist_bottom.dart';
-import 'package:on_audio_query/on_audio_query.dart';
 
 class MenuHoriz extends StatelessWidget {
   final String songId;
@@ -18,8 +16,10 @@ class MenuHoriz extends StatelessWidget {
   List<dynamic> playlistSongs = [];
   @override
   Widget build(BuildContext context) {
+
     dbSongs = box.get("music") as List<SongsModel>;
     final temp = databaseSongs(dbSongs, songId);
+
     return PopupMenuButton(
       color: darkBlue,
       icon: Icon(

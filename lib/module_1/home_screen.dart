@@ -146,8 +146,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                   padding: const EdgeInsets.all(0.0),
                                   decoration: BoxDecoration(
                                       color: boxtColor,
-                                      borderRadius:
-                                          BorderRadius.circular(15)),
+                                      borderRadius: BorderRadius.circular(15)),
                                   child: ListTile(
                                     onTap: (() async {
                                       await OpenPlayer(
@@ -173,8 +172,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                       ),
                                     ),
                                     subtitle: Padding(
-                                      padding:
-                                          const EdgeInsets.only(left: 7.0),
+                                      padding: const EdgeInsets.only(left: 7.0),
                                       child: Text(
                                         "${item.data![index].artist}"
                                             .toLowerCase(),
@@ -193,7 +191,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                                   ? Colors.white
                                                   : Colors.red[800],
                                             )),
-                                        MenuHoriz( songId:fullSongs[index].metas.id.toString())
+                                        MenuHoriz(
+                                            songId: fullSongs[index]
+                                                .metas
+                                                .id
+                                                .toString())
                                       ],
                                     ),
                                   ),
@@ -223,12 +225,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           ),
 
           // bottm tile
-          bottomSheet: GestureDetector(
-            onTap: () {
+          bottomSheet: GestureDetector(onTap: () {
             Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => NowPlaying(
+                      // songId: fullSongs[index],
                           allSongs: fullSongs,
                           index: 0,
                         )));
