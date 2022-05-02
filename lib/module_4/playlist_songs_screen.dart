@@ -1,10 +1,25 @@
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
-
+import 'package:music/dbFunction/songmodel.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:music/main.dart';
-import 'package:music/module_4/refactor/playlist_songs_widget.dart';
+import 'package:music/module_1/open_palyer.dart';
+import 'package:music/module_2/nowplaying_screen.dart';
+import 'package:on_audio_query/on_audio_query.dart';
 
-class PlayListSongs extends StatelessWidget {
-  const PlayListSongs({Key? key}) : super(key: key);
+class PlayListSongs extends StatefulWidget {
+  final playListName;
+  PlayListSongs({Key? key, required this.playListName}) : super(key: key);
+
+  @override
+  State<PlayListSongs> createState() => _PlayListSongsState();
+}
+
+class _PlayListSongsState extends State<PlayListSongs> {
+  final box = PlaylistBox.getInstance();
+  List<SongsModel> dbSongs = [];
+  List<SongsModel> playlistSongs = [];
+  List<Audio> playPlaylist = [];
 
   @override
   Widget build(BuildContext context) {
@@ -12,43 +27,115 @@ class PlayListSongs extends StatelessWidget {
       backgroundColor: lightBlue,
       appBar: AppBar(
         backgroundColor: lightBlue,
-        title: Text('Ever green'),
+        title: Text(widget.playListName),
         centerTitle: true,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
           icon: Icon(
             Icons.arrow_back,
           ),
-        ),actions: [Padding(
-          padding: const EdgeInsets.only(right:10.0,top: 8),
-          child: IconButton(onPressed: (){}, icon: Icon(Icons.add_sharp)),
-        )],
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 10.0, top: 8),
+            child: IconButton(onPressed: () {}, icon: Icon(Icons.add_sharp)),
+          )
+        ],
       ),
       body: SafeArea(
-          child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(), child: 
- Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
-    child: ListView.separated(
-        physics:  BouncingScrollPhysics(),
-        shrinkWrap: true,
-        itemBuilder: ((context, index) {
-          return PlayListSongsItems(
-            leadImage: playListSong[index]['leadImage'],
-            songName: playListSong[index]['songName'],
-            singerName: playListSong[index]['singerName'],
-            favour: index%5==0?Colors.white:Colors.red,
-          );
-        }),
-        separatorBuilder: (context, index) {
-          return const SizedBox(
-            height: 10,
-          );
-        },
-        itemCount: playListSong.length),
-          )
-
-),),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
+          child: ValueListenableBuilder(
+              valueListenable: box.listenable(),
+              builder: (context, value, child) {
+                var playlistSongs = box.get(widget.playListName)!;
+                return playlistSongs.isEmpty
+                    ? Container(
+                        height: 30,
+                        width: 60,
+                        child: Center(child: Text('add Songs')),
+                      )
+                    : ListView.separated(
+                        itemBuilder: (context, index) {
+                          return Container(
+                            margin: const EdgeInsets.all(0.0),
+                            padding: const EdgeInsets.all(0.0),
+                            decoration: BoxDecoration(
+                                color: boxtColor,
+                                borderRadius: BorderRadius.circular(15)),
+                            child: ListTile(
+                              leading: QueryArtworkWidget(
+                                  artworkHeight: 60,
+                                  artworkWidth: 60,
+                                  id: playlistSongs[index].id,
+                                  type: ArtworkType.AUDIO),
+                              title: Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 5.0, bottom: 3, top: 3),
+                                child: Text(
+                                  playlistSongs[index].displayNameWOExt,
+                                  overflow: TextOverflow.ellipsis,
+                                  style:
+                                      TextStyle(color: textWhite, fontSize: 18),
+                                ),
+                              ),
+                              subtitle: Padding(
+                                padding: const EdgeInsets.only(left: 7.0),
+                                child: Text(
+                                  playlistSongs[index].artist.toLowerCase(),
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(color: textGrey),
+                                ),
+                              ),
+                              trailing: PopupMenuButton(
+                                itemBuilder: (BuildContext context) => [
+                                  PopupMenuItem(
+                                    child: Text(
+                                      'Remove song',
+                                      style: TextStyle(color: textGrey),
+                                    ),
+                                    value: "1",
+                                  ),
+                                ],
+                                onSelected: (value) {
+                                  if (value == "1") {
+                                    setState(() {
+                                      playlistSongs.removeAt(index);
+                                      box.put(
+                                          widget.playListName, playlistSongs);
+                                    });
+                                  }
+                                },
+                              ),
+                              onTap: () {
+                                for (var element in playlistSongs) {
+                                  playPlaylist.add(Audio.file(element.songurl,
+                                      metas: Metas(
+                                          title: element.songName,
+                                          id: element.id.toString(),
+                                          artist: element.artist)));
+                                }
+                                OpenPlayer(
+                                        fullSongs: playPlaylist, index: index)
+                                    .openAssetPlayer(
+                                        index: index, songs: playPlaylist);
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: ((context) => NowPlaying(
+                                        allSongs: playPlaylist,
+                                        index: index))));
+                              },
+                            ),
+                          );
+                        },
+                        separatorBuilder: (context, index) {
+                          return SizedBox(
+                            height: 10,
+                          );
+                        },
+                        itemCount: playlistSongs.length);
+              }),
+        ),
+      ),
     );
   }
 }

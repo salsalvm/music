@@ -30,8 +30,8 @@ class AlbumPage extends StatelessWidget {
                 itemBuilder: (BuildContext ctx, index) {
                   return GestureDetector(
                     onTap: () {
-                       Navigator.of(context)
-          .push(MaterialPageRoute(builder: ((context) => PlayListSongs())));
+          //              Navigator.of(context)
+          // .push(MaterialPageRoute(builder: ((context) => PlayListSongs(playListName: ))));
     
                     },
                     child: AlbumItems(

@@ -2,6 +2,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/main.dart';
+import 'package:music/module_4/playlist_songs_screen.dart';
 import 'package:music/module_4/refactor/get_and_create_playlist_bottom.dart';
 
 class PlayListScreen extends StatefulWidget {
@@ -54,7 +55,11 @@ class _PlayListScreenState extends State<PlayListScreen> {
                     return Container(
                         child: playlists[index] != "music"
                             ? ListTile(
-                                onTap: (){},
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: ((context) => PlayListSongs(
+                                          playListName: playlists[index]))));
+                                },
                                 leading: Padding(
                                   padding:
                                       const EdgeInsets.only(left: 6.0, top: 5),
@@ -91,11 +96,14 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                   itemBuilder: (context) => [
                                     PopupMenuItem(
                                       onTap: () {
-                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                            behavior: SnackBarBehavior.floating,
-                                            backgroundColor: boxtColor,
-                                            margin: EdgeInsets.all(10),
-                                            content: Text('Playlist Removed')));
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(SnackBar(
+                                                behavior:
+                                                    SnackBarBehavior.floating,
+                                                backgroundColor: boxtColor,
+                                                margin: EdgeInsets.all(10),
+                                                content:
+                                                    Text('Playlist Removed')));
                                       },
                                       value: "0",
                                       child: Text(
