@@ -48,15 +48,13 @@ class _PlayListScreenState extends State<PlayListScreen> {
               valueListenable: box.listenable(),
               builder: (context, boxes, _) {
                 playlists = box.keys.toList();
-                return ListView.separated(
-                  separatorBuilder: (context, index) => SizedBox(
-                    height: 10,
-                  ),
+                return ListView.builder(
+                  itemCount: playlists.length,
                   itemBuilder: (context, index) {
                     return Container(
                         child: playlists[index] != "music"
                             ? ListTile(
-                                // onTap: (){},
+                                onTap: (){},
                                 leading: Padding(
                                   padding:
                                       const EdgeInsets.only(left: 6.0, top: 5),
@@ -78,7 +76,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                 subtitle: Padding(
                                   padding: const EdgeInsets.only(left: 3.0),
                                   child: Text(
-                                    "",
+                                    "Song",
                                     style: TextStyle(
                                       color: textGrey,
                                     ),
@@ -92,14 +90,14 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                   ),
                                   itemBuilder: (context) => [
                                     PopupMenuItem(
-                                      // onTap: () {
-                                      //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                      //       behavior: SnackBarBehavior.floating,
-                                      //       backgroundColor: boxtColor,
-                                      //       margin: EdgeInsets.all(10),
-                                      //       content: Text('Playlist Removed')));
-                                      // },
-                                      value: 0,
+                                      onTap: () {
+                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                            behavior: SnackBarBehavior.floating,
+                                            backgroundColor: boxtColor,
+                                            margin: EdgeInsets.all(10),
+                                            content: Text('Playlist Removed')));
+                                      },
+                                      value: "0",
                                       child: Text(
                                         "Remove Playlist",
                                         style: TextStyle(color: textWhite),
@@ -113,7 +111,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                       //       margin: EdgeInsets.all(10),
                                       //       content: Text('Playlist Renamed')));
                                       // },
-                                      value: 1,
+                                      value: "1",
                                       child: Text(
                                         "Rename Playlist",
                                         style: TextStyle(color: textWhite),
@@ -121,7 +119,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                     ),
                                   ],
                                   onSelected: (value) {
-                                    if (value == 0) {
+                                    if (value == "0") {
                                       box.delete(playlists[index]);
                                       setState(() {
                                         playlists = box.keys.toList();
@@ -132,7 +130,6 @@ class _PlayListScreenState extends State<PlayListScreen> {
                               )
                             : Container());
                   },
-                  itemCount: playlists.length,
                 );
               }),
         ));
