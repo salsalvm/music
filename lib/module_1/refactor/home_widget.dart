@@ -30,7 +30,6 @@ class _StackItemsState extends State<StackItems> {
             onPressed: () {
               setState(() {
                 _mode = !_mode;
-
               });
             },
             icon: _mode
@@ -113,9 +112,9 @@ Widget MyTile(
         ),
       ),
       Container(
-    height: 5,
-    width: MediaQuery.of(context).size.width,
-  ),
+        height: 5,
+        width: MediaQuery.of(context).size.width,
+      ),
     ],
   );
 }
