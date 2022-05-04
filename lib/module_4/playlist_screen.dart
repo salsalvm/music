@@ -95,6 +95,14 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                   ),
                                   itemBuilder: (context) => [
                                     PopupMenuItem(
+                                      onTap: () {},
+                                      value: "0",
+                                      child: Text(
+                                        "Remove Playlist",
+                                        style: TextStyle(color: textWhite),
+                                      ),
+                                    ),
+                                    PopupMenuItem(
                                       onTap: () {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(SnackBar(
@@ -103,22 +111,8 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                                 backgroundColor: boxtColor,
                                                 margin: EdgeInsets.all(10),
                                                 content:
-                                                    Text('Playlist Removed')));
+                                                    Text('Playlist Renamed')));
                                       },
-                                      value: "0",
-                                      child: Text(
-                                        "Remove Playlist",
-                                        style: TextStyle(color: textWhite),
-                                      ),
-                                    ),
-                                    PopupMenuItem(
-                                      // onTap: () {
-                                      //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                      //       behavior: SnackBarBehavior.floating,
-                                      //       backgroundColor: boxtColor,
-                                      //       margin: EdgeInsets.all(10),
-                                      //       content: Text('Playlist Renamed')));
-                                      // },
                                       value: "1",
                                       child: Text(
                                         "Rename Playlist",
@@ -128,10 +122,8 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                   ],
                                   onSelected: (value) {
                                     if (value == "0") {
-                                      box.delete(playlists[index]);
-                                      setState(() {
-                                        playlists = box.keys.toList();
-                                      });
+                                      showAlertDialogOnPlaylistRemove(
+                                          context, index);
                                     }
                                   },
                                 ),
@@ -141,5 +133,47 @@ class _PlayListScreenState extends State<PlayListScreen> {
                 );
               }),
         ));
+  }
+
+  showAlertDialogOnPlaylistRemove(BuildContext context, int index) {
+    // set up the buttons
+    Widget cancelButton = TextButton(
+      child: Text("Cancel", style: TextStyle(color: textWhite)),
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+    );
+    Widget okButton = TextButton(
+      child: Text("Yes", style: TextStyle(color: textWhite)),
+      onPressed: () {
+        Navigator.pop(context);
+        box.delete(playlists[index]);
+        setState(() {
+          playlists = box.keys.toList();
+        });
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      backgroundColor: darkBlue,
+      title: Text(
+        "Remove this Playlist",
+        style: TextStyle(color: textWhite),
+      ),
+      content: Text("Are You Confirm ", style: TextStyle(color: textGrey)),
+      actions: [
+        cancelButton,
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
 }

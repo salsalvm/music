@@ -1,4 +1,3 @@
-
 import 'package:assets_audio_player/assets_audio_player.dart';
 
 import 'package:audioplayers/audioplayers.dart';
@@ -10,13 +9,14 @@ import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/main.dart';
 import 'package:music/module_2/refactor/nowplaying_function.dart';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
+import 'package:music/module_4/refactor/menu_popup_horiz.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class NowPlaying extends StatefulWidget {
   List<Audio> allSongs = [];
   int index;
- 
-  NowPlaying({Key? key, required this.allSongs,required this.index})
+final String songId;
+  NowPlaying({Key? key, required this.allSongs, required this.index,required this.songId})
       : super(key: key);
 
   @override
@@ -24,17 +24,14 @@ class NowPlaying extends StatefulWidget {
 }
 
 class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
-
 //  final String songId;
 
-
-final box = PlaylistBox.getInstance();
+  final box = PlaylistBox.getInstance();
 
   List<SongsModel> dbSongs = [];
   List<Audio> fullsong = [];
   List playlist = [];
   List<dynamic> playlistSongs = [];
-
 
   late AnimationController controller;
   int _value = 6;
@@ -44,9 +41,6 @@ final box = PlaylistBox.getInstance();
   final AssetsAudioPlayer player = AssetsAudioPlayer.withId('0');
   AudioPlayer audioPlayer = AudioPlayer();
 
-   
-
-  
   Audio find(List<Audio> source, String fromPath) {
     return source.firstWhere((element) => element.path == fromPath);
   }
@@ -63,9 +57,9 @@ final box = PlaylistBox.getInstance();
   bool pressed = true;
   @override
   Widget build(BuildContext context) {
-
     dbSongs = box.get("music") as List<SongsModel>;
-    // final temp = databaseSongs(dbSongs,'widget.index');
+   final playlistName = databaseSongs(dbSongs, widget.songId);
+
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
@@ -205,9 +199,7 @@ final box = PlaylistBox.getInstance();
                           color: Colors.transparent,
                           borderRadius: BorderRadius.circular(50)),
                       child: IconButton(
-                          onPressed: () {
-                            
-                          },
+                          onPressed: () {},
                           icon: Icon(
                             Icons.repeat,
                             color: textWhite,
@@ -220,7 +212,7 @@ final box = PlaylistBox.getInstance();
                           borderRadius: BorderRadius.circular(50)),
                       child: IconButton(
                           onPressed: () {
-                            // PlayListShowBottomSheet(context,temp);
+                            PlayListShowBottomSheet(context, playlistName);
                           },
                           icon: Icon(
                             Icons.add,
@@ -241,10 +233,15 @@ final box = PlaylistBox.getInstance();
                       onPressed: () {
                         player.previous();
                       },
-                      icon: Icon(
-                        Icons.skip_previous_rounded,
-                        color: textWhite,
-                      )),
+                      icon: playing.index == 0
+                          ? const Icon(
+                              Icons.skip_previous_rounded,
+                              color: Colors.black,
+                            )
+                          : Icon(
+                              Icons.skip_previous_rounded,
+                              color: textWhite,
+                            )),
                   smallwidth,
 
                   // play and pause
@@ -265,14 +262,21 @@ final box = PlaylistBox.getInstance();
 
                   //  next
                   IconButton(
-                      iconSize: 45,
-                      onPressed: () {
-                        player.next();
-                      },
-                      icon: Icon(
-                        Icons.skip_next_rounded,
-                        color: textWhite,
-                      )),
+                    iconSize: 45,
+                    onPressed: () {
+                      player.next();
+                    },
+                    icon:
+                        // playing.index==fullsong.length-1
+                        // ?const Icon(
+                        //   Icons.skip_next_rounded,
+                        //   color: Colors.black,
+                        // ):
+                        Icon(
+                      Icons.skip_next_rounded,
+                      color: textWhite,
+                    ),
+                  ),
                 ],
               ),
             ],
@@ -281,10 +285,10 @@ final box = PlaylistBox.getInstance();
       }),
     );
   }
-   SongsModel databasesongs(List<SongsModel> songs, String id) {
+
+  SongsModel databaseSongs(List<SongsModel> songs, String id) {
     return songs.firstWhere(
       (element) => element.songurl.toString().contains(id.toString()),
     );
   }
-
 }

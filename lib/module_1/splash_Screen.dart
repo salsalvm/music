@@ -45,7 +45,7 @@ class _SplashScreenState extends State<SplashScreen> {
 //         Audio.file(element.uri.toString(),
 //             metas: Metas(
 //               title: element.title,
-//               id: element.id.toString(),
+//               id: element.id.toString(),P
 //               artist: element.artist,
 //             )),
 //       );

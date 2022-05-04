@@ -118,14 +118,14 @@ class PlayListItem extends StatelessWidget {
       children: [
         ...playlists
             .map(
-              (audio) => audio != "music"
+              (playlistName) => playlistName != "music"
                   ? Container(
                       decoration: BoxDecoration(
                           color: boxtColor,
                           borderRadius: BorderRadius.circular(15)),
                       child: ListTile(
                         onTap: () async {
-                          playlistSongs = box.get(audio);
+                          playlistSongs = box.get(playlistName);
                           List existingSongs = [];
                           existingSongs = playlistSongs!
                               .where((element) =>
@@ -136,21 +136,24 @@ class PlayListItem extends StatelessWidget {
                             final temp = songs.firstWhere((element) =>
                                 element.id.toString() == song.id.toString());
                             playlistSongs?.add(temp);
-                            await box.put(audio, playlistSongs!);
+                            await box.put(playlistName, playlistSongs!);
 
                             Navigator.pop(context);
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
+                              SnackBar(backgroundColor: darkBlue,
                                 content: Text(
-                                  song.songname! + 'Added to Playlist',style: TextStyle(color: textWhite),
+                                  song.songname! + 'Added to Playlist',
+                                  style: TextStyle(color: textWhite),
                                 ),
                               ),
                             );
                           } else {
                             Navigator.of(context).pop();
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                content: Text(song.songname! +
-                                    'is Already in Playlist.',style: TextStyle(color: textWhite),)));
+                                content: Text(
+                              song.songname! + 'is Already in Playlist.',
+                              style: TextStyle(color: textWhite),
+                            )));
                           }
                         },
                         leading: Padding(
@@ -167,7 +170,7 @@ class PlayListItem extends StatelessWidget {
                           padding: const EdgeInsets.only(
                               left: 3.0, bottom: 3, top: 5),
                           child: Text(
-                            audio.toString(),
+                            playlistName.toString(),
                             style: TextStyle(color: textWhite, fontSize: 18),
                           ),
                         ),

@@ -18,7 +18,7 @@ class MenuHoriz extends StatelessWidget {
   Widget build(BuildContext context) {
 
     dbSongs = box.get("music") as List<SongsModel>;
-    final temp = databaseSongs(dbSongs, songId);
+    final playlistName = databaseSongs(dbSongs, songId);
 
     return PopupMenuButton(
       color: darkBlue,
@@ -56,7 +56,7 @@ class MenuHoriz extends StatelessWidget {
       onSelected: (item) => {
         if (item == 0)
           {
-            PlayListShowBottomSheet(context, temp),
+            PlayListShowBottomSheet(context, playlistName),
           }
       },
     );
@@ -69,7 +69,7 @@ class MenuHoriz extends StatelessWidget {
   }
 }
 
-PlayListShowBottomSheet(BuildContext context, temp) {
+PlayListShowBottomSheet(BuildContext context, playlistName) {
   return showModalBottomSheet(
       backgroundColor: black,
       context: context,
@@ -94,8 +94,8 @@ PlayListShowBottomSheet(BuildContext context, temp) {
                   shrinkWrap: true,
                  children: [
                      PlayListItem(
-                      song: temp,
-                      countSong: "",
+                      song: playlistName,
+                      countSong: "song",
                     )]
                 )
                 ,

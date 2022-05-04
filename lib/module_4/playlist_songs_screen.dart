@@ -9,7 +9,11 @@ import 'package:on_audio_query/on_audio_query.dart';
 
 class PlayListSongs extends StatefulWidget {
   final playListName;
-  PlayListSongs({Key? key, required this.playListName}) : super(key: key);
+
+  PlayListSongs({
+    Key? key,
+    required this.playListName,
+  }) : super(key: key);
 
   @override
   State<PlayListSongs> createState() => _PlayListSongsState();
@@ -73,7 +77,7 @@ class _PlayListSongsState extends State<PlayListSongs> {
                                 padding: const EdgeInsets.only(
                                     left: 5.0, bottom: 3, top: 3),
                                 child: Text(
-                                  playlistSongs[index].displayNameWOExt,
+                                  playlistSongs[index].songname,
                                   overflow: TextOverflow.ellipsis,
                                   style:
                                       TextStyle(color: textWhite, fontSize: 18),
@@ -88,8 +92,22 @@ class _PlayListSongsState extends State<PlayListSongs> {
                                 ),
                               ),
                               trailing: PopupMenuButton(
+                                child: Icon(
+                                  Icons.more_horiz,
+                                  color: textWhite,
+                                ),
+                                color: darkBlue,
                                 itemBuilder: (BuildContext context) => [
                                   PopupMenuItem(
+                                    onTap: () {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                              behavior:
+                                                  SnackBarBehavior.floating,
+                                              backgroundColor: boxtColor,
+                                              margin: EdgeInsets.all(10),
+                                              content: Text('Song Removed')));
+                                    },
                                     child: Text(
                                       'Remove song',
                                       style: TextStyle(color: textGrey),
@@ -111,7 +129,7 @@ class _PlayListSongsState extends State<PlayListSongs> {
                                 for (var element in playlistSongs) {
                                   playPlaylist.add(Audio.file(element.songurl,
                                       metas: Metas(
-                                          title: element.songName,
+                                          title: element.songname,
                                           id: element.id.toString(),
                                           artist: element.artist)));
                                 }
@@ -119,10 +137,16 @@ class _PlayListSongsState extends State<PlayListSongs> {
                                         fullSongs: playPlaylist, index: index)
                                     .openAssetPlayer(
                                         index: index, songs: playPlaylist);
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: ((context) => NowPlaying(
-                                        allSongs: playPlaylist,
-                                        index: index))));
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: ((context) => NowPlaying(
+                                         songId: playPlaylist[index]
+                                                .metas
+                                                .id
+                                                .toString(),
+                                            allSongs: playPlaylist,
+                                            index: index))));
                               },
                             ),
                           );

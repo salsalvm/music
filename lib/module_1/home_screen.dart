@@ -10,6 +10,7 @@ import 'package:music/module_4/refactor/menu_popup_horiz.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:music/module_1/refactor/home_widget.dart';
 import 'package:music/module_3/search_items.dart';
+import 'dart:developer' as devlog;
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -225,21 +226,20 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           ),
 
           // bottm tile
-          bottomSheet: GestureDetector(onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => NowPlaying(
-                      // songId: fullSongs[index],
-                          allSongs: fullSongs,
-                          index: 0,
-                        )));
-          }, child: assetsAudioPlayer.builderCurrent(
+          bottomSheet: assetsAudioPlayer.builderCurrent(
               builder: (BuildContext context, Playing? playing) {
             final myAudio = find(fullSongs, playing!.audio.assetAudioPath);
             return Container(
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(0)),
               child: ListTile(
+                onTap: (){ Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => NowPlaying(
+                          songId: int.parse(myAudio.metas.id!).toString(),
+                          allSongs: fullSongs,
+                          index: 0,
+                        )));},
                 tileColor: boxtColor,
                 leading: QueryArtworkWidget(
                   artworkHeight: 60,
@@ -265,16 +265,24 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 trailing: Wrap(
                   alignment: WrapAlignment.center,
                   children: [
+                    //  previous
                     IconButton(
-                        onPressed: () {
-                          assetsAudioPlayer.previous();
-                        },
-                        icon: Icon(
-                          Icons.skip_previous_rounded,
-                          color: textWhite,
-                          size: 43,
-                          // ),
-                        )),
+                      onPressed: () {
+                        assetsAudioPlayer.previous();
+                      },
+                      icon: playing.index == 0
+                          ? const Icon(
+                              Icons.skip_previous_rounded,
+                              color: Colors.black45,
+                              size: 43,
+                            )
+                          : Icon(
+                              Icons.skip_previous_rounded,
+                              color: textWhite,
+                              size: 43,
+                            ),
+                    ),
+                    // play pause
                     PlayerBuilder.isPlaying(
                         player: assetsAudioPlayer,
                         builder: (context, isPlaying) {
@@ -291,20 +299,29 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             color: textWhite,
                           );
                         }),
+
+                    // next
+
                     IconButton(
                         onPressed: () {
                           assetsAudioPlayer.next();
                         },
-                        icon: Icon(
-                          Icons.skip_next_rounded,
-                          color: textWhite,
-                          size: 43,
-                        )),
+                        icon: playing.index == fullSongs.length - 1
+                            ? Icon(
+                                Icons.skip_next,
+                                color: Colors.black38,
+                                size: 43,
+                              )
+                            : Icon(
+                                Icons.skip_next,
+                                color: textWhite,
+                                size: 43,
+                              )),
                   ],
                 ),
               ),
             );
-          })),
+          }),
         ));
   }
 
