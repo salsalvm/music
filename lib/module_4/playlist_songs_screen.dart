@@ -5,7 +5,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:music/main.dart';
 import 'package:music/module_1/open_palyer.dart';
 import 'package:music/module_2/nowplaying_screen.dart';
-import 'package:music/module_4/refactor/add_and_create_playlist_bottom.dart';
+import 'package:music/module_4/refactor/read_add_playlist.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class PlayListSongs extends StatefulWidget {

@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/main.dart';
 import 'package:music/module_4/playlist_songs_screen.dart';
-import 'package:music/module_4/refactor/add_and_create_playlist_bottom.dart';
+import 'package:music/module_4/refactor/read_add_playlist.dart';
+import 'package:music/module_4/refactor/create_playlist.dart';
+import 'package:music/module_4/refactor/update_playlist.dart';
 
 class PlayListScreen extends StatefulWidget {
   const PlayListScreen({Key? key}) : super(key: key);
@@ -104,14 +106,14 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                     ),
                                     PopupMenuItem(
                                       onTap: () {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(SnackBar(
-                                                behavior:
-                                                    SnackBarBehavior.floating,
-                                                backgroundColor: boxColor,
-                                                margin: EdgeInsets.all(10),
-                                                content:
-                                                    Text('Playlist Renamed')));
+                                        // ScaffoldMessenger.of(context)
+                                        //     .showSnackBar(SnackBar(
+                                        //         behavior:
+                                        //             SnackBarBehavior.floating,
+                                        //         backgroundColor: boxColor,
+                                        //         margin: EdgeInsets.all(10),
+                                        //         content:
+                                        //             Text('Playlist Renamed')));
                                       },
                                       value: "1",
                                       child: Text(
@@ -124,6 +126,9 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                     if (value == "0") {
                                       showAlertDialogOnPlaylistRemove(
                                           context, index);
+                                    }
+                                    if (value == "1") {
+                                      showDialogRenamedPlaylist(context, index);
                                     }
                                   },
                                 ),
@@ -138,13 +143,13 @@ class _PlayListScreenState extends State<PlayListScreen> {
   showAlertDialogOnPlaylistRemove(BuildContext context, int index) {
     // set up the buttons
     Widget cancelButton = TextButton(
-      child: Text("Cancel", style: TextStyle(color: textWhite)),
+      child: Text("Cancel", style: TextStyle(color: textWhite, fontSize: 18)),
       onPressed: () {
         Navigator.of(context).pop();
       },
     );
     Widget okButton = TextButton(
-      child: Text("Yes", style: TextStyle(color: textWhite)),
+      child: Text("Yes", style: TextStyle(color: textWhite, fontSize: 18)),
       onPressed: () {
         Navigator.pop(context);
         box.delete(playlists[index]);
@@ -157,14 +162,33 @@ class _PlayListScreenState extends State<PlayListScreen> {
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       backgroundColor: darkBlue,
-      title: Text(
-        "Remove this Playlist",
-        style: TextStyle(color: textWhite),
+      title: Center(
+        child: Text(
+          "Remove this Playlist",
+          style: TextStyle(color: textWhite),
+        ),
       ),
-      content: Text("Are You Confirm ", style: TextStyle(color: textGrey)),
+      content: Padding(
+        padding: const EdgeInsets.only(top: 8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Are You Confirm ",
+                style: TextStyle(color: Colors.yellowAccent)),
+          ],
+        ),
+      ),
       actions: [
-        cancelButton,
-        okButton,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              cancelButton,
+              okButton,
+            ],
+          ),
+        ),
       ],
     );
 
@@ -175,5 +199,13 @@ class _PlayListScreenState extends State<PlayListScreen> {
         return alert;
       },
     );
+  }
+
+  showDialogRenamedPlaylist(BuildContext context, int index) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return UpdatePlaylist();
+        });
   }
 }
