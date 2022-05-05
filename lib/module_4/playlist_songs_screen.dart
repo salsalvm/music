@@ -5,6 +5,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:music/main.dart';
 import 'package:music/module_1/open_palyer.dart';
 import 'package:music/module_2/nowplaying_screen.dart';
+import 'package:music/module_4/refactor/add_and_create_playlist_bottom.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class PlayListSongs extends StatefulWidget {
@@ -42,13 +43,29 @@ class _PlayListSongsState extends State<PlayListSongs> {
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 10.0, top: 8),
-            child: IconButton(onPressed: () {}, icon: Icon(Icons.add_sharp)),
+            child: IconButton(
+                onPressed: () {
+                  showModalBottomSheet(
+                      shape:const RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.vertical(top: Radius.circular(25))),
+                      backgroundColor: boxColor,
+                      context: context,
+                      builder: (ctx) {
+                        return  Container(height: 350,
+                          child: AddSongBox(
+                            playListName: widget.playListName,
+                          ),
+                        );
+                      });
+                },
+                icon: const Icon(Icons.add_sharp)),
           )
         ],
       ),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
           child: ValueListenableBuilder(
               valueListenable: box.listenable(),
               builder: (context, value, child) {
@@ -65,7 +82,7 @@ class _PlayListSongsState extends State<PlayListSongs> {
                             margin: const EdgeInsets.all(0.0),
                             padding: const EdgeInsets.all(0.0),
                             decoration: BoxDecoration(
-                                color: boxtColor,
+                                color: boxColor,
                                 borderRadius: BorderRadius.circular(15)),
                             child: ListTile(
                               leading: QueryArtworkWidget(
@@ -104,9 +121,10 @@ class _PlayListSongsState extends State<PlayListSongs> {
                                           .showSnackBar(SnackBar(
                                               behavior:
                                                   SnackBarBehavior.floating,
-                                              backgroundColor: boxtColor,
+                                              backgroundColor: boxColor,
                                               margin: EdgeInsets.all(10),
-                                              content: Text('Song Removed')));
+                                              content: Text(
+                                                  '${playlistSongs[index].songname} Song Removed ')));
                                     },
                                     child: Text(
                                       'Remove song',
@@ -141,7 +159,7 @@ class _PlayListSongsState extends State<PlayListSongs> {
                                     context,
                                     MaterialPageRoute(
                                         builder: ((context) => NowPlaying(
-                                         songId: playPlaylist[index]
+                                            songId: playPlaylist[index]
                                                 .metas
                                                 .id
                                                 .toString(),

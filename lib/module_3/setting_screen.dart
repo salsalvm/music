@@ -34,32 +34,29 @@ class _SettingsScreenState extends State<SettingsScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 13),
         child: ListView(children: [
           Settings(
-              leadIcon: Icons.notification_add,
-              text: 'Notification',
-              onTap: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => SwitchFunction()));
+            leadIcon: Icons.notification_add,
+            text: 'Notification',
+            onTap: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => SwitchFunction()));
+            },
+            // trialing: Icon(
+            //   Icons.arrow_right,
+            //   color: textWhite,
+            // )
+            trialing: Switch(
+              activeColor: textWhite,
+              inactiveTrackColor: darkBlue,
+              activeTrackColor: textGrey,
+              // thumbColor: ,
+              value: status,
+              onChanged: (val) {
+                setState(() {
+                  status = val;
+                });
               },
-              trialing: Icon(
-                Icons.arrow_right,
-                color: textWhite,
-              )
-              // trialing: FlutterSwitch(
-              //     width: 40.0,
-              //     height: 25.0,
-              //     valueFontSize: 12.0,
-              //     toggleSize: 15.0,
-              //     value: status,
-              //     borderRadius: 30.0,
-              //     padding: 1.0,
-              //     showOnOff: true,
-              //     onToggle: (val) {
-              //       setState(() {
-              //         status = val;
-              //       });
-              //     },
-              //   ),
-              ),
+            ),
+          ),
           Settings(
             leadIcon: Icons.privacy_tip,
             text: 'Privacy and Security',

@@ -37,7 +37,7 @@ class _SwitchFunctionState extends State<SwitchFunction> {
             },
           ),SizedBox(height: 25,),
 
-              ElevatedButton.icon(style: ElevatedButton.styleFrom(primary: boxtColor,), onPressed: (){Navigator.pop(context);}, icon: Icon(Icons.arrow_back), label: Text('Back',style: TextStyle(fontSize: 18),))
+              ElevatedButton.icon(style: ElevatedButton.styleFrom(primary: boxColor,), onPressed: (){Navigator.pop(context);}, icon: Icon(Icons.arrow_back), label: Text('Back',style: TextStyle(fontSize: 18),))
         ],
       ),
     );

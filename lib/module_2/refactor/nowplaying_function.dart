@@ -14,7 +14,7 @@ Widget bottomPlaylist({onTap, required playListName, required countSong}) {
     children: [
       Container(
         decoration: BoxDecoration(
-            color: boxtColor, borderRadius: BorderRadius.circular(15)),
+            color: boxColor, borderRadius: BorderRadius.circular(15)),
         child: ListTile(
           onTap: onTap,
           leading: Padding(

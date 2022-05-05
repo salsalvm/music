@@ -20,7 +20,7 @@ class MostPlayed extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: boxtColor, borderRadius: BorderRadius.circular(15)),
+          color: boxColor, borderRadius: BorderRadius.circular(15)),
       child: ListTile(
           onTap: () {},
           leading: CircleAvatar(

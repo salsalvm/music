@@ -17,7 +17,7 @@ class AlbumItems extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         decoration: BoxDecoration(
-            color: boxtColor, borderRadius: BorderRadius.circular(10)),
+            color: boxColor, borderRadius: BorderRadius.circular(10)),
         alignment: Alignment.center,
         child:
             //  Text(myProducts[index]["name"]),

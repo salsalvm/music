@@ -21,7 +21,7 @@ class _CreatePlaylistFormState extends State<CreatePlaylistForm> {
     final formKey = GlobalKey<FormState>();
 
     return AlertDialog(
-      backgroundColor: darkBlue,
+      backgroundColor: boxColor,
       alignment: Alignment.center,
       title: Center(
           child: Text(
@@ -49,7 +49,7 @@ class _CreatePlaylistFormState extends State<CreatePlaylistForm> {
             style: TextStyle(color: textWhite),
             decoration: InputDecoration(
               focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: textWhite, width: 5)),
+                  borderSide: BorderSide(color: darkBlue, width: 5)),
               fillColor: textWhite,
               hintText: 'Playlist Name',
               hintStyle: TextStyle(color: textGrey),
@@ -121,7 +121,7 @@ class PlayListItem extends StatelessWidget {
               (playlistName) => playlistName != "music"
                   ? Container(
                       decoration: BoxDecoration(
-                          color: boxtColor,
+                          color: boxColor,
                           borderRadius: BorderRadius.circular(15)),
                       child: ListTile(
                         onTap: () async {
@@ -140,7 +140,8 @@ class PlayListItem extends StatelessWidget {
 
                             Navigator.pop(context);
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(backgroundColor: darkBlue,
+                              SnackBar(
+                                backgroundColor: darkBlue,
                                 content: Text(
                                   song.songname! + 'Added to Playlist',
                                   style: TextStyle(color: textWhite),
@@ -189,6 +190,100 @@ class PlayListItem extends StatelessWidget {
             )
             .toList()
       ],
+    );
+  }
+}
+
+// add song to playlis box
+
+class AddSongBox extends StatefulWidget {
+  String playListName;
+
+  AddSongBox({Key? key, required this.playListName}) : super(key: key);
+
+  @override
+  State<AddSongBox> createState() => _AddSongBoxState();
+}
+
+class _AddSongBoxState extends State<AddSongBox> {
+  final box = PlaylistBox.getInstance();
+  List<SongsModel> dbSong = [];
+  List<SongsModel> playListsongs = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    dbSong = box.get("music") as List<SongsModel>;
+    playListsongs = box.get(widget.playListName)!.cast<SongsModel>();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemBuilder: ((context, index) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+          child: ListTile(
+              tileColor: boxColor,
+              // onTap: (() async {
+              //   await OpenPlayer(
+              //           fullSongs: [], index: index)
+              //       .openAssetPlayer(
+              //     index: index,
+              //     songs: fullSongs,
+              //   );
+              // }),
+              leading: QueryArtworkWidget(
+                id: dbSong[index].id!,
+                type: ArtworkType.AUDIO,
+                artworkHeight: 55,
+                artworkWidth: 55,
+              ),
+              title: Padding(
+                padding: const EdgeInsets.only(left: 5.0, bottom: 3, top: 3),
+                child: Text(
+                  dbSong[index].songname!,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(color: textWhite, fontSize: 18),
+                ),
+              ),
+              subtitle: Padding(
+                padding: const EdgeInsets.only(left: 7.0),
+                child: Text(
+                  dbSong[index].artist!.toLowerCase(),
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(color: textGrey),
+                ),
+              ),
+              trailing: playListsongs
+                      .where((element) =>
+                          element.id.toString() == dbSong[index].id.toString())
+                      .isEmpty
+                  ? IconButton(
+                      onPressed: () {
+                        playListsongs.add(dbSong[index]);
+                        box.put(widget.playListName, playListsongs);
+                        setState(() {});
+                      },
+                      icon: Icon(
+                        Icons.playlist_add,
+                        size: 35,
+                        color: Colors.green,
+                      ))
+                  : IconButton(
+                      onPressed: () {
+                        playListsongs.removeWhere((element) => element.id.toString()==dbSong[index].id.toString());
+                        box.put(widget.playListName, playListsongs);
+                        setState(() {
+                          
+                        });
+                      },
+                      icon: Icon(Icons.playlist_add_check,
+                          size: 35, color: Colors.red))),
+        );
+      }),
+      itemCount: dbSong.length,
     );
   }
 }

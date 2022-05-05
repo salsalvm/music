@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/main.dart';
 import 'package:music/module_4/playlist_songs_screen.dart';
-import 'package:music/module_4/refactor/get_and_create_playlist_bottom.dart';
+import 'package:music/module_4/refactor/add_and_create_playlist_bottom.dart';
 
 class PlayListScreen extends StatefulWidget {
   const PlayListScreen({Key? key}) : super(key: key);
@@ -108,7 +108,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                             .showSnackBar(SnackBar(
                                                 behavior:
                                                     SnackBarBehavior.floating,
-                                                backgroundColor: boxtColor,
+                                                backgroundColor: boxColor,
                                                 margin: EdgeInsets.all(10),
                                                 content:
                                                     Text('Playlist Renamed')));

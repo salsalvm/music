@@ -146,7 +146,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                   margin: const EdgeInsets.all(0.0),
                                   padding: const EdgeInsets.all(0.0),
                                   decoration: BoxDecoration(
-                                      color: boxtColor,
+                                      color: boxColor,
                                       borderRadius: BorderRadius.circular(15)),
                                   child: ListTile(
                                     onTap: (() async {
@@ -240,7 +240,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           allSongs: fullSongs,
                           index: 0,
                         )));},
-                tileColor: boxtColor,
+                tileColor: boxColor,
                 leading: QueryArtworkWidget(
                   artworkHeight: 60,
                   artworkWidth: 60,
