@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/main.dart';
 
-class UpdatePlaylist extends StatefulWidget {
-  const UpdatePlaylist({Key? key}) : super(key: key);
+class UpdatePlaylist extends StatelessWidget {
+  final playlistName;
+  UpdatePlaylist({Key? key, required this.playlistName}) : super(key: key);
+  final box = PlaylistBox.getInstance();
+  String? title;
+  final formKey = GlobalKey<FormState>();
 
-  @override
-  State<UpdatePlaylist> createState() => _UpdatePlaylistState();
-}
-
-class _UpdatePlaylistState extends State<UpdatePlaylist> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -18,8 +18,30 @@ class _UpdatePlaylistState extends State<UpdatePlaylist> {
         'Edit Your Playlist Name',
         style: TextStyle(color: textWhite),
       )),
-      content: TextFormField(
-        
+      // update
+      content: Form(
+        key: formKey,
+        child: TextFormField(
+          initialValue: playlistName,
+          style: TextStyle(color: textWhite),
+          onChanged: (value) {
+            title = value.trim();
+          },
+          validator: (value) {
+            final keys = box.keys.toList();
+            if (value!.trim() == "") {
+              return "Name Required";
+            }
+            return null;
+          },
+          decoration: InputDecoration(
+              focusedBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.green, width: 5),
+              ),
+              enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: textWhite, width: 5)),
+              fillColor: textWhite),
+        ),
       ),
       actions: [
         Padding(
@@ -36,7 +58,7 @@ class _UpdatePlaylistState extends State<UpdatePlaylist> {
                     style: TextStyle(color: textWhite, fontSize: 18),
                   )),
               TextButton(
-                  onPressed: () {},
+                  onPressed: () {print(playlistName);},
                   child: Text(
                     'Update',
                     style: TextStyle(color: textWhite, fontSize: 18),

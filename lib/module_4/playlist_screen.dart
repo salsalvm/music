@@ -128,7 +128,11 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                           context, index);
                                     }
                                     if (value == "1") {
-                                      showDialogRenamedPlaylist(context, index);
+                                      showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return UpdatePlaylist(playlistName: playlistName,);
+                                          });
                                     }
                                   },
                                 ),
@@ -199,13 +203,5 @@ class _PlayListScreenState extends State<PlayListScreen> {
         return alert;
       },
     );
-  }
-
-  showDialogRenamedPlaylist(BuildContext context, int index) {
-    return showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return UpdatePlaylist();
-        });
   }
 }

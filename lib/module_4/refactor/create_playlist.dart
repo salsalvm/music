@@ -14,13 +14,14 @@ class CreatePlaylistForm extends StatefulWidget {
 class _CreatePlaylistFormState extends State<CreatePlaylistForm> {
   @override
   Widget build(BuildContext context) {
+    
     List<PlaylistModel> playlist = [];
     final box = PlaylistBox.getInstance();
     String? title;
     final formKey = GlobalKey<FormState>();
 
     return AlertDialog(
-      backgroundColor: boxColor,
+      backgroundColor: darkBlue,
       alignment: Alignment.center,
       title: Center(
           child: Text(
@@ -47,9 +48,9 @@ class _CreatePlaylistFormState extends State<CreatePlaylistForm> {
             },
             style: TextStyle(color: textWhite),
             decoration: InputDecoration(
-              focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: darkBlue, width: 5)),
-              fillColor: textWhite,
+              focusedBorder:const OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.green, width: 5)),
+              // fillColor: textWhite,
               hintText: 'Playlist Name',
               hintStyle: TextStyle(color: textGrey),
               enabledBorder: OutlineInputBorder(

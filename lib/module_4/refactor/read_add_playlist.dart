@@ -180,7 +180,7 @@ class _AddSongBoxState extends State<AddSongBox> {
                         box.put(widget.playListName, playListsongs);
                         setState(() {});
                       },
-                      icon: Icon(
+                      icon:const Icon(
                         Icons.playlist_add,
                         size: 35,
                         color: Colors.green,
@@ -193,7 +193,7 @@ class _AddSongBoxState extends State<AddSongBox> {
                         box.put(widget.playListName, playListsongs);
                         setState(() {});
                       },
-                      icon: Icon(Icons.playlist_add_check,
+                      icon:const Icon(Icons.playlist_add_check,
                           size: 35, color: Colors.red))),
         );
       }),
