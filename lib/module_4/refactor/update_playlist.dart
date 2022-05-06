@@ -1,9 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/main.dart';
 
 class UpdatePlaylist extends StatelessWidget {
-  final playlistName;
+  String playlistName;
   UpdatePlaylist({Key? key, required this.playlistName}) : super(key: key);
   final box = PlaylistBox.getInstance();
   String? title;
@@ -22,6 +24,7 @@ class UpdatePlaylist extends StatelessWidget {
       content: Form(
         key: formKey,
         child: TextFormField(
+          
           initialValue: playlistName,
           style: TextStyle(color: textWhite),
           onChanged: (value) {
@@ -58,7 +61,14 @@ class UpdatePlaylist extends StatelessWidget {
                     style: TextStyle(color: textWhite, fontSize: 18),
                   )),
               TextButton(
-                  onPressed: () {print(playlistName);},
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {
+                    List?  curentPlaylistName=box.get(playlistName);
+                    box.put(title, curentPlaylistName!);
+                    box.delete(playlistName);
+                    Navigator.pop(context);
+                    }
+                   },
                   child: Text(
                     'Update',
                     style: TextStyle(color: textWhite, fontSize: 18),

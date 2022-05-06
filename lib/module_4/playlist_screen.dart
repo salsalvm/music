@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/main.dart';
 import 'package:music/module_4/playlist_songs_screen.dart';
-import 'package:music/module_4/refactor/read_add_playlist.dart';
 import 'package:music/module_4/refactor/create_playlist.dart';
 import 'package:music/module_4/refactor/update_playlist.dart';
 
@@ -17,7 +16,7 @@ class PlayListScreen extends StatefulWidget {
 class _PlayListScreenState extends State<PlayListScreen> {
   final box = PlaylistBox.getInstance();
   List playlists = [];
-  String? playlistName = '';
+  // String? playlistName = '';
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +82,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                 subtitle: Padding(
                                   padding: const EdgeInsets.only(left: 3.0),
                                   child: Text(
-                                    "Song",
+                                    "0  Song",
                                     style: TextStyle(
                                       color: textGrey,
                                     ),
@@ -131,7 +130,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                       showDialog(
                                           context: context,
                                           builder: (BuildContext context) {
-                                            return UpdatePlaylist(playlistName: playlistName,);
+                                            return UpdatePlaylist(playlistName: playlists[index],);
                                           });
                                     }
                                   },
@@ -176,7 +175,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
         padding: const EdgeInsets.only(top: 8.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          children:const [
             Text("Are You Confirm ",
                 style: TextStyle(color: Colors.yellowAccent)),
           ],

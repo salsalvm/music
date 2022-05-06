@@ -11,7 +11,7 @@ import 'package:on_audio_query/on_audio_query.dart';
 class PlayListSongs extends StatefulWidget {
   final playListName;
 
-  PlayListSongs({
+ const PlayListSongs({
     Key? key,
     required this.playListName,
   }) : super(key: key);

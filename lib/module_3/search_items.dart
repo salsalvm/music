@@ -1,14 +1,15 @@
 import 'dart:io';
 
+
 import 'package:flutter/material.dart';
 import 'package:music/main.dart';
-
 
 class MySearch extends SearchDelegate {
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
-      IconButton(color: lightBlue,
+      IconButton(
+          color: textGrey,
           onPressed: () {
             if (query.isEmpty) {
               close(context, null);
@@ -37,9 +38,14 @@ class MySearch extends SearchDelegate {
   }
 
   @override
-  Widget buildSuggestions(BuildContext context) {return(
-    Center(child: Text('no item found',style: TextStyle(),)));
-    // final listItems = 
+  Widget buildSuggestions(BuildContext context) {
+    return (
+      Center(
+        child: Text(
+      'no item found',
+      style: TextStyle(color: Colors.green),
+    )));
+    // final listItems =
     // query.isEmpty
     //     ? studentListNotifier.value
     //     : studentListNotifier.value
@@ -73,9 +79,5 @@ class MySearch extends SearchDelegate {
     //                 ],
     //               ));
     //         });
-
-
   }
-
-
 }

@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 
+
+import 'package:flutter/material.dart';
 import 'package:music/main.dart';
 
 class Settings extends StatelessWidget {
@@ -36,7 +37,7 @@ class Settings extends StatelessWidget {
             //   color: textWhite,
             // ),
             ),
-      ),
+      )
     );
   }
 }
