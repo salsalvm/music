@@ -18,7 +18,7 @@ class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
-
+List<Audio> fullSongs = [];
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _animation1;
@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   List<SongModel> allSongs = [];
   List<SongsModel> mappedSongs = [];
   List<SongsModel> dbSongs = [];
-  List<Audio> fullSongs = [];
+  
 
   @override
   void initState() {
@@ -232,14 +232,16 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             return Container(
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(0)),
               child: ListTile(
-                onTap: (){ Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => NowPlaying(
-                          songId: int.parse(myAudio.metas.id!).toString(),
-                          allSongs: fullSongs,
-                          index: 0,
-                        )));},
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => NowPlaying(
+                                songId: int.parse(myAudio.metas.id!).toString(),
+                                allSongs: fullSongs,
+                                index: 0,
+                              )));
+                },
                 tileColor: boxColor,
                 leading: QueryArtworkWidget(
                   artworkHeight: 60,
