@@ -36,7 +36,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   List<SongModel> allSongs = [];
   List<SongsModel> mappedSongs = [];
   List<SongsModel> dbSongs = [];
-  
 
   @override
   void initState() {

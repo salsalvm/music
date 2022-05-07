@@ -11,59 +11,76 @@ class MySearch extends SearchDelegate {
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
-      Container(
-        color: black,
-        child: IconButton(
-            color: textWhite,
-            onPressed: () {
-              if (query.isEmpty) {
-                close(context, null);
-              } else {
-                query = '';
-              }
-            },
-            icon: const Icon(
-              Icons.clear,
-            )),
-      )
+      IconButton(
+          color: textGrey,
+          onPressed: () {
+            if (query.isEmpty) {
+              close(context, null);
+            } else {
+              query = '';
+            }
+          },
+          icon: const Icon(
+            Icons.clear,
+          ))
     ];
   }
 
   @override
-  Widget? buildLeading(BuildContext context) {
-    return Container(
-      color: black,
-      child: IconButton(
-          onPressed: () {
-            close(context, null);
-          },
-          icon: const Icon(Icons.arrow_back)),
+  ThemeData appBarTheme(BuildContext context) {
+    assert(context != null);
+    final ThemeData theme = Theme.of(context);
+    return theme.copyWith(
+      
+      hintColor: textWhite,
+      appBarTheme: AppBarTheme(
+        color: black,
+        // titleTextStyle: TextInputType.text.,
+      ),
+      inputDecorationTheme: searchFieldDecorationTheme ??
+          const InputDecorationTheme(
+            border: InputBorder.none,
+          ),
     );
   }
 
   @override
+  Widget? buildLeading(BuildContext context) {
+    return IconButton(
+        onPressed: () {
+          close(context, null);
+        },
+        icon: Icon(
+          Icons.arrow_back,
+          color: textWhite,
+        ));
+  }
+
+  @override
   Widget buildResults(BuildContext context) {
-    return Container(
-      color: darkBlue,
-      child: Center(
-        child: Text(query),
+    return Center(
+      child: Text(
+        query,style: TextStyle(color: textWhite),
       ),
     );
   }
 
+// search element
   @override
   Widget buildSuggestions(BuildContext context) {
     final searchSongItems = query.isEmpty
         ? fullSongs
         : fullSongs
-            .where((element) => element.metas.title!
-                .toLowerCase()
-                .startsWith(query.toLowerCase().toString()))
-            .toList()+fullSongs
-            .where((element) => element.metas.artist!
-                .toLowerCase()
-                .startsWith(query.toLowerCase().toString()))
-            .toList();
+                .where((element) => element.metas.title!
+                    .toLowerCase()
+                    .startsWith(query.toLowerCase().toString()))
+                .toList() +
+            fullSongs
+                .where((element) => element.metas.artist!
+                    .toLowerCase()
+                    .startsWith(query.toLowerCase().toString()))
+                .toList();
+
     return Scaffold(
       backgroundColor: black,
       body: searchSongItems.isEmpty
@@ -87,21 +104,16 @@ class MySearch extends SearchDelegate {
                       child: ListTile(
                         onTap: (() async {
                           await OpenPlayer(fullSongs: [], index: index)
-                              .openAssetPlayer(
-                            index: index,
-                            songs: fullSongs,
-                          );
+                              .openAssetPlayer(index: index, songs: fullSongs);
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => NowPlaying(
-                                        songId: int.parse(searchSongItems[index]
-                                                .metas
-                                                .id!)
-                                            .toString(),
-                                        allSongs: fullSongs,
-                                        index: 0,
-                                      )));
+                                  builder: ((context) => NowPlaying(
+                                      allSongs: fullSongs,
+                                      index: 0,
+                                      songId: int.parse(
+                                              searchSongItems[index].metas.id!)
+                                          .toString()))));
                         }),
                         leading: QueryArtworkWidget(
                             artworkHeight: 60,
