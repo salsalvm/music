@@ -3,10 +3,9 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:marquee/marquee.dart';
 import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/main.dart';
-import 'package:music/module_1/open_palyer.dart';
+import 'package:music/module_1/music_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:music/module_2/nowplaying_screen.dart';
-import 'package:music/module_4/refactor/menu_popup_horiz.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:music/module_1/refactor/home_widget.dart';
 import 'package:music/module_3/search_items.dart';
@@ -111,112 +110,19 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           ),
           body: Stack(
             children: [
-              TabBarView(
+            const  TabBarView(
                 children: [
                   SingleChildScrollView(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(
+                      padding:  EdgeInsets.symmetric(
                           horizontal: 15.0, vertical: 13),
-                      child: FutureBuilder<List<SongModel>>(
-                        future: _audioQuery.querySongs(
-                            sortType: null,
-                            orderType: OrderType.ASC_OR_SMALLER,
-                            uriType: UriType.EXTERNAL,
-                            ignoreCase: true),
-                        builder: (context, item) {
-                          if (item.data == null) {
-                            return const Center(
-                              child: CircularProgressIndicator(
-                                color: Colors.amber,
-                              ),
-                            );
-                          }
-                          if (item.data!.isEmpty) {
-                            return const Center(
-                                child: Text(
-                              'no songs found',
-                              style: TextStyle(color: Colors.teal),
-                            ));
-                          }
-                          return ListView.separated(
-                              physics: const BouncingScrollPhysics(),
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) {
-                                return Container(
-                                  margin: const EdgeInsets.all(0.0),
-                                  padding: const EdgeInsets.all(0.0),
-                                  decoration: BoxDecoration(
-                                      color: boxColor,
-                                      borderRadius: BorderRadius.circular(15)),
-                                  child: ListTile(
-                                    onTap: (() async {
-                                      await OpenPlayer(
-                                              fullSongs: [], index: index)
-                                          .openAssetPlayer(
-                                        index: index,
-                                        songs: fullSongs,
-                                      );
-                                    }),
-                                    leading: QueryArtworkWidget(
-                                        artworkHeight: 60,
-                                        artworkWidth: 60,
-                                        id: item.data![index].id,
-                                        type: ArtworkType.AUDIO),
-                                    title: Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 5.0, bottom: 3, top: 3),
-                                      child: Text(
-                                        item.data![index].displayNameWOExt,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                            color: textWhite, fontSize: 18),
-                                      ),
-                                    ),
-                                    subtitle: Padding(
-                                      padding: const EdgeInsets.only(left: 7.0),
-                                      child: Text(
-                                        "${item.data![index].artist}"
-                                            .toLowerCase(),
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(color: textGrey),
-                                      ),
-                                    ),
-                                    trailing: Wrap(
-                                      children: [
-                                        IconButton(
-                                            onPressed: () {},
-                                            icon: Icon(
-                                              Icons.favorite,
-                                              size: 22,
-                                              color: index % 4 == 0
-                                                  ? Colors.white
-                                                  : Colors.red[800],
-                                            )),
-                                        MenuHoriz(
-                                            songId: fullSongs[index]
-                                                .metas
-                                                .id
-                                                .toString())
-                                      ],
-                                    ),
-                                  ),
-                                );
-                                // return ListTile(
-                              },
-                              separatorBuilder: (context, index) {
-                                return const SizedBox(
-                                  height: 10,
-                                );
-                              },
-                              itemCount: fullSongs.length);
-                        },
-                      ),
+                      child: MusicList()
                     ),
                   ),
                   SingleChildScrollView(
                     child: SafeArea(child: Text('fAVOURITES')),
                   ),
-                  SingleChildScrollView(child: SafeArea(child: Text('RECENT'))),
+                const  SingleChildScrollView(child: SafeArea(child: Text('RECENT'))),
                 ],
               ),
 

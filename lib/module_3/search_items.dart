@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:music/main.dart';
-import 'package:music/module_1/home_screen.dart';
-import 'package:music/module_1/open_palyer.dart';
+import 'package:music/module_1/home.dart';
+import 'package:music/module_1/refactor/open_palyer.dart';
 import 'package:music/module_2/nowplaying_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
