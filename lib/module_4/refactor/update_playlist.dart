@@ -24,7 +24,6 @@ class UpdatePlaylist extends StatelessWidget {
       content: Form(
         key: formKey,
         child: TextFormField(
-          
           initialValue: playlistName,
           style: TextStyle(color: textWhite),
           onChanged: (value) {
@@ -63,12 +62,17 @@ class UpdatePlaylist extends StatelessWidget {
               TextButton(
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
-                    List?  curentPlaylistName=box.get(playlistName);
-                    box.put(title, curentPlaylistName!);
-                    box.delete(playlistName);
-                    Navigator.pop(context);
+                      List? curentPlaylistName = box.get(playlistName);
+                      box.put(title, curentPlaylistName!);
+                      box.delete(playlistName);
+                      Navigator.pop(context);
                     }
-                   },
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        behavior: SnackBarBehavior.floating,
+                        backgroundColor: boxColor,
+                        margin: EdgeInsets.all(10),
+                        content: Text('Playlist Renamed')));
+                  },
                   child: Text(
                     'Update',
                     style: TextStyle(color: textWhite, fontSize: 18),

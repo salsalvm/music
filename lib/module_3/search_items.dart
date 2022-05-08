@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:music/main.dart';
 import 'package:music/module_1/home_screen.dart';
@@ -31,11 +29,10 @@ class MySearch extends SearchDelegate {
     assert(context != null);
     final ThemeData theme = Theme.of(context);
     return theme.copyWith(
-      
+      textTheme: TextTheme(displayMedium: TextStyle(color: textWhite)),
       hintColor: textWhite,
       appBarTheme: AppBarTheme(
         color: black,
-        // titleTextStyle: TextInputType.text.,
       ),
       inputDecorationTheme: searchFieldDecorationTheme ??
           const InputDecorationTheme(
@@ -60,7 +57,8 @@ class MySearch extends SearchDelegate {
   Widget buildResults(BuildContext context) {
     return Center(
       child: Text(
-        query,style: TextStyle(color: textWhite),
+        query,
+        style: TextStyle(color: textWhite),
       ),
     );
   }
@@ -86,7 +84,7 @@ class MySearch extends SearchDelegate {
       body: searchSongItems.isEmpty
           ? const Center(
               child: Text(
-              "No Data Found!",
+              "No Songs Found!",
               style: TextStyle(color: Colors.green),
             ))
           : Padding(

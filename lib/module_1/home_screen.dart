@@ -19,6 +19,11 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 List<Audio> fullSongs = [];
+  List<SongModel> fetchedSongs = [];
+  List<SongModel> allSongs = [];
+  List<SongsModel> mappedSongs = [];
+  List<SongsModel> dbSongs = [];
+
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _animation1;
@@ -32,10 +37,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   final OnAudioQuery _audioQuery = OnAudioQuery();
   final box = PlaylistBox.getInstance();
 
-  List<SongModel> fetchedSongs = [];
-  List<SongModel> allSongs = [];
-  List<SongsModel> mappedSongs = [];
-  List<SongsModel> dbSongs = [];
 
   @override
   void initState() {

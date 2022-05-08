@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:music/dbFunction/songmodel.dart';
@@ -49,10 +51,11 @@ class _PlayListScreenState extends State<PlayListScreen> {
           child: ValueListenableBuilder(
               valueListenable: box.listenable(),
               builder: (context, boxes, _) {
-                playlists = box.keys.toList();
+                var playlists = box.keys.toList();
                 return ListView.builder(
                   itemCount: playlists.length,
                   itemBuilder: (context, index) {
+                    final playlistSongs = box.get(playlists[index]);
                     return Container(
                         child: playlists[index] != "music"
                             ? ListTile(
@@ -82,7 +85,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                 subtitle: Padding(
                                   padding: const EdgeInsets.only(left: 3.0),
                                   child: Text(
-                                    "0  Song",
+                                    "${playlistSongs!.length} Song",
                                     style: TextStyle(
                                       color: textGrey,
                                     ),
@@ -99,38 +102,97 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                       onTap: () {},
                                       value: "0",
                                       child: Text(
-                                        "Remove Playlist",
+                                        "Rename Playlist",
                                         style: TextStyle(color: textWhite),
                                       ),
                                     ),
                                     PopupMenuItem(
-                                      onTap: () {
-                                        // ScaffoldMessenger.of(context)
-                                        //     .showSnackBar(SnackBar(
-                                        //         behavior:
-                                        //             SnackBarBehavior.floating,
-                                        //         backgroundColor: boxColor,
-                                        //         margin: EdgeInsets.all(10),
-                                        //         content:
-                                        //             Text('Playlist Renamed')));
-                                      },
+                                      onTap: () {},
                                       value: "1",
                                       child: Text(
-                                        "Rename Playlist",
+                                        "Remove Playlist",
                                         style: TextStyle(color: textWhite),
                                       ),
                                     ),
                                   ],
                                   onSelected: (value) {
-                                    if (value == "0") {
-                                      showAlertDialogOnPlaylistRemove(
-                                          context, index);
-                                    }
                                     if (value == "1") {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            backgroundColor: darkBlue,
+                                            title: Center(
+                                              child: Text(
+                                                "Remove this Playlist",
+                                                style:
+                                                    TextStyle(color: textWhite),
+                                              ),
+                                            ),
+                                            content: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 8.0),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: const [
+                                                  Text("Are You Confirm ",
+                                                      style: TextStyle(
+                                                          color: Colors
+                                                              .yellowAccent)),
+                                                ],
+                                              ),
+                                            ),
+                                            actions: [
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 20),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    TextButton(
+                                                      child: Text("Cancel",
+                                                          style: TextStyle(
+                                                              color: textWhite,
+                                                              fontSize: 18)),
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                    ),
+                                                    TextButton(
+                                                      child: Text("Yes",
+                                                          style: TextStyle(
+                                                              color: textWhite,
+                                                              fontSize: 18)),
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                        box.delete(
+                                                            playlists[index]);
+                                                        setState(() {
+                                                          playlists =
+                                                              box.keys.toList();
+                                                        });
+                                                      },
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      );
+                                    }
+                                    if (value == "0") {
                                       showDialog(
                                           context: context,
                                           builder: (BuildContext context) {
-                                            return UpdatePlaylist(playlistName: playlists[index],);
+                                            return UpdatePlaylist(
+                                              playlistName: playlists[index],
+                                            );
                                           });
                                     }
                                   },
@@ -143,64 +205,4 @@ class _PlayListScreenState extends State<PlayListScreen> {
         ));
   }
 
-  showAlertDialogOnPlaylistRemove(BuildContext context, int index) {
-    // set up the buttons
-    Widget cancelButton = TextButton(
-      child: Text("Cancel", style: TextStyle(color: textWhite, fontSize: 18)),
-      onPressed: () {
-        Navigator.of(context).pop();
-      },
-    );
-    Widget okButton = TextButton(
-      child: Text("Yes", style: TextStyle(color: textWhite, fontSize: 18)),
-      onPressed: () {
-        Navigator.pop(context);
-        box.delete(playlists[index]);
-        setState(() {
-          playlists = box.keys.toList();
-        });
-      },
-    );
-
-    // set up the AlertDialog
-    AlertDialog alert = AlertDialog(
-      backgroundColor: darkBlue,
-      title: Center(
-        child: Text(
-          "Remove this Playlist",
-          style: TextStyle(color: textWhite),
-        ),
-      ),
-      content: Padding(
-        padding: const EdgeInsets.only(top: 8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children:const [
-            Text("Are You Confirm ",
-                style: TextStyle(color: Colors.yellowAccent)),
-          ],
-        ),
-      ),
-      actions: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              cancelButton,
-              okButton,
-            ],
-          ),
-        ),
-      ],
-    );
-
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
 }

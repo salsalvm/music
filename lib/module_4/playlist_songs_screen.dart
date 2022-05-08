@@ -19,11 +19,12 @@ class PlayListSongs extends StatefulWidget {
   @override
   State<PlayListSongs> createState() => _PlayListSongsState();
 }
+  List<SongsModel> playlistSongs = [];
+  List<SongsModel> songs = [];
 
 class _PlayListSongsState extends State<PlayListSongs> {
   final box = PlaylistBox.getInstance();
   List<SongsModel> dbSongs = [];
-  List<SongsModel> playlistSongs = [];
   List<Audio> playPlaylist = [];
 
   @override
@@ -36,7 +37,7 @@ class _PlayListSongsState extends State<PlayListSongs> {
         centerTitle: true,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: Icon(
+          icon:const Icon(
             Icons.arrow_back,
           ),
         ),
@@ -69,7 +70,8 @@ class _PlayListSongsState extends State<PlayListSongs> {
           child: ValueListenableBuilder(
               valueListenable: box.listenable(),
               builder: (context, value, child) {
-                var playlistSongs = box.get(widget.playListName)!;
+                final playlistSongs = box.get(widget.playListName)!;
+                // songCount
                 return playlistSongs.isEmpty
                     ? Container(
                         height: 30,
@@ -170,7 +172,7 @@ class _PlayListSongsState extends State<PlayListSongs> {
                           );
                         },
                         separatorBuilder: (context, index) {
-                          return SizedBox(
+                          return const SizedBox(
                             height: 10,
                           );
                         },
