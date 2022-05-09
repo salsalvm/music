@@ -11,7 +11,7 @@ import 'package:on_audio_query/on_audio_query.dart';
 class PlayListSongs extends StatefulWidget {
   final playListName;
 
- const PlayListSongs({
+  const PlayListSongs({
     Key? key,
     required this.playListName,
   }) : super(key: key);
@@ -19,8 +19,9 @@ class PlayListSongs extends StatefulWidget {
   @override
   State<PlayListSongs> createState() => _PlayListSongsState();
 }
-  List<SongsModel> playlistSongs = [];
-  List<SongsModel> songs = [];
+
+List<SongsModel> playlistSongs = [];
+List<SongsModel> songs = [];
 
 class _PlayListSongsState extends State<PlayListSongs> {
   final box = PlaylistBox.getInstance();
@@ -37,7 +38,7 @@ class _PlayListSongsState extends State<PlayListSongs> {
         centerTitle: true,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon:const Icon(
+          icon: const Icon(
             Icons.arrow_back,
           ),
         ),
@@ -47,13 +48,14 @@ class _PlayListSongsState extends State<PlayListSongs> {
             child: IconButton(
                 onPressed: () {
                   showModalBottomSheet(
-                      shape:const RoundedRectangleBorder(
+                      shape: const RoundedRectangleBorder(
                           borderRadius:
                               BorderRadius.vertical(top: Radius.circular(25))),
                       backgroundColor: boxColor,
                       context: context,
                       builder: (ctx) {
-                        return  Container(height: 350,
+                        return Container(
+                          height: 350,
                           child: AddSongBox(
                             playListName: widget.playListName,
                           ),

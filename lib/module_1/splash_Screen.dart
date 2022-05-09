@@ -1,7 +1,5 @@
-import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:music/module_1/home.dart';
-import 'package:on_audio_query/on_audio_query.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -17,6 +15,7 @@ class _SplashScreenState extends State<SplashScreen> {
     goTo();
     super.initState();
   }
+  
 
 //   final OnAudioQuery _audioQuery = OnAudioQuery();
 
@@ -54,6 +53,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Container(
       decoration: const BoxDecoration(
           gradient: LinearGradient(
