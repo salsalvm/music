@@ -5,6 +5,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:music/main.dart';
 import 'package:music/module_1/refactor/open_palyer.dart';
 import 'package:music/module_2/nowplaying_screen.dart';
+import 'package:music/module_3/favourite_screen.dart';
 import 'package:music/module_4/refactor/read_add_playlist.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
@@ -78,7 +79,7 @@ class _PlayListSongsState extends State<PlayListSongs> {
                     ? Container(
                         height: 30,
                         width: 60,
-                        child: Center(child: Text('add Songs')),
+                        child: const Center(child: Text('add Songs')),
                       )
                     : ListView.separated(
                         itemBuilder: (context, index) {
@@ -112,40 +113,51 @@ class _PlayListSongsState extends State<PlayListSongs> {
                                   style: TextStyle(color: textGrey),
                                 ),
                               ),
-                              trailing: PopupMenuButton(
-                                child: Icon(
-                                  Icons.more_horiz,
-                                  color: textWhite,
-                                ),
-                                color: darkBlue,
-                                itemBuilder: (BuildContext context) => [
-                                  PopupMenuItem(
-                                    onTap: () {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(SnackBar(
-                                              behavior:
-                                                  SnackBarBehavior.floating,
-                                              backgroundColor: boxColor,
-                                              margin: EdgeInsets.all(10),
-                                              content: Text(
-                                                  '${playlistSongs[index].songname} Song Removed ')));
-                                    },
-                                    child: Text(
-                                      'Remove song',
-                                      style: TextStyle(color: textGrey),
+                              trailing: Wrap(
+                                children: [
+                                  FavouriteIcon(
+                                      songId:
+                                          playlistSongs[index].id.toString()),
+                                  PopupMenuButton(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(top:11.0,left: 5),
+                                      child: Icon(
+                                        
+                                        Icons.more_vert,
+                                        color: textWhite,
+                                      ),
                                     ),
-                                    value: "1",
+                                    color: darkBlue,
+                                    itemBuilder: (BuildContext context) => [
+                                      PopupMenuItem(
+                                        onTap: () {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(SnackBar(
+                                                  behavior:
+                                                      SnackBarBehavior.floating,
+                                                  backgroundColor: boxColor,
+                                                  margin: EdgeInsets.all(10),
+                                                  content: Text(
+                                                      '${playlistSongs[index].songname} Song Removed ')));
+                                        },
+                                        child: Text(
+                                          'Remove song',
+                                          style: TextStyle(color: textGrey),
+                                        ),
+                                        value: "1",
+                                      ),
+                                    ],
+                                    onSelected: (value) {
+                                      if (value == "1") {
+                                        setState(() {
+                                          playlistSongs.removeAt(index);
+                                          box.put(widget.playListName,
+                                              playlistSongs);
+                                        });
+                                      }
+                                    },
                                   ),
                                 ],
-                                onSelected: (value) {
-                                  if (value == "1") {
-                                    setState(() {
-                                      playlistSongs.removeAt(index);
-                                      box.put(
-                                          widget.playListName, playlistSongs);
-                                    });
-                                  }
-                                },
                               ),
                               onTap: () {
                                 for (var element in playlistSongs) {

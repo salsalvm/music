@@ -78,9 +78,9 @@ class _CreatePlaylistFormState extends State<CreatePlaylistForm> {
                     style: TextStyle(color: textWhite, fontSize: 16)),
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
-                    box.put(title, playlist);
-                    setState(() {});
+                    box.put(title, playlist);  
                     Navigator.pop(context);
+                    setState(() {});
                   }
                 },
               )

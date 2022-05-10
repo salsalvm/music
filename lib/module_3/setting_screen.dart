@@ -69,7 +69,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
           Settings(
             leadIcon: Icons.headphones,
             text: 'Help and Support',
-            onTap: () {},
+            onTap: () {
+            
+            },
             trialing: Icon(
               Icons.arrow_right,
               color: textWhite,
@@ -78,7 +80,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
           Settings(
             leadIcon: Icons.perm_device_information,
             text: 'About',
-            onTap: () {},
+            onTap: () {
+              // showLicensePage(context: context,applicationName: 'beat',applicationVersion: '1.0.1.0.1',applicationIcon: Icon(Icons.music_note,),);
+              showAboutDialog(
+                  context: context,
+                  applicationIcon:const Icon(
+                    Icons.music_note,
+                    
+                  ),
+                  applicationName: 'beat',
+                  applicationVersion: '1.0.1.0.1');
+            },
             trialing: Icon(
               Icons.arrow_right,
               color: textWhite,

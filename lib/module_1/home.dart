@@ -1,11 +1,15 @@
 import 'dart:ui';
 import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:marquee/marquee.dart';
 import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/main.dart';
-import 'package:music/module_1/music_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:music/module_1/music_screen.dart';
+import 'package:music/module_1/refactor/open_palyer.dart';
 import 'package:music/module_2/nowplaying_screen.dart';
+import 'package:music/module_3/favourite_screen.dart';
+import 'package:music/module_4/refactor/menu_popup_horiz.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:music/module_1/refactor/home_widget.dart';
 import 'package:music/module_3/search_items.dart';
@@ -17,11 +21,13 @@ class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
+
+List<SongModel> fetchedSongs = [];
+List<SongModel> allSongs = [];
+List<SongsModel> mappedSongs = [];
+List<SongsModel> dbSongs = [];
 List<Audio> fullSongs = [];
-  List<SongModel> fetchedSongs = [];
-  List<SongModel> allSongs = [];
-  List<SongsModel> mappedSongs = [];
-  List<SongsModel> dbSongs = [];
+final box = PlaylistBox.getInstance();
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   late AnimationController _animationController;
@@ -32,10 +38,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   final AssetsAudioPlayer assetsAudioPlayer = AssetsAudioPlayer.withId('0');
   bool _bool = true;
   bool pressed = false;
-
   final OnAudioQuery _audioQuery = OnAudioQuery();
-  final box = PlaylistBox.getInstance();
-
 
   @override
   void initState() {
@@ -110,19 +113,48 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           ),
           body: Stack(
             children: [
-            const  TabBarView(
+              TabBarView(
                 children: [
+                  //  musiclist
                   SingleChildScrollView(
                     child: Padding(
-                      padding:  EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                           horizontal: 15.0, vertical: 13),
-                      child: MusicList()
+                      child: FutureBuilder<List<SongModel>>(
+                        future: _audioQuery.querySongs(
+                            sortType: null,
+                            orderType: OrderType.ASC_OR_SMALLER,
+                            uriType: UriType.EXTERNAL,
+                            ignoreCase: true),
+                        builder: (context, item) {
+                          if (item.data == null) {
+                            return const Center(
+                              child: CircularProgressIndicator(
+                                color: Colors.amber,
+                              ),
+                            );
+                          }
+                          if (item.data!.isEmpty) {
+                            return const Center(
+                                child: Text(
+                              'no songs found',
+                              style: TextStyle(color: Colors.teal),
+                            ));
+                          }
+                          return MusicList();
+                        },
+                      ),
                     ),
                   ),
-                  SingleChildScrollView(
-                    child: SafeArea(child: Text('fAVOURITES')),
-                  ),
-                const  SingleChildScrollView(child: SafeArea(child: Text('RECENT'))),
+
+                  //  favourites
+                 const SingleChildScrollView(child: SafeArea(child: Padding(
+                   padding: EdgeInsets.symmetric(horizontal: 15,vertical: 13),
+                   child: FavouriteScreen(),
+                 ))),
+
+                  //  recent
+                const SingleChildScrollView(child: SafeArea(child: Text('RECENT'))),
                 ],
               ),
 
@@ -215,7 +247,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           assetsAudioPlayer.next();
                         },
                         icon: playing.index == fullSongs.length - 1
-                            ? Icon(
+                            ? const Icon(
                                 Icons.skip_next,
                                 color: Colors.black38,
                                 size: 43,

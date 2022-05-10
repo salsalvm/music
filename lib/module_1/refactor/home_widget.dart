@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -28,18 +30,10 @@ class _StackItemsState extends State<StackItems> {
           radius: 35,
           child: IconButton(
             onPressed: () {
-              setState(() {
-                _mode = !_mode;
-              });
+              exit(0);
             },
-            icon: _mode
-                ? Icon(
-                    Icons.dark_mode,
-                    color: black,
-                    size: 30,
-                  )
-                : Icon(Icons.sunny),
-            color: Colors.white,
+            icon: Icon(Icons.exit_to_app_outlined,size: 35,),
+            color: textWhite,
           ),
         ),
         Column(
@@ -71,7 +65,7 @@ class _StackItemsState extends State<StackItems> {
                     MaterialPageRoute(builder: (context) => SettingsScreen()))),
           ],
         ),
-        SizedBox(),
+        const SizedBox(),
       ],
     );
   }

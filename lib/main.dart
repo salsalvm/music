@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/module_1/splash_Screen.dart';
 
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 void main(List<String> args) async {
@@ -10,7 +9,15 @@ void main(List<String> args) async {
   await Hive.initFlutter();
   Hive.registerAdapter(SongsModelAdapter());
   await Hive.openBox<List>(boxname);
-  runApp(MyApp());
+
+  final box = PlaylistBox.getInstance();
+  List<dynamic> favKey = box.keys.toList();
+  if (!(favKey.contains("favourites"))) {
+    List<dynamic> favouritesSongs = [];
+    await box.put("favourites", favouritesSongs);
+  }
+
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -35,3 +42,9 @@ var lightBlue = Colors.transparent;
 var textWhite = Color.fromARGB(255, 240, 242, 244);
 var textGrey = Color.fromRGBO(188, 191, 193, 1);
 var black = Color.fromARGB(255, 0, 0, 0);
+
+
+
+// var boxColor = Color.fromARGB(255, 22, 39, 52);
+// var darkBlue = Color.fromARGB(255, 14, 62, 101);
+// var lightBlue = Colors.transparent;

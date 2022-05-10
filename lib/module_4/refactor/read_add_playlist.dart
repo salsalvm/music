@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/main.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 // create play list
-
 
 // get playlist
 
@@ -32,7 +32,8 @@ class PlayListItem extends StatelessWidget {
       children: [
         ...playlists
             .map(
-              (playlistName) => playlistName != "music"
+              (playlistName) => playlistName != "music" &&
+                      playlistName != "favourites"
                   ? Container(
                       decoration: BoxDecoration(
                           color: boxColor,
@@ -134,71 +135,78 @@ class _AddSongBoxState extends State<AddSongBox> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemBuilder: ((context, index) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-          child: ListTile(
-              tileColor: boxColor,
-              // onTap: (() async {
-              //   await OpenPlayer(
-              //           fullSongs: [], index: index)
-              //       .openAssetPlayer(
-              //     index: index,
-              //     songs: fullSongs,
-              //   );
-              // }),
-              leading: QueryArtworkWidget(
-                id: dbSong[index].id!,
-                type: ArtworkType.AUDIO,
-                artworkHeight: 55,
-                artworkWidth: 55,
-              ),
-              title: Padding(
-                padding: const EdgeInsets.only(left: 5.0, bottom: 3, top: 3),
-                child: Text(
-                  dbSong[index].songname!,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(color: textWhite, fontSize: 18),
-                ),
-              ),
-              subtitle: Padding(
-                padding: const EdgeInsets.only(left: 7.0),
-                child: Text(
-                  dbSong[index].artist!.toLowerCase(),
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(color: textGrey),
-                ),
-              ),
-              trailing: playListsongs
-                      .where((element) =>
-                          element.id.toString() == dbSong[index].id.toString())
-                      .isEmpty
-                  ? IconButton(
-                      onPressed: () {
-                        playListsongs.add(dbSong[index]);
-                        box.put(widget.playListName, playListsongs);
-                        setState(() {});
-                      },
-                      icon:const Icon(
-                        Icons.playlist_add,
-                        size: 35,
-                        color: Colors.green,
-                      ))
-                  : IconButton(
-                      onPressed: () {
-                        playListsongs.removeWhere((element) =>
-                            element.id.toString() ==
-                            dbSong[index].id.toString());
-                        box.put(widget.playListName, playListsongs);
-                        setState(() {});
-                      },
-                      icon:const Icon(Icons.playlist_add_check,
-                          size: 35, color: Colors.red))),
-        );
-      }),
-      itemCount: dbSong.length,
-    );
+    // final dbSong=
+    return ValueListenableBuilder(
+        valueListenable: box.listenable(),
+        builder: ((context, value, child) {
+          return ListView.builder(
+            itemBuilder: ((context, index) {
+              return Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                child: ListTile(
+                    tileColor: boxColor,
+                    // onTap: (() async {
+                    //   await OpenPlayer(
+                    //           fullSongs: [], index: index)
+                    //       .openAssetPlayer(
+                    //     index: index,
+                    //     songs: fullSongs,
+                    //   );
+                    // }),
+                    leading: QueryArtworkWidget(
+                      id: dbSong[index].id!,
+                      type: ArtworkType.AUDIO,
+                      artworkHeight: 55,
+                      artworkWidth: 55,
+                    ),
+                    title: Padding(
+                      padding:
+                          const EdgeInsets.only(left: 5.0, bottom: 3, top: 3),
+                      child: Text(
+                        dbSong[index].songname!,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(color: textWhite, fontSize: 18),
+                      ),
+                    ),
+                    subtitle: Padding(
+                      padding: const EdgeInsets.only(left: 7.0),
+                      child: Text(
+                        dbSong[index].artist!.toLowerCase(),
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(color: textGrey),
+                      ),
+                    ),
+                    trailing: playListsongs
+                            .where((element) =>
+                                element.id.toString() ==
+                                dbSong[index].id.toString())
+                            .isEmpty
+                        ? IconButton(
+                            onPressed: () {
+                              playListsongs.add(dbSong[index]);
+                              box.put(widget.playListName, playListsongs);
+                              setState(() {});
+                            },
+                            icon: const Icon(
+                              Icons.playlist_add,
+                              size: 35,
+                              color: Colors.green,
+                            ))
+                        : IconButton(
+                            onPressed: () {
+                              playListsongs.removeWhere((element) =>
+                                  element.id.toString() ==
+                                  dbSong[index].id.toString());
+                              box.put(widget.playListName, playListsongs);
+                              setState(() {});
+                            },
+                            icon: const Icon(Icons.playlist_add_check,
+                                size: 35, color: Colors.red))),
+              );
+            }),
+            itemCount: dbSong.length,
+          );
+        }));
   }
 }
-

@@ -9,14 +9,19 @@ import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/main.dart';
 import 'package:music/module_2/refactor/nowplaying_function.dart';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
+import 'package:music/module_3/favourite_screen.dart';
 import 'package:music/module_4/refactor/menu_popup_horiz.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class NowPlaying extends StatefulWidget {
   List<Audio> allSongs = [];
   int index;
-final String songId;
-  NowPlaying({Key? key, required this.allSongs, required this.index,required this.songId})
+  final String songId;
+  NowPlaying(
+      {Key? key,
+      required this.allSongs,
+      required this.index,
+      required this.songId})
       : super(key: key);
 
   @override
@@ -58,7 +63,7 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     dbSongs = box.get("music") as List<SongsModel>;
-   final playlistName = databaseSongs(dbSongs, widget.songId);
+    final playlistName = databaseSongs(dbSongs, widget.songId);
 
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -142,28 +147,13 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
                           )
                         ],
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            borderRadius: BorderRadius.circular(50)),
-                        child: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              pressed = !pressed;
-                            });
-                          },
-                          icon: pressed
-                              ? Icon(
-                                  Icons.favorite,
-                                  color: textWhite,
-                                  size: 30,
-                                )
-                              : Icon(
-                                  Icons.favorite,
-                                  color: Colors.red,
-                                  size: 30,
-                                ),
-                        ),
+                      StatefulBuilder(
+                        builder: (BuildContext context,
+                            void Function(void Function()) setState) {
+                          return 
+                          FavouriteIcon(songId:myAudio.metas.id!);
+                          
+                        },
                       ),
                     ],
                   ),
@@ -266,13 +256,7 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
                     onPressed: () {
                       player.next();
                     },
-                    icon:
-                        // playing.index==fullsong.length-1
-                        // ?const Icon(
-                        //   Icons.skip_next_rounded,
-                        //   color: Colors.black,
-                        // ):
-                        Icon(
+                    icon: Icon(
                       Icons.skip_next_rounded,
                       color: textWhite,
                     ),

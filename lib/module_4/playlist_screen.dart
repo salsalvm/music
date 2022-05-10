@@ -16,7 +16,7 @@ class PlayListScreen extends StatefulWidget {
 class _PlayListScreenState extends State<PlayListScreen> {
   final box = PlaylistBox.getInstance();
   List playlists = [];
-  // String? playlistName = '';
+  String? playlistName = '';
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
         appBar: AppBar(
           actions: [
             IconButton(
-                padding: EdgeInsets.only(right: 20),
+                padding: const EdgeInsets.only(right: 20),
                 onPressed: () {
                   showDialog(
                       context: context,
@@ -33,7 +33,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
                         return CreatePlaylistForm();
                       });
                 },
-                icon: Icon(
+                icon: const Icon(
                   Icons.add,
                   size: 30,
                 ))
@@ -202,5 +202,4 @@ class _PlayListScreenState extends State<PlayListScreen> {
               }),
         ));
   }
-
 }
