@@ -88,7 +88,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     Icons.music_note,
                     
                   ),
-                  applicationName: 'beat',
+                  applicationName: 'play beatzz',
                   applicationVersion: '1.0.1.0.1');
             },
             trialing: Icon(

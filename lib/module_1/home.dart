@@ -107,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               labelColor: Colors.white,
             ),
             title: const Text(
-              'name',
+              'play beatzz',
             ),
             centerTitle: true,
           ),
