@@ -46,8 +46,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
             // )
             trialing: Switch(
               activeColor: textWhite,
-              inactiveTrackColor: darkBlue,
-              activeTrackColor: textGrey,
+              inactiveTrackColor: Colors.green,
+              activeTrackColor: Colors.red,
               // thumbColor: ,
               value: status,
               onChanged: (val) {
@@ -88,7 +88,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     Icons.music_note,
                     
                   ),
-                  applicationName: 'play beatzz',
+                  applicationName: 'beatzz',
                   applicationVersion: '1.0.1.0.1');
             },
             trialing: Icon(

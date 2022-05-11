@@ -5,6 +5,7 @@ import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/main.dart';
 import 'package:flutter/material.dart';
 import 'package:music/module_1/music_screen.dart';
+import 'package:music/module_1/recent_screen.dart';
 import 'package:music/module_2/nowplaying_screen.dart';
 import 'package:music/module_3/favourite_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -104,7 +105,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               labelColor: Colors.white,
             ),
             title: const Text(
-              'beatzz',style: TextStyle(color: Colors.green),
+              'beatzz',
+              style: TextStyle(color: Colors.green),
             ),
             centerTitle: true,
           ),
@@ -117,41 +119,21 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 15.0, vertical: 13),
-                      child: FutureBuilder<List<SongModel>>(
-                        future: _audioQuery.querySongs(
-                            sortType: null,
-                            orderType: OrderType.ASC_OR_SMALLER,
-                            uriType: UriType.EXTERNAL,
-                            ignoreCase: true),
-                        builder: (context, item) {
-                          if (item.data == null) {
-                            return const Center(
-                              child: CircularProgressIndicator(
-                                color: Colors.amber,
-                              ),
-                            );
-                          }
-                          if (item.data!.isEmpty) {
-                            return const Center(
-                                child: Text(
-                              'no songs found',
-                              style: TextStyle(color: Colors.teal),
-                            ));
-                          }
-                          return MusicList();
-                        },
-                      ),
+                      child: MusicList(),
                     ),
                   ),
 
                   //  favourites
-                 const SingleChildScrollView(child: SafeArea(child: Padding(
-                   padding: EdgeInsets.symmetric(horizontal: 15,vertical: 13),
-                   child: FavouriteScreen(),
-                 ))),
+                  const SingleChildScrollView(
+                      child: SafeArea(
+                          child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 13),
+                    child: FavouriteScreen(),
+                  ))),
 
                   //  recent
-                const SingleChildScrollView(child: SafeArea(child: Text('RECENT'))),
+                  const SingleChildScrollView(
+                      child: SafeArea(child: RecentScreen())),
                 ],
               ),
 
