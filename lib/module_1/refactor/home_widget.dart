@@ -30,9 +30,29 @@ class _StackItemsState extends State<StackItems> {
           radius: 35,
           child: IconButton(
             onPressed: () {
-              exit(0);
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(backgroundColor: darkBlue,
+                      title: Center(child: Text('Do you want to Exit',style: TextStyle(color: Colors.red[200]),)),
+                      actions: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              TextButton(onPressed: () {Navigator.pop(context);}, child: Text('No',style: TextStyle(color: textWhite,fontSize: 18),)),
+                            
+                     
+                          TextButton(onPressed: () {exit(0);}, child: Text('Yes',style: TextStyle(color: textWhite,fontSize: 18),))
+      ],),
+                        )],
+                    );
+                  });
             },
-            icon: Icon(Icons.exit_to_app_outlined,size: 35,),
+            icon: Icon(
+              Icons.exit_to_app_outlined,
+              size: 35,
+            ),
             color: textWhite,
           ),
         ),
