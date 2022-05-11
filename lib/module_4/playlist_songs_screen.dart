@@ -73,7 +73,7 @@ class _PlayListSongsState extends State<PlayListSongs> {
           child: ValueListenableBuilder(
               valueListenable: box.listenable(),
               builder: (context, value, child) {
-                final playlistSongs = box.get(widget.playListName)!;
+                var playlistSongs = box.get(widget.playListName)!;
                 // songCount
                 return playlistSongs.isEmpty
                     ? Container(

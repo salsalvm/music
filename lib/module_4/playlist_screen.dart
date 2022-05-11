@@ -53,7 +53,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
                 return ListView.builder(
                   itemCount: playlists.length,
                   itemBuilder: (context, index) {
-                    final playlistSongs = box.get(playlists[index]);
+                    var playlistSongs = box.get(playlists[index]);
                     return Container(
                         child: playlists[index] != "music"
                             ? ListTile(
