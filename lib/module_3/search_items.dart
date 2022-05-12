@@ -68,7 +68,7 @@ class MySearch extends SearchDelegate {
   Widget buildSuggestions(BuildContext context) {
     final searchSongItems = query.isEmpty
         ? fullSongs
-        : fullSongs
+        :fullSongs
                 .where((element) => element.metas.title!
                     .toLowerCase()
                     .startsWith(query.toLowerCase().toString()))

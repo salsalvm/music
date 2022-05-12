@@ -62,13 +62,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     return DefaultTabController(
         length: 3,
         child: Scaffold(
-          // floatingActionButton: ,
           backgroundColor: lightBlue,
           extendBodyBehindAppBar: true,
           appBar: AppBar(
             brightness: Brightness.light,
             elevation: 0, backgroundColor: lightBlue,
-            // backgroundColor: Colors.transparent,
+           
             leading: IconButton(
               icon: Icon(Icons.menu),
               splashColor: Colors.transparent,
@@ -188,10 +187,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     //  previous
                     IconButton(
                       onPressed: playing.index == 0
-                          ? () {assetsAudioPlayer.id; }
-                          : () {
-                           
-                            },
+                          ? () {
+                              assetsAudioPlayer.id;
+                            }
+                          : () {},
                       icon: playing.index == 0
                           ? const Icon(
                               Icons.skip_previous_rounded,
@@ -223,21 +222,23 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         }),
 
                     // next
-IconButton(
+                    IconButton(
                       iconSize: 45,
-                      onPressed: playing.index == fullSongs.length-1
-                          ? (){}
+                      onPressed: playing.index == fullSongs.length - 1
+                          ? () {}
                           : () {
                               assetsAudioPlayer.next();
                             },
-                      icon: playing.index == fullSongs.length-1
+                      icon: playing.index == fullSongs.length - 1
                           ? Icon(
                               Icons.skip_next_rounded,
-                              color: black,size: 43,
+                              color: black,
+                              size: 43,
                             )
                           : Icon(
                               Icons.skip_next_rounded,
-                              color: textWhite,size: 43,
+                              color: textWhite,
+                              size: 43,
                             ),
                     ),
                     // IconButton(

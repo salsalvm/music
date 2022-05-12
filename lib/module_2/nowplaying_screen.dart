@@ -291,7 +291,7 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
                           icon:
                               Icon(isPlaying ? Icons.pause : Icons.play_arrow),
                           onPressed: () {
-                            player.playOrPause();
+                             player.playOrPause();
                           },
                         );
                       }),

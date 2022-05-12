@@ -172,7 +172,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                       return Container(
                           height: 350,
                           child:
-                              AddSongFavourites(favSongsList: favouritesSongs,));
+                              AddSongFavourites());
                     });
               },
               child: Icon(Icons.add, color: textWhite),

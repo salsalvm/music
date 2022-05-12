@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:music/main.dart';
@@ -48,7 +50,9 @@ class MusicList extends StatelessWidget {
                         color: boxColor,
                         borderRadius: BorderRadius.circular(15)),
                     child: ListTile(
-                      onTap: (() async {
+                      onTap: (() async {print([]);
+                      print(index);
+                      // log('message')
                         await OpenPlayer(fullSongs: [], index: index)
                             .openAssetPlayer(
                           index: index,

@@ -15,6 +15,7 @@ class PlayListScreen extends StatefulWidget {
 
 class _PlayListScreenState extends State<PlayListScreen> {
   final box = PlaylistBox.getInstance();
+
   List playlists = [];
   String? playlistName = '';
 
@@ -55,7 +56,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
                   itemBuilder: (context, index) {
                     var playlistSongs = box.get(playlists[index]);
                     return Container(
-                        child: playlists[index] != "music"
+                        child: playlists[index] != "music" &&playlists[index] != "favourites"
                             ? ListTile(
                                 onTap: () {
                                   Navigator.of(context).push(MaterialPageRoute(

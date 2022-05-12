@@ -65,7 +65,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               Icons.arrow_right,
               color: textWhite,
             ),
-          ),
+          ),Settings(leadIcon: Icons.share, text: 'Share', onTap: (){
+            // Share.share;
+          }, trialing: Icon(Icons.arrow_right,color: textWhite,)),
           Settings(
             leadIcon: Icons.headphones,
             text: 'Help and Support',
