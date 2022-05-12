@@ -13,7 +13,7 @@ import 'package:music/module_3/favourite_screen.dart';
 import 'package:music/module_4/refactor/menu_popup_horiz.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-class  NowPlaying extends StatefulWidget {
+class NowPlaying extends StatefulWidget {
   List<Audio> allSongs = [];
   int index;
   final String songId;
@@ -37,12 +37,6 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
   List<Audio> fullsong = [];
   List playlist = [];
   List<dynamic> playlistSongs = [];
-
-  late AnimationController controller;
-  int _value = 6;
-  bool isAnimated = false;
-  bool showPlay = true;
-  bool shopPause = false;
   final AssetsAudioPlayer player = AssetsAudioPlayer.withId('0');
   AudioPlayer audioPlayer = AudioPlayer();
 
@@ -50,15 +44,8 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
     return source.firstWhere((element) => element.path == fromPath);
   }
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    controller = AnimationController(
-      vsync: this,
-    );
-  }
-
+  bool isShuffle = false;
+  bool isRepeate = false;
   bool pressed = true;
   @override
   Widget build(BuildContext context) {
@@ -69,13 +56,13 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
       backgroundColor: Colors.transparent,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        title: Text(
+        title: const Text(
           'Now Playing',
           style: TextStyle(),
         ),
         centerTitle: true,
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_drop_down_outlined,
             size: 35,
           ),
@@ -86,6 +73,7 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
       ),
       body: player.builderCurrent(builder: (context, Playing? playing) {
         final myAudio = find(widget.allSongs, playing!.audio.assetAudioPath);
+
         return Center(
           child: Column(
             children: [
@@ -114,19 +102,49 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                        decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            borderRadius: BorderRadius.circular(50)),
-                        child: IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            EvaIcons.shuffle2,
-                            color: textWhite,
-                            size: 30,
-                          ),
-                        ),
-                      ),
+                      // shuffle
+                      StatefulBuilder(builder: ((BuildContext context,
+                          void Function(void Function()) setState) {
+                        return !isShuffle
+                            ? Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.transparent,
+                                    borderRadius: BorderRadius.circular(50)),
+                                child: IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      isShuffle = true;
+                                      player.toggleShuffle();
+                                    });
+                                  },
+                                  icon: Icon(
+                                    EvaIcons.shuffle2,
+                                    color: textWhite,
+                                    size: 30,
+                                  ),
+                                ),
+                              )
+                            : Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.transparent,
+                                    borderRadius: BorderRadius.circular(50)),
+                                child: IconButton(
+                                  onPressed: () {
+                                    setState(
+                                      () {
+                                        isShuffle = false;
+                                        player.setLoopMode(LoopMode.playlist);
+                                      },
+                                    );
+                                  },
+                                  icon: Icon(
+                                    Icons.cached,
+                                    color: textWhite,
+                                    size: 30,
+                                  ),
+                                ),
+                              );
+                      })),
                       Column(
                         children: [
                           Container(
@@ -150,9 +168,7 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
                       StatefulBuilder(
                         builder: (BuildContext context,
                             void Function(void Function()) setState) {
-                          return 
-                          FavouriteIcon(songId:myAudio.metas.id!);
-                          
+                          return FavouriteIcon(songId: myAudio.metas.id!);
                         },
                       ),
                     ],
@@ -160,6 +176,7 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
                 ),
               ),
 
+// slider
               player.builderRealtimePlayingInfos(
                   builder: (context, RealtimePlayingInfos infos) {
                 return Padding(
@@ -184,18 +201,47 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(50)),
-                      child: IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.repeat,
-                            color: textWhite,
-                            size: 30,
-                          )),
-                    ),
+                    StatefulBuilder(builder: ((context, setState) {
+                      return !isRepeate
+                          ? Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.transparent,
+                                  borderRadius: BorderRadius.circular(50)),
+                              child: IconButton(
+                                  onPressed: () {
+                                    setState(
+                                      () {
+                                        isRepeate = true;
+                                        player.setLoopMode(LoopMode.single);
+                                      },
+                                    );
+                                  },
+                                  icon: Icon(
+                                    Icons.repeat,
+                                    color: textWhite,
+                                    size: 30,
+                                  )),
+                            )
+                          : Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.transparent,
+                                  borderRadius: BorderRadius.circular(50)),
+                              child: IconButton(
+                                  onPressed: () {
+                                    setState(
+                                      () {
+                                        isRepeate = false;
+                                        player.setLoopMode(LoopMode.playlist);
+                                      },
+                                    );
+                                  },
+                                  icon: Icon(
+                                    Icons.repeat_one,
+                                    color: textWhite,
+                                    size: 30,
+                                  )),
+                            );
+                    })),
                     Container(
                       decoration: BoxDecoration(
                           color: Colors.transparent,
@@ -219,19 +265,20 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   IconButton(
-                      iconSize: 45,
-                      onPressed: () {
-                        player.previous();
-                      },
-                      icon: playing.index == 0
-                          ? const Icon(
-                              Icons.skip_previous_rounded,
-                              color: Colors.black,
-                            )
-                          : Icon(
-                              Icons.skip_previous_rounded,
-                              color: textWhite,
-                            )),
+                    iconSize: 45,
+                    onPressed: playing.index == 0
+                        ? () {}
+                        : () {
+                            player.previous();
+                          },
+                    icon: playing.index == 0
+                        ? SizedBox()
+                        : Icon(
+                            Icons.skip_previous_rounded,
+                            color: textWhite,
+                          ),
+                  ),
+
                   smallwidth,
 
                   // play and pause

@@ -7,6 +7,7 @@ import 'package:music/main.dart';
 import 'package:music/module_1/home.dart';
 import 'package:music/module_1/refactor/open_palyer.dart';
 import 'package:music/module_2/nowplaying_screen.dart';
+import 'package:music/module_3/refactor/add_favourites_song.dart';
 import 'package:music/module_4/refactor/menu_popup_horiz.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
@@ -74,85 +75,116 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-      valueListenable: box.listenable(),
-      builder: (context, value, child) {
-        final favouritesSongs = box.get("favourites");
-        return favouritesSongs!.isEmpty
-            ? Container(
-                height: 30,
-                width: 60,
-                child: const Center(
-                  child: Text(
-                    'no favourites songs',
-                    style: TextStyle(color: Colors.green),
-                  ),
-                ),
-              )
-            : ListView.separated(
-                separatorBuilder: (context, index) => const SizedBox(
-                  height: 10,
-                ),
-                shrinkWrap: true,
-                itemCount: favouritesSongs.length,
-                itemBuilder: ((context, index) {
-                  return Container(
-                    decoration: BoxDecoration(
-                        color: boxColor,
-                        borderRadius: BorderRadius.circular(15)),
-                    child: ListTile(
-                      onTap: () {
-                        for (var item in favouritesSongs) {
-                          favSong.add(Audio.file(item.songurl,
-                              metas: Metas(
-                                  id: item.id.toString(),
-                                  artist: item.artist,
-                                  title: item.songname)));
-                        }
-                        OpenPlayer(fullSongs: favSong, index: index)
-                            .openAssetPlayer(index: index, songs: favSong);
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: ((context) => NowPlaying(
-                                    allSongs: favSong,
-                                    index: index,
-                                    songId: favSong[index].metas.id!))));
-                      },
-                   
-                      leading: QueryArtworkWidget(
-                          id: favouritesSongs[index].id,
-                          type: ArtworkType.AUDIO),
-                      title: Padding(
-                        padding:
-                            const EdgeInsets.only(top: 3, left: 5, bottom: 3),
-                        child: Text(
-                          favouritesSongs[index].songname,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(color: textWhite, fontSize: 18),
-                        ),
-                      ),
-                      subtitle: Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
-                        child: Text(
-                          favouritesSongs[index].artist,
-                          style: TextStyle(color: textGrey),
-                        ),
-                      ),
-                      trailing: Wrap(
-                        children: [
-                          FavouriteIcon(
-                              songId: favouritesSongs[index].id.toString()),
-                          MenuHoriz(
-                              songId: favouritesSongs[index].id.toString())
-                        ],
+    return 
+        ValueListenableBuilder(
+          valueListenable: box.listenable(),
+          builder: (context, value, child) {
+            final favouritesSongs = box.get("favourites");
+            return favouritesSongs!.isEmpty
+                ? Container(
+                    child: const Center(
+                      child: Text(
+                        'no favourites songs',
+                        style: TextStyle(color: Colors.green),
                       ),
                     ),
-                  );
-                }),
-              );
-      },
-    );
+                  )
+                : Stack(
+                  children: [
+                    ListView.separated(
+                        separatorBuilder: (context, index) => const SizedBox(
+                          height: 10,
+                        ),
+                        shrinkWrap: true,
+                        itemCount: favouritesSongs.length,
+                        itemBuilder: ((context, index) {
+                          return 
+                              Container(
+                                decoration: BoxDecoration(
+                                    color: boxColor,
+                                    borderRadius: BorderRadius.circular(15)),
+                                child: ListTile(
+                                  onTap: () {
+                                    for (var item in favouritesSongs) {
+                                      favSong.add(Audio.file(item.songurl,
+                                          metas: Metas(
+                                              id: item.id.toString(),
+                                              artist: item.artist,
+                                              title: item.songname)));
+                                    }
+                                    OpenPlayer(fullSongs: favSong, index: index)
+                                        .openAssetPlayer(index: index, songs: favSong);
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: ((context) => NowPlaying(
+                                                allSongs: favSong,
+                                                index: index,
+                                                songId: favSong[index].metas.id!))));
+                                  },
+                                  leading: QueryArtworkWidget(
+                                      id: favouritesSongs[index].id,
+                                      type: ArtworkType.AUDIO),
+                                  title: Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 3, left: 5, bottom: 3),
+                                    child: Text(
+                                      favouritesSongs[index].songname,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(color: textWhite, fontSize: 18),
+                                    ),
+                                  ),
+                                  subtitle: Padding(
+                                    padding: const EdgeInsets.only(left: 8.0),
+                                    child: Text(
+                                      favouritesSongs[index].artist,
+                                      style: TextStyle(color: textGrey),
+                                    ),
+                                  ),
+                                  trailing: Wrap(
+                                    children: [
+                                      FavouriteIcon(
+                                          songId: favouritesSongs[index].id.toString()),
+                                      MenuHoriz(
+                                          songId: favouritesSongs[index].id.toString())
+                                    ],
+                                  ),
+                                ),
+                              );
+                         
+                        }),
+                      ),       Padding(
+          padding: const EdgeInsets.only(
+            top: 480.0,
+          ),
+          child: Container(
+            alignment: Alignment.bottomRight,
+            child: FloatingActionButton(
+              backgroundColor: darkBlue,
+              onPressed: () {
+                showModalBottomSheet(
+                    shape: const RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.vertical(top: Radius.circular(25))),
+                    backgroundColor: boxColor,
+                    context: context,
+                    builder: (ctx) {
+                      return Container(
+                          height: 350,
+                          child:
+                              AddSongFavourites(favSongsList: favouritesSongs,));
+                    });
+              },
+              child: Icon(Icons.add, color: textWhite),
+            ),
+          ),
+        )
+                  ],
+                );
+          },
+        );
+ 
+     
   }
 }
 

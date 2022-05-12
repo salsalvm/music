@@ -62,6 +62,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     return DefaultTabController(
         length: 3,
         child: Scaffold(
+          // floatingActionButton: ,
           backgroundColor: lightBlue,
           extendBodyBehindAppBar: true,
           appBar: AppBar(
@@ -186,9 +187,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   children: [
                     //  previous
                     IconButton(
-                      onPressed: () {
-                        assetsAudioPlayer.previous();
-                      },
+                      onPressed: playing.index == 0
+                          ? () {assetsAudioPlayer.id; }
+                          : () {
+                           
+                            },
                       icon: playing.index == 0
                           ? const Icon(
                               Icons.skip_previous_rounded,
@@ -220,22 +223,38 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         }),
 
                     // next
-
-                    IconButton(
-                        onPressed: () {
-                          assetsAudioPlayer.next();
-                        },
-                        icon: playing.index == fullSongs.length - 1
-                            ? const Icon(
-                                Icons.skip_next,
-                                color: Colors.black38,
-                                size: 43,
-                              )
-                            : Icon(
-                                Icons.skip_next,
-                                color: textWhite,
-                                size: 43,
-                              )),
+IconButton(
+                      iconSize: 45,
+                      onPressed: playing.index == fullSongs.length-1
+                          ? (){}
+                          : () {
+                              assetsAudioPlayer.next();
+                            },
+                      icon: playing.index == fullSongs.length-1
+                          ? Icon(
+                              Icons.skip_next_rounded,
+                              color: black,size: 43,
+                            )
+                          : Icon(
+                              Icons.skip_next_rounded,
+                              color: textWhite,size: 43,
+                            ),
+                    ),
+                    // IconButton(
+                    //     onPressed: () {
+                    //       assetsAudioPlayer.next();
+                    //     },
+                    //     icon: playing.index == fullSongs.length - 1
+                    //         ? const Icon(
+                    //             Icons.skip_next,
+                    //             color: Colors.black38,
+                    //             size: 43,
+                    //           )
+                    //         : Icon(
+                    //             Icons.skip_next,
+                    //             color: textWhite,
+                    //             size: 43,
+                    //           )),
                   ],
                 ),
               ),
