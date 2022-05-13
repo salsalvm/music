@@ -15,9 +15,7 @@ class PlayListScreen extends StatefulWidget {
 
 class _PlayListScreenState extends State<PlayListScreen> {
   final box = PlaylistBox.getInstance();
-
   List playlists = [];
-  String? playlistName = '';
 
   @override
   Widget build(BuildContext context) {
@@ -49,16 +47,19 @@ class _PlayListScreenState extends State<PlayListScreen> {
         body: SafeArea(
           child: ValueListenableBuilder(
               valueListenable: box.listenable(),
-              builder: (context, boxes, _) {
+              builder: (context, boxes, child) {
                 var playlists = box.keys.toList();
                 return ListView.builder(
                   itemCount: playlists.length,
                   itemBuilder: (context, index) {
                     var playlistSongs = box.get(playlists[index]);
                     return Container(
-                        child: playlists[index] != "music" &&playlists[index] != "favourites"
+                        child: playlists[index] != "music" &&
+                                playlists[index] != "favourites"
                             ? ListTile(
-                                onTap: () {
+                                onTap: () {setState(() {
+                                  
+                                });
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: ((context) => PlayListSongs(
                                           playListName: playlists[index]))));

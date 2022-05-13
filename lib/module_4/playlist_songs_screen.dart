@@ -5,12 +5,12 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:music/main.dart';
 import 'package:music/module_1/refactor/open_palyer.dart';
 import 'package:music/module_2/nowplaying_screen.dart';
-import 'package:music/module_3/favourite_screen.dart';
+import 'package:music/module_3/2-favourite_screen.dart';
 import 'package:music/module_4/refactor/read_add_playlist.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class PlayListSongs extends StatefulWidget {
-  final playListName;
+  final String playListName;
 
   const PlayListSongs({
     Key? key,
@@ -21,12 +21,11 @@ class PlayListSongs extends StatefulWidget {
   State<PlayListSongs> createState() => _PlayListSongsState();
 }
 
-List<SongsModel> playlistSongs = [];
-List<SongsModel> songs = [];
-
 class _PlayListSongsState extends State<PlayListSongs> {
   final box = PlaylistBox.getInstance();
-  List<SongsModel> dbSongs = [];
+
+  List<SongsModel> playlistSongs = [];
+
   List<Audio> playPlaylist = [];
 
   @override
@@ -73,13 +72,16 @@ class _PlayListSongsState extends State<PlayListSongs> {
           child: ValueListenableBuilder(
               valueListenable: box.listenable(),
               builder: (context, value, child) {
-                var playlistSongs = box.get(widget.playListName)!;
+                var playlistSongs = box.get(widget.playListName);
                 // songCount
-                return playlistSongs.isEmpty
-                    ? Container(
-                        height: 30,
-                        width: 60,
-                        child: const Center(child: Text('add Songs')),
+                return playlistSongs!.isEmpty
+                    ? Center(
+                        child: Container(
+                          child: Text(
+                            'add Songs',
+                            style: TextStyle(color: Colors.green),
+                          ),
+                        ),
                       )
                     : ListView.separated(
                         itemBuilder: (context, index) {
@@ -120,9 +122,9 @@ class _PlayListSongsState extends State<PlayListSongs> {
                                           playlistSongs[index].id.toString()),
                                   PopupMenuButton(
                                     child: Padding(
-                                      padding: const EdgeInsets.only(top:11.0,left: 5),
+                                      padding: const EdgeInsets.only(
+                                          top: 11.0, left: 5),
                                       child: Icon(
-                                        
                                         Icons.more_vert,
                                         color: textWhite,
                                       ),

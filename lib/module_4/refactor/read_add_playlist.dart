@@ -123,14 +123,14 @@ class AddSongBox extends StatefulWidget {
 class _AddSongBoxState extends State<AddSongBox> {
   final box = PlaylistBox.getInstance();
   List<SongsModel> dbSong = [];
-  List<SongsModel> playListsongs = [];
+  List<SongsModel> playListsong = [];
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     dbSong = box.get("music") as List<SongsModel>;
-    playListsongs = box.get(widget.playListName)!.cast<SongsModel>();
+    playListsong = box.get(widget.playListName)!.cast<SongsModel>();
   }
 
   @override
@@ -139,6 +139,8 @@ class _AddSongBoxState extends State<AddSongBox> {
     return ValueListenableBuilder(
         valueListenable: box.listenable(),
         builder: ((context, value, child) {
+             
+
           return ListView.builder(
             itemBuilder: ((context, index) {
               return Padding(
@@ -177,16 +179,17 @@ class _AddSongBoxState extends State<AddSongBox> {
                         style: TextStyle(color: textGrey),
                       ),
                     ),
-                    trailing: playListsongs
+                    trailing: playListsong
                             .where((element) =>
                                 element.id.toString() ==
                                 dbSong[index].id.toString())
                             .isEmpty
                         ? IconButton(
-                            onPressed: () {
-                              playListsongs.add(dbSong[index]);
-                              box.put(widget.playListName, playListsongs);
-                              setState(() {});
+                            onPressed: () { setState(() {});
+                              playListsong.add(dbSong[index]);
+                              box.put(widget.playListName, playListsong);
+                              
+                              // setState(() {});
                             },
                             icon: const Icon(
                               Icons.playlist_add,
@@ -194,12 +197,12 @@ class _AddSongBoxState extends State<AddSongBox> {
                               color: Colors.green,
                             ))
                         : IconButton(
-                            onPressed: () {
-                              playListsongs.removeWhere((element) =>
+                            onPressed: () { setState(() {});
+                              playListsong.removeWhere((element) =>
                                   element.id.toString() ==
                                   dbSong[index].id.toString());
-                              box.put(widget.playListName, playListsongs);
-                              setState(() {});
+                              box.put(widget.playListName, playListsong);
+                             
                             },
                             icon: const Icon(Icons.playlist_add_check,
                                 size: 35, color: Colors.red))),

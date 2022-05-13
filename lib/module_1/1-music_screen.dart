@@ -5,7 +5,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:music/main.dart';
 import 'package:music/module_1/home.dart';
 import 'package:music/module_1/refactor/open_palyer.dart';
-import 'package:music/module_3/favourite_screen.dart';
+import 'package:music/module_3/2-favourite_screen.dart';
 import 'package:music/module_4/refactor/menu_popup_horiz.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 

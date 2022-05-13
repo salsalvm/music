@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:music/main.dart';
 import 'package:music/module_3/refactor/setting_widget.dart';
-
 import 'package:music/module_3/refactor/switch.dart';
+import 'package:share_plus/share_plus.dart';
 
 class SettingsScreen extends StatefulWidget {
   SettingsScreen({Key? key}) : super(key: key);
@@ -65,15 +65,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
               Icons.arrow_right,
               color: textWhite,
             ),
-          ),Settings(leadIcon: Icons.share, text: 'Share', onTap: (){
-            // Share.share;
-          }, trialing: Icon(Icons.arrow_right,color: textWhite,)),
+          ),
+          Settings(
+              leadIcon: Icons.share,
+              text: 'Share',
+              onTap: () {
+                Share.share('check out my website https://example.com');
+              },
+              trialing: Icon(
+                Icons.arrow_right,
+                color: textWhite,
+              )),
           Settings(
             leadIcon: Icons.headphones,
             text: 'Help and Support',
-            onTap: () {
-            
-            },
+            onTap: () {},
             trialing: Icon(
               Icons.arrow_right,
               color: textWhite,
@@ -86,9 +92,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
               // showLicensePage(context: context,applicationName: 'beat',applicationVersion: '1.0.1.0.1',applicationIcon: Icon(Icons.music_note,),);
               showAboutDialog(
                   context: context,
-                  applicationIcon:const Icon(
+                  applicationIcon: const Icon(
                     Icons.music_note,
-                    
                   ),
                   applicationName: 'beatzz',
                   applicationVersion: '1.0.1.0.1');
@@ -102,4 +107,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
       )),
     );
   }
+}
+
+enum PermissionStatus {
+  provisional, // iOS Only
+  granted,
+  unknown,
+  denied
 }

@@ -4,10 +4,10 @@ import 'package:marquee/marquee.dart';
 import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/main.dart';
 import 'package:flutter/material.dart';
-import 'package:music/module_1/music_screen.dart';
-import 'package:music/module_1/recent_screen.dart';
+import 'package:music/module_1/1-music_screen.dart';
+import 'package:music/module_1/3-recent_screen.dart';
 import 'package:music/module_2/nowplaying_screen.dart';
-import 'package:music/module_3/favourite_screen.dart';
+import 'package:music/module_3/2-favourite_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:music/module_1/refactor/home_widget.dart';
 import 'package:music/module_3/search_items.dart';
@@ -112,7 +112,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           ),
           body: Stack(
             children: [
-              TabBarView(
+ TabBarView(
                 children: [
                   //  musiclist
                   SingleChildScrollView(
@@ -127,13 +127,16 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   const SingleChildScrollView(
                       child: SafeArea(
                           child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 13),
+                    padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 13),
                     child: FavouriteScreen(),
                   ))),
 
                   //  recent
                   const SingleChildScrollView(
-                      child: SafeArea(child: RecentScreen())),
+                      child: SafeArea(child: Padding(
+                        padding: EdgeInsets.symmetric(vertical: 13,horizontal: 15.0),
+                        child: RecentSongs(),
+                      ))),
                 ],
               ),
 
