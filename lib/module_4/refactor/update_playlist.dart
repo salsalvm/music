@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/main.dart';
 
@@ -37,17 +38,17 @@ class UpdatePlaylist extends StatelessWidget {
             return null;
           },
           decoration: InputDecoration(
-              focusedBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.green, width: 5),
+              focusedBorder:  OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.green, width: 5.w),
               ),
               enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: textWhite, width: 5)),
+                  borderSide: BorderSide(color: textWhite, width: 5.w)),
               fillColor: textWhite),
         ),
       ),
       actions: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
+          padding:  EdgeInsets.symmetric(horizontal: 15.w),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -57,7 +58,7 @@ class UpdatePlaylist extends StatelessWidget {
                   },
                   child: Text(
                     'Cancel',
-                    style: TextStyle(color: textWhite, fontSize: 18),
+                    style: TextStyle(color: textWhite, fontSize: 18.w.h),
                   )),
               TextButton(
                   onPressed: () {
@@ -70,12 +71,12 @@ class UpdatePlaylist extends StatelessWidget {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         behavior: SnackBarBehavior.floating,
                         backgroundColor: boxColor,
-                        margin: EdgeInsets.all(10),
+                        margin: EdgeInsets.all(10.w.h),
                         content: Text('Playlist Renamed')));
                   },
                   child: Text(
                     'Update',
-                    style: TextStyle(color: textWhite, fontSize: 18),
+                    style: TextStyle(color: textWhite, fontSize: 18.w.h),
                   ))
             ],
           ),

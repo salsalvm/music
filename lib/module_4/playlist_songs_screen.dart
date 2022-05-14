@@ -1,5 +1,6 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:music/dbFunction/songmodel.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:music/main.dart';
@@ -44,18 +45,18 @@ class _PlayListSongsState extends State<PlayListSongs> {
         ),
         actions: [
           Padding(
-            padding: const EdgeInsets.only(right: 10.0, top: 8),
+            padding:  EdgeInsets.only(right: 10.0.w, top: 8.h),
             child: IconButton(
                 onPressed: () {
                   showModalBottomSheet(
-                      shape: const RoundedRectangleBorder(
+                      shape:  RoundedRectangleBorder(
                           borderRadius:
-                              BorderRadius.vertical(top: Radius.circular(25))),
+                              BorderRadius.vertical(top: Radius.circular(25.w.h))),
                       backgroundColor: boxColor,
                       context: context,
                       builder: (ctx) {
                         return Container(
-                          height: 350,
+                          height: 350.h,
                           child: AddSongBox(
                             playListName: widget.playListName,
                           ),
@@ -68,7 +69,7 @@ class _PlayListSongsState extends State<PlayListSongs> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
+          padding:  EdgeInsets.symmetric(horizontal: 15.0.w, vertical: 10.h),
           child: ValueListenableBuilder(
               valueListenable: box.listenable(),
               builder: (context, value, child) {
@@ -77,7 +78,7 @@ class _PlayListSongsState extends State<PlayListSongs> {
                 return playlistSongs!.isEmpty
                     ? Center(
                         child: Container(
-                          child: Text(
+                          child:const Text(
                             'add Songs',
                             style: TextStyle(color: Colors.green),
                           ),
@@ -86,29 +87,27 @@ class _PlayListSongsState extends State<PlayListSongs> {
                     : ListView.separated(
                         itemBuilder: (context, index) {
                           return Container(
-                            margin: const EdgeInsets.all(0.0),
-                            padding: const EdgeInsets.all(0.0),
                             decoration: BoxDecoration(
                                 color: boxColor,
-                                borderRadius: BorderRadius.circular(15)),
+                                borderRadius: BorderRadius.circular(15.w.h)),
                             child: ListTile(
                               leading: QueryArtworkWidget(
-                                  artworkHeight: 60,
-                                  artworkWidth: 60,
+                                  artworkHeight: 60.h,
+                                  artworkWidth: 60.w,
                                   id: playlistSongs[index].id,
                                   type: ArtworkType.AUDIO),
                               title: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 5.0, bottom: 3, top: 3),
+                                padding:  EdgeInsets.only(
+                                    left: 5.0.w, bottom: 3.h, top: 3.h),
                                 child: Text(
                                   playlistSongs[index].songname,
                                   overflow: TextOverflow.ellipsis,
                                   style:
-                                      TextStyle(color: textWhite, fontSize: 18),
+                                      TextStyle(color: textWhite, fontSize: 18.w.h),
                                 ),
                               ),
                               subtitle: Padding(
-                                padding: const EdgeInsets.only(left: 7.0),
+                                padding:  EdgeInsets.only(left: 7.0.w),
                                 child: Text(
                                   playlistSongs[index].artist.toLowerCase(),
                                   overflow: TextOverflow.ellipsis,
@@ -122,8 +121,8 @@ class _PlayListSongsState extends State<PlayListSongs> {
                                           playlistSongs[index].id.toString()),
                                   PopupMenuButton(
                                     child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 11.0, left: 5),
+                                      padding:  EdgeInsets.only(
+                                          top: 11.0.h, left: 5.w),
                                       child: Icon(
                                         Icons.more_vert,
                                         color: textWhite,
@@ -138,7 +137,7 @@ class _PlayListSongsState extends State<PlayListSongs> {
                                                   behavior:
                                                       SnackBarBehavior.floating,
                                                   backgroundColor: boxColor,
-                                                  margin: EdgeInsets.all(10),
+                                                  margin: EdgeInsets.all(10.w.h),
                                                   content: Text(
                                                       '${playlistSongs[index].songname} Song Removed ')));
                                         },
@@ -188,8 +187,8 @@ class _PlayListSongsState extends State<PlayListSongs> {
                           );
                         },
                         separatorBuilder: (context, index) {
-                          return const SizedBox(
-                            height: 10,
+                          return  SizedBox(
+                            height: 10.h,
                           );
                         },
                         itemCount: playlistSongs.length);

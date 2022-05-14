@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:music/main.dart';
 import 'package:music/module_3/refactor/setting_widget.dart';
 import 'package:music/module_3/refactor/switch.dart';
@@ -31,7 +32,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ),
       body: SafeArea(
           child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 13),
+        padding:  EdgeInsets.symmetric(horizontal: 15.w, vertical: 13.h),
         child: ListView(children: [
           Settings(
             leadIcon: Icons.notification_add,

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:music/main.dart';
 
@@ -36,13 +37,13 @@ class _StackItemsState extends State<StackItems> {
                       title: Center(child: Text('Do you want to Exit',style: TextStyle(color: Colors.red[200]),)),
                       actions: [
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          padding:  EdgeInsets.symmetric(horizontal: 10.w.h),
                           child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              TextButton(onPressed: () {Navigator.pop(context);}, child: Text('No',style: TextStyle(color: textWhite,fontSize: 18),)),
+                              TextButton(onPressed: () {Navigator.pop(context);}, child: Text('No',style: TextStyle(color: textWhite,fontSize: 18.w.h),)),
                             
                      
-                          TextButton(onPressed: () {exit(0);}, child: Text('Yes',style: TextStyle(color: textWhite,fontSize: 18),))
+                          TextButton(onPressed: () {exit(0);}, child: Text('Yes',style: TextStyle(color: textWhite,fontSize: 18.w.h),))
       ],),
                         )],
                     );
@@ -50,7 +51,7 @@ class _StackItemsState extends State<StackItems> {
             },
             icon: Icon(
               Icons.exit_to_app_outlined,
-              size: 35,
+              size: 35.w.h,
             ),
             color: textWhite,
           ),
@@ -125,7 +126,7 @@ Widget MyTile(
         ),
       ),
       Container(
-        height: 5,
+        height: 5.h,
         width: MediaQuery.of(context).size.width,
       ),
     ],

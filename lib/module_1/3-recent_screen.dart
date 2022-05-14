@@ -1,9 +1,10 @@
-
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/main.dart';
+import 'package:music/module_1/home.dart';
 import 'package:music/module_1/refactor/open_palyer.dart';
 import 'package:music/module_2/nowplaying_screen.dart';
 import 'package:music/module_3/2-favourite_screen.dart';
@@ -17,8 +18,15 @@ class RecentSongs extends StatefulWidget {
   State<RecentSongs> createState() => _RecentSongsState();
 }
 
-List<Audio>recent=[];
+List<Audio> recent = [];
+
 class _RecentSongsState extends State<RecentSongs> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final box = PlaylistBox.getInstance();
@@ -37,11 +45,13 @@ class _RecentSongsState extends State<RecentSongs> {
                 ),
               )
             : ListView.separated(
-                separatorBuilder: (context, index) => const SizedBox(
-                  height: 10,
+                reverse: true,
+                separatorBuilder: (context, index) =>  SizedBox(
+                  height: 10.h,
                 ),
                 shrinkWrap: true,
-                itemCount: recentPlayedSong.length,
+                itemCount:
+                    recentPlayedSong.length < 5 ? recentPlayedSong.length : 5,
                 itemBuilder: ((context, index) {
                   return Container(
                     decoration: BoxDecoration(
@@ -71,15 +81,15 @@ class _RecentSongsState extends State<RecentSongs> {
                           type: ArtworkType.AUDIO),
                       title: Padding(
                         padding:
-                            const EdgeInsets.only(top: 3, left: 5, bottom: 3),
+                             EdgeInsets.only(top: 3.h, left: 5.w, bottom: 3.h),
                         child: Text(
                           recentPlayedSong[index].songname,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(color: textWhite, fontSize: 18),
+                          style: TextStyle(color: textWhite, fontSize: 18.w.h),
                         ),
                       ),
                       subtitle: Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
+                        padding:  EdgeInsets.only(left: 8.0.w),
                         child: Text(
                           recentPlayedSong[index].artist,
                           style: TextStyle(color: textGrey),
@@ -100,4 +110,6 @@ class _RecentSongsState extends State<RecentSongs> {
       },
     );
   }
+
+  void cast() {}
 }

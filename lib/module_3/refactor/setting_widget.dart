@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:music/main.dart';
 
 class Settings extends StatelessWidget {
@@ -17,7 +18,7 @@ class Settings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 10.0),
+      padding:  EdgeInsets.only(bottom: 10.0.h),
       child: Container(
         decoration: BoxDecoration(
             color: boxColor, borderRadius: BorderRadius.circular(15)),

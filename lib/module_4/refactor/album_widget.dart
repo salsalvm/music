@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:music/main.dart';
 
 // final List<Map> myProducts =
@@ -17,37 +18,37 @@ class AlbumItems extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         decoration: BoxDecoration(
-            color: boxColor, borderRadius: BorderRadius.circular(10)),
+            color: boxColor, borderRadius: BorderRadius.circular(10.w.h)),
         alignment: Alignment.center,
         child:
             //  Text(myProducts[index]["name"]),
             Column(
           children: [
             Container(
-              width: 180,
-              height: 90,
+              width: 180.w,
+              height: 90.h,
               decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                  BoxDecoration(borderRadius: BorderRadius.circular(10.w.h)),
               child: ClipRRect(
                 child: Image(
                   image: AssetImage(assetImage),
                   fit: BoxFit.fill,
                 ),
                 borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10)),
+                    topLeft: Radius.circular(10.w.h),
+                    topRight: Radius.circular(10.w.h)),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 10),
+              padding:  EdgeInsets.symmetric(vertical: 5.h,horizontal: 10.w),
               child: Row(mainAxisAlignment:MainAxisAlignment.spaceBetween ,
                 children: [
                   Text(
                     albumName,
-                    style: TextStyle(fontSize: 18, color: textWhite),
+                    style: TextStyle(fontSize: 18.w.h, color: textWhite),
                   ),
                   Text(songCount,
-                      style: TextStyle(fontSize: 15, color: textGrey)),
+                      style: TextStyle(fontSize: 15.w.h, color: textGrey)),
                 ],
               ),
             ),

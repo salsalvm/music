@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/main.dart';
@@ -73,25 +74,25 @@ class PlayListItem extends StatelessWidget {
                           }
                         },
                         leading: Padding(
-                          padding: const EdgeInsets.only(left: 6.0, top: 5),
+                          padding:  EdgeInsets.only(left: 6.0.w, top: 5.h),
                           child: Icon(
                             Icons.queue_music_rounded,
                             color: textWhite,
-                            size: 30,
+                            size: 30.w.h,
                           ),
                         ),
 
                         // playlist name
                         title: Padding(
-                          padding: const EdgeInsets.only(
-                              left: 3.0, bottom: 3, top: 5),
+                          padding:  EdgeInsets.only(
+                              left: 3.0.w, bottom: 3.h, top: 5.h),
                           child: Text(
                             playlistName.toString(),
-                            style: TextStyle(color: textWhite, fontSize: 18),
+                            style: TextStyle(color: textWhite, fontSize: 18.w.h),
                           ),
                         ),
                         subtitle: Padding(
-                          padding: const EdgeInsets.only(left: 3.0),
+                          padding:  EdgeInsets.only(left: 3.0.w),
                           child: Text(
                             countSong,
                             style: TextStyle(
@@ -145,7 +146,7 @@ class _AddSongBoxState extends State<AddSongBox> {
             itemBuilder: ((context, index) {
               return Padding(
                 padding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                     EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
                 child: ListTile(
                     tileColor: boxColor,
                     // onTap: (() async {
@@ -159,20 +160,20 @@ class _AddSongBoxState extends State<AddSongBox> {
                     leading: QueryArtworkWidget(
                       id: dbSong[index].id!,
                       type: ArtworkType.AUDIO,
-                      artworkHeight: 55,
-                      artworkWidth: 55,
+                      artworkHeight: 55.h,
+                      artworkWidth: 55.w,
                     ),
                     title: Padding(
                       padding:
-                          const EdgeInsets.only(left: 5.0, bottom: 3, top: 3),
+                           EdgeInsets.only(left: 5.0.w, bottom: 3.h, top: 3.h),
                       child: Text(
                         dbSong[index].songname!,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(color: textWhite, fontSize: 18),
+                        style: TextStyle(color: textWhite, fontSize: 18.w.h),
                       ),
                     ),
                     subtitle: Padding(
-                      padding: const EdgeInsets.only(left: 7.0),
+                      padding:  EdgeInsets.only(left: 7.0.w),
                       child: Text(
                         dbSong[index].artist!.toLowerCase(),
                         overflow: TextOverflow.ellipsis,
@@ -191,9 +192,9 @@ class _AddSongBoxState extends State<AddSongBox> {
                               
                               // setState(() {});
                             },
-                            icon: const Icon(
+                            icon:  Icon(
                               Icons.playlist_add,
-                              size: 35,
+                              size: 35.w.h,
                               color: Colors.green,
                             ))
                         : IconButton(
@@ -204,8 +205,8 @@ class _AddSongBoxState extends State<AddSongBox> {
                               box.put(widget.playListName, playListsong);
                              
                             },
-                            icon: const Icon(Icons.playlist_add_check,
-                                size: 35, color: Colors.red))),
+                            icon:  Icon(Icons.playlist_add_check,
+                                size: 35.w.h, color: Colors.red))),
               );
             }),
             itemCount: dbSong.length,

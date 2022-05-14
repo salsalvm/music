@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/main.dart';
@@ -90,8 +91,8 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                     ),
                   )
                 : ListView.separated(
-                    separatorBuilder: (context, index) => const SizedBox(
-                      height: 10,
+                    separatorBuilder: (context, index) =>  SizedBox(
+                      height: 10.h,
                     ),
                     shrinkWrap: true,
                     itemCount: favouritesSongs.length,
@@ -99,7 +100,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                       return Container(
                         decoration: BoxDecoration(
                             color: boxColor,
-                            borderRadius: BorderRadius.circular(15)),
+                            borderRadius: BorderRadius.circular(15.h.w)),
                         child: ListTile(
                           onTap: () {
                             for (var item in favouritesSongs) {
@@ -123,16 +124,16 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                               id: favouritesSongs[index].id,
                               type: ArtworkType.AUDIO),
                           title: Padding(
-                            padding: const EdgeInsets.only(
-                                top: 3, left: 5, bottom: 3),
+                            padding:  EdgeInsets.only(
+                                top: 3.h, left: 5.w, bottom: 3.h),
                             child: Text(
                               favouritesSongs[index].songname,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(color: textWhite, fontSize: 18),
+                              style: TextStyle(color: textWhite, fontSize: 18.w.h),
                             ),
                           ),
                           subtitle: Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
+                            padding:  EdgeInsets.only(left: 8.0.w),
                             child: Text(
                               favouritesSongs[index].artist,
                               style: TextStyle(color: textGrey),
@@ -151,8 +152,8 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                     }),
                   ),
             Padding(
-              padding: const EdgeInsets.only(
-                top: 480.0,
+              padding:  EdgeInsets.only(
+                top: 480.0.h,
               ),
               child: Container(
                 alignment: Alignment.bottomRight,
@@ -160,14 +161,15 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                   backgroundColor: darkBlue,
                   onPressed: () {
                     showModalBottomSheet(
-                        shape: const RoundedRectangleBorder(
+                        shape:  RoundedRectangleBorder(
                             borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(25))),
+                                top: Radius.circular(25.w.h))),
                         backgroundColor: boxColor,
                         context: context,
                         builder: (ctx) {
                           return Container(
-                              height: 350, child: AddSongFavourites());
+                              height: 350.h,
+                               child: AddSongFavourites());
                         });
                   },
                   child: Icon(Icons.add, color: textWhite),

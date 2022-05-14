@@ -1,5 +1,6 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/main.dart';
 import 'package:music/module_4/refactor/read_add_playlist.dart';
@@ -78,17 +79,17 @@ PlayListShowBottomSheet(BuildContext context, playlistName) {
         return Container(
           decoration: BoxDecoration(
             color: boxColor,
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(25.0),
-              topRight: Radius.circular(25),
+            borderRadius:  BorderRadius.only(
+              topLeft: Radius.circular(25.0.w.h),
+              topRight: Radius.circular(25.w.h),
               bottomLeft: Radius.zero,
               bottomRight: Radius.zero,
             ),
           ),
-          height: 300,
+          height: 300.h,
           width: double.infinity,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            padding:  EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
             child: Stack(
               children: [
                 ListView(

@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:marquee/marquee.dart';
 import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/main.dart';
@@ -117,24 +118,24 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   //  musiclist
                   SingleChildScrollView(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 15.0, vertical: 13),
+                      padding:  EdgeInsets.symmetric(
+                          horizontal: 15.0.w, vertical: 13.h),
                       child: MusicList(),
                     ),
                   ),
 
                   //  favourites
-                  const SingleChildScrollView(
+                   SingleChildScrollView(
                       child: SafeArea(
                           child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 13),
+                    padding: EdgeInsets.symmetric(horizontal: 15.0.w, vertical: 13.h),
                     child: FavouriteScreen(),
                   ))),
 
                   //  recent
-                  const SingleChildScrollView(
+                   SingleChildScrollView(
                       child: SafeArea(child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 13,horizontal: 15.0),
+                        padding: EdgeInsets.symmetric(vertical: 13.h,horizontal: 15.0.w),
                         child: RecentSongs(),
                       ))),
                 ],
@@ -164,20 +165,20 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 },
                 tileColor: boxColor,
                 leading: QueryArtworkWidget(
-                  artworkHeight: 60,
-                  artworkWidth: 60,
+                  artworkHeight: 60.h,
+                  artworkWidth: 60.w,
                   id: int.parse(myAudio.metas.id!),
                   type: ArtworkType.AUDIO,
                   artworkBorder: BorderRadius.circular(8),
                 ),
                 title: SizedBox(
-                    height: 18,
+                    height: 18.h,
                     child: Marquee(
                       text: myAudio.metas.title!,
                       style: TextStyle(color: textWhite),
                       velocity: 20,
                       startAfter: Duration.zero,
-                      blankSpace: 100,
+                      blankSpace: 100.w.h,
                     )),
                 subtitle: Text(
                   myAudio.metas.artist!.toLowerCase(),
@@ -195,15 +196,15 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             }
                           : () {},
                       icon: playing.index == 0
-                          ? const Icon(
+                          ?  Icon(
                               Icons.skip_previous_rounded,
                               color: Colors.black45,
-                              size: 43,
+                              size: 43.w.h,
                             )
                           : Icon(
                               Icons.skip_previous_rounded,
                               color: textWhite,
-                              size: 43,
+                              size: 43.w.h,
                             ),
                     ),
                     // play pause
@@ -215,7 +216,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                               isPlaying
                                   ? Icons.pause_circle
                                   : Icons.play_circle,
-                              size: 43,
+                              size: 43.w.h,
                             ),
                             onPressed: () {
                               assetsAudioPlayer.playOrPause();
@@ -226,7 +227,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
                     // next
                     IconButton(
-                      iconSize: 45,
+                      iconSize: 45.w.h,
                       onPressed: playing.index == fullSongs.length - 1
                           ? () {}
                           : () {
@@ -236,12 +237,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           ? Icon(
                               Icons.skip_next_rounded,
                               color: black,
-                              size: 43,
+                              size: 43.w.h,
                             )
                           : Icon(
                               Icons.skip_next_rounded,
                               color: textWhite,
-                              size: 43,
+                              size: 43.w.h,
                             ),
                     ),
                     // IconButton(
@@ -284,6 +285,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
     mappedSongs = allSongs
         .map((audio) => SongsModel(
+          
             id: audio.id,
             artist: audio.artist,
             duration: audio.duration,

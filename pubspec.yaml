@@ -46,6 +46,7 @@ dependencies:
   audioplayer: ^0.8.1
   audio_video_progress_bar: ^0.10.0
   share_plus: ^4.0.4
+  flutter_screenutil: ^5.5.2
 
 
 dev_dependencies:

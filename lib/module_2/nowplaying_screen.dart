@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:assets_audio_player/assets_audio_player.dart';
 
 import 'package:audioplayers/audioplayers.dart';
 
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:marquee/marquee.dart';
 import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/main.dart';
@@ -62,9 +65,9 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
         ),
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(
+          icon:  Icon(
             Icons.arrow_drop_down_outlined,
-            size: 35,
+            size: 35.w.h,
           ),
           onPressed: () {
             Navigator.pop(context);
@@ -78,17 +81,17 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 75),
+                padding:  EdgeInsets.symmetric(vertical: 75.h),
                 child: Container(
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.teal.shade200),
                     borderRadius: BorderRadius.circular(25),
                   ),
-                  height: 280,
-                  width: 350,
+                  height: 280.h,
+                  width: 350.w,
                   child: QueryArtworkWidget(
-                      artworkHeight: 280,
-                      artworkWidth: 350,
+                      artworkHeight: 280.h,
+                      artworkWidth: 350.w,
                       artworkBorder: BorderRadius.circular(25),
                       id: int.parse(myAudio.metas.id!),
                       type: ArtworkType.AUDIO),
@@ -96,7 +99,7 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
               ),
 
               Padding(
-                padding: const EdgeInsets.only(top: 5.0),
+                padding:  EdgeInsets.only(top: 5.0.h),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Row(
@@ -120,7 +123,7 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
                                   icon: Icon(
                                     EvaIcons.shuffle2,
                                     color: textWhite,
-                                    size: 30,
+                                    size: 30.w.h,
                                   ),
                                 ),
                               )
@@ -140,7 +143,7 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
                                   icon: Icon(
                                     Icons.cached,
                                     color: textWhite,
-                                    size: 30,
+                                    size: 30.w.h,
                                   ),
                                 ),
                               );
@@ -148,20 +151,20 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
                       Column(
                         children: [
                           Container(
-                            height: 30,
-                            width: 180,
+                            height: 30.h,
+                            width: 180.w,
                             child: Marquee(
-                              blankSpace: 50,
+                              blankSpace: 50.w.h,
                               startAfter: Duration.zero,
                               velocity: 60,
                               text: myAudio.metas.title!,
-                              style: TextStyle(fontSize: 22, color: textWhite),
+                              style: TextStyle(fontSize: 22.w.h, color: textWhite),
                             ),
                           ),
                           Text(
                             myAudio.metas.artist!.toLowerCase(),
                             overflow: TextOverflow.ellipsis,
-                            style: TextStyle(color: textGrey, fontSize: 14),
+                            style: TextStyle(color: textGrey, fontSize: 14.w.h),
                           )
                         ],
                       ),
@@ -185,10 +188,10 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
                       onSeek: (slide) {
                         player.seek(slide);
                       },
-                      timeLabelPadding: 15,
+                      timeLabelPadding: 15.w.h,
                       progressBarColor: textWhite,
                       baseBarColor: textGrey,
-                      barHeight: 7,
+                      barHeight: 7.h,
                       thumbColor: textWhite,
                       timeLabelTextStyle: TextStyle(color: textWhite),
                       progress: infos.currentPosition,
@@ -197,7 +200,7 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
               }),
 
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25),
+                padding:  EdgeInsets.symmetric(horizontal: 25.w),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -219,7 +222,7 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
                                   icon: Icon(
                                     Icons.repeat,
                                     color: textWhite,
-                                    size: 30,
+                                    size: 30.w.h,
                                   )),
                             )
                           : Container(
@@ -238,7 +241,7 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
                                   icon: Icon(
                                     Icons.repeat_one,
                                     color: textWhite,
-                                    size: 30,
+                                    size: 30.w.h,
                                   )),
                             );
                     })),
@@ -252,7 +255,7 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
                           },
                           icon: Icon(
                             Icons.add,
-                            size: 30,
+                            size: 30.w.h,
                             color: textWhite,
                           )),
                     )
@@ -265,7 +268,7 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   IconButton(
-                    iconSize: 45,
+                    iconSize: 45.w.h,
                     onPressed: playing.index == 0
                         ? () {}
                         : () {
@@ -287,7 +290,7 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
                       builder: (context, isPlaying) {
                         return IconButton(
                           color: textWhite,
-                          iconSize: 55,
+                          iconSize: 55.w.h,
                           icon:
                               Icon(isPlaying ? Icons.pause : Icons.play_arrow),
                           onPressed: () {
@@ -299,8 +302,9 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
 
                   //  next
                   IconButton(
-                    iconSize: 45,
+                    iconSize: 45.w.h,
                     onPressed: () {
+                     
                       player.next();
                     },
                     icon: Icon(

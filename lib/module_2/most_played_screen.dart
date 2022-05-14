@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:music/main.dart';
 import 'package:music/module_2/refactor/mostplaying_widget.dart';
@@ -26,7 +27,7 @@ class MostPlayedSong extends StatelessWidget {
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 13),
+            padding:  EdgeInsets.symmetric(horizontal: 15.0.w, vertical: 13.h),
             child: ListView.separated(
                 physics: BouncingScrollPhysics(),
                 shrinkWrap: true,
@@ -39,8 +40,8 @@ class MostPlayedSong extends StatelessWidget {
                   );
                 }),
                 separatorBuilder: (context, index) {
-                  return const SizedBox(
-                    height: 10,
+                  return  SizedBox(
+                    height: 10.h,
                   );
                 },
                 itemCount: mostPlayedSong.length),

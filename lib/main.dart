@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/module_1/splash_Screen.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-Future <void> main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   Hive.registerAdapter(SongsModelAdapter());
@@ -15,13 +16,12 @@ Future <void> main() async {
     List<dynamic> favouritesSongs = [];
     await box.put("favourites", favouritesSongs);
   }
-  List<dynamic> recentKey=box.keys.toList();
-List<dynamic>recentPlayed=[];
-if (!(recentKey.contains("recentPlayed")) ){
-  List<dynamic>recentPlayed=[];
-  await box.put("recentPlayed", recentPlayed);
-  
-}
+  List<dynamic> recentKey = box.keys.toList();
+  List<dynamic> recentPlayed = [];
+  if (!(recentKey.contains("recentPlayed"))) {
+    List<dynamic> recentPlayed = [];
+    await box.put("recentPlayed", recentPlayed);
+  }
   runApp(const MyApp());
 }
 
@@ -30,11 +30,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      color: lightBlue,
-      home: const SplashScreen(),
-    );
+    return ScreenUtilInit(splitScreenMode: true,minTextAdapt: true,useInheritedMediaQuery: true,
+        designSize: const Size(392.7, 781.1),
+        builder: (child) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            color: lightBlue,
+            home: const SplashScreen(),
+          );
+        });
   }
 }
 

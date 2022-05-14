@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 
 import 'package:music/main.dart';
@@ -22,22 +23,22 @@ class _SwitchFunctionState extends State<SwitchFunction> {
           FlutterSwitch(
             activeColor: darkBlue,
             inactiveColor: textGrey,
-            width: 110.0,
-            height: 40.0,
-            valueFontSize: 20.0,
-            toggleSize: 20.0,
+            width: 110.0.w,
+            height: 40.0.h,
+            valueFontSize: 20.0.w.h,
+            toggleSize: 20.0.w.h,
             value: status,
-            borderRadius: 30.0,
-            padding: 10.0,
+            borderRadius: 30.0.w.h,
+            padding: 10.0.w.h,
             showOnOff: true,
             onToggle: (val) {
               setState(() {
                 status = val;
               });
             },
-          ),SizedBox(height: 25,),
+          ),SizedBox(height: 25.h,),
 
-              ElevatedButton.icon(style: ElevatedButton.styleFrom(primary: boxColor,), onPressed: (){Navigator.pop(context);}, icon: Icon(Icons.arrow_back), label: Text('Back',style: TextStyle(fontSize: 18),))
+              ElevatedButton.icon(style: ElevatedButton.styleFrom(primary: boxColor,), onPressed: (){Navigator.pop(context);}, icon: Icon(Icons.arrow_back), label: Text('Back',style: TextStyle(fontSize: 18.w.h),))
         ],
       ),
     );

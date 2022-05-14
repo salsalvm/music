@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:music/module_1/home.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -76,7 +77,7 @@ class _SplashScreenState extends State<SplashScreen> {
 // delayed
 
   Future goTo() async {
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 2));
     Navigator.of(context)
         .pushReplacement(MaterialPageRoute(builder: (ctx) => HomeScreen()));
   }
@@ -89,16 +90,16 @@ Widget splash({required String content}) {
     SizedBox(
       height: 350,
     ),
-    const Icon(
+     Icon(
       Icons.music_video,
-      size: 50,
+      size: 50.w.h,
       color: Colors.white,
     ),
-    SizedBox(height: 30),
+    SizedBox(height: 30.h),
     Text(
       content,
-      style: const TextStyle(
-          color: Colors.white, fontSize: 30, fontFamily: 'mono'),
+      style:  TextStyle(
+          color: Colors.white, fontSize: 30.w.h, fontFamily: 'mono'),
     )
   ]);
 }

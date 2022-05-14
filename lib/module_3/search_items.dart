@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:music/main.dart';
 import 'package:music/module_1/home.dart';
 import 'package:music/module_1/refactor/open_palyer.dart';
@@ -6,6 +7,7 @@ import 'package:music/module_2/nowplaying_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class MySearch extends SearchDelegate {
+  
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
@@ -88,17 +90,15 @@ class MySearch extends SearchDelegate {
               style: TextStyle(color: Colors.green),
             ))
           : Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+              padding:  EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
               child: ListView.separated(
                   physics: const BouncingScrollPhysics(),
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     return Container(
-                      margin: const EdgeInsets.all(0.0),
-                      padding: const EdgeInsets.all(0.0),
                       decoration: BoxDecoration(
                           color: boxColor,
-                          borderRadius: BorderRadius.circular(15)),
+                          borderRadius: BorderRadius.circular(15.w.h)),
                       child: ListTile(
                         onTap: (() async {
                           await OpenPlayer(fullSongs: [], index: index)
@@ -114,13 +114,13 @@ class MySearch extends SearchDelegate {
                                           .toString()))));
                         }),
                         leading: QueryArtworkWidget(
-                            artworkHeight: 60,
-                            artworkWidth: 60,
+                            artworkHeight: 60.h,
+                            artworkWidth: 60.w,
                             id: int.parse(searchSongItems[index].metas.id!),
                             type: ArtworkType.AUDIO),
                         title: Padding(
-                          padding: const EdgeInsets.only(
-                              left: 5.0, bottom: 3, top: 3),
+                          padding:  EdgeInsets.only(
+                              left: 5.0.w, bottom: 3.h, top: 3.h),
                           child: Text(
                             searchSongItems[index].metas.title!,
                             overflow: TextOverflow.ellipsis,
@@ -128,7 +128,7 @@ class MySearch extends SearchDelegate {
                           ),
                         ),
                         subtitle: Padding(
-                          padding: const EdgeInsets.only(left: 7.0),
+                          padding:  EdgeInsets.only(left: 7.0.w),
                           child: Text(
                             searchSongItems[index].metas.artist!,
                             overflow: TextOverflow.ellipsis,
@@ -139,7 +139,7 @@ class MySearch extends SearchDelegate {
                             onPressed: () {},
                             icon: Icon(
                               Icons.play_arrow,
-                              size: 25,
+                              size: 25.w.h,
                               color: textWhite,
                             )),
                       ),
@@ -147,8 +147,8 @@ class MySearch extends SearchDelegate {
                     // return ListTile(
                   },
                   separatorBuilder: (context, index) {
-                    return const SizedBox(
-                      height: 10,
+                    return  SizedBox(
+                      height: 10.h,
                     );
                   },
                   itemCount: searchSongItems.length),

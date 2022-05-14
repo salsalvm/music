@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:music/main.dart';
 
-Widget BlankSpace = const SizedBox(
-  height: 75,
+Widget BlankSpace =  SizedBox(
+  height: 75.h,
 );
 
-Widget smallwidth = const SizedBox(
-  width: 30,
+Widget smallwidth =  SizedBox(
+  width: 30.w,
 );
 
 Widget bottomPlaylist({onTap, required playListName, required countSong}) {
@@ -18,22 +19,22 @@ Widget bottomPlaylist({onTap, required playListName, required countSong}) {
         child: ListTile(
           onTap: onTap,
           leading: Padding(
-            padding: const EdgeInsets.only(left: 6.0, top: 5),
+            padding:  EdgeInsets.only(left: 6.0.w, top: 5.h),
             child: Icon(
               Icons.queue_music_rounded,
               color: textWhite,
-              size: 30,
+              size: 30.w.h,
             ),
           ),
           title: Padding(
-            padding: const EdgeInsets.only(left: 3.0, bottom: 3, top: 5),
+            padding:  EdgeInsets.only(left: 3.0.w, bottom: 3.h, top: 5.h),
             child: Text(
               playListName,
-              style: TextStyle(color: textWhite, fontSize: 18),
+              style: TextStyle(color: textWhite, fontSize: 18.w.h),
             ),
           ),
           subtitle: Padding(
-            padding: const EdgeInsets.only(left: 3.0),
+            padding:  EdgeInsets.only(left: 3.0.w),
             child: Text(
               countSong,
               style: TextStyle(
@@ -44,7 +45,7 @@ Widget bottomPlaylist({onTap, required playListName, required countSong}) {
         ),
       ),
       SizedBox(
-        height: 10,
+        height: 10.h,
       )
     ],
   );

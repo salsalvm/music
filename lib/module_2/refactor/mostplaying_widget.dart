@@ -1,9 +1,8 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:music/main.dart';
-import 'package:music/module_1/refactor/home_widget.dart';
-import 'package:music/module_4/refactor/menu_popup_horiz.dart';
+
 
 class MostPlayed extends StatelessWidget {
   final leadImage;
@@ -31,14 +30,14 @@ class MostPlayed extends StatelessWidget {
             ),
           ),
           title: Padding(
-            padding: const EdgeInsets.only(left: 5.0, bottom: 3, top: 3),
+            padding:  EdgeInsets.only(left: 5.0.w, bottom: 3.h, top: 3.h),
             child: Text(
               songName,
-              style: TextStyle(color: textWhite, fontSize: 18),
+              style: TextStyle(color: textWhite, fontSize: 18.w.h),
             ),
           ),
           subtitle: Padding(
-            padding: const EdgeInsets.only(left: 5.0),
+            padding:  EdgeInsets.only(left: 5.0.w),
             child: Text(
               singerName,
               style: TextStyle(color: textGrey),
@@ -50,7 +49,7 @@ class MostPlayed extends StatelessWidget {
                   onPressed: () {},
                   icon: Icon(
                     Icons.favorite,
-                    size: 22,
+                    size: 22.w.h,
                     color: favour,
                   )),
             // MenuHoriz(songId: songId)

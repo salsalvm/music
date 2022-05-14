@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:music/dbFunction/songmodel.dart';
@@ -24,7 +25,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
         appBar: AppBar(
           actions: [
             IconButton(
-                padding: const EdgeInsets.only(right: 20),
+                padding:  EdgeInsets.only(right: 20.w),
                 onPressed: () {
                   showDialog(
                       context: context,
@@ -32,9 +33,9 @@ class _PlayListScreenState extends State<PlayListScreen> {
                         return CreatePlaylistForm();
                       });
                 },
-                icon: const Icon(
+                icon:  Icon(
                   Icons.add,
-                  size: 30,
+                  size: 30.w.h,
                 ))
           ],
           title: const Text('Playlist'),
@@ -66,24 +67,24 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                 },
                                 leading: Padding(
                                   padding:
-                                      const EdgeInsets.only(left: 6.0, top: 5),
+                                       EdgeInsets.only(left: 6.0.w, top: 5.h),
                                   child: Icon(
                                     Icons.queue_music_rounded,
                                     color: textWhite,
-                                    size: 30,
+                                    size: 30.w.h,
                                   ),
                                 ),
                                 title: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 3.0, bottom: 3, top: 5),
+                                  padding:  EdgeInsets.only(
+                                      left: 3.0.w, bottom: 3.h, top: 5.h),
                                   child: Text(
                                     playlists[index].toString(),
                                     style: TextStyle(
-                                        color: textWhite, fontSize: 18),
+                                        color: textWhite, fontSize: 18.w.h),
                                   ),
                                 ),
                                 subtitle: Padding(
-                                  padding: const EdgeInsets.only(left: 3.0),
+                                  padding:  EdgeInsets.only(left: 3.0.w),
                                   child: Text(
                                     "${playlistSongs!.length} Song",
                                     style: TextStyle(
@@ -130,8 +131,8 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                               ),
                                             ),
                                             content: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 8.0),
+                                              padding:  EdgeInsets.only(
+                                                  top: 8.0.h),
                                               child: Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
@@ -146,8 +147,8 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                             actions: [
                                               Padding(
                                                 padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 20),
+                                                     EdgeInsets.symmetric(
+                                                        horizontal: 20.w),
                                                 child: Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment
@@ -157,7 +158,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                                       child: Text("Cancel",
                                                           style: TextStyle(
                                                               color: textWhite,
-                                                              fontSize: 18)),
+                                                              fontSize: 18.w.h)),
                                                       onPressed: () {
                                                         Navigator.of(context)
                                                             .pop();
@@ -167,7 +168,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                                       child: Text("Yes",
                                                           style: TextStyle(
                                                               color: textWhite,
-                                                              fontSize: 18)),
+                                                              fontSize: 18.w.h)),
                                                       onPressed: () {
                                                         Navigator.pop(context);
                                                         box.delete(

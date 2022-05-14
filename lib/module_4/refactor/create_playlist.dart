@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/main.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -48,25 +49,25 @@ class _CreatePlaylistFormState extends State<CreatePlaylistForm> {
             },
             style: TextStyle(color: textWhite),
             decoration: InputDecoration(
-              focusedBorder:const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.green, width: 5)),
+              focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.green, width: 5.w)),
               // fillColor: textWhite,
               hintText: 'Playlist Name',
               hintStyle: TextStyle(color: textGrey),
               enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: textGrey, width: 5.0),
+                borderSide: BorderSide(color: textGrey, width: 5.0.w),
               ),
             )),
       ),
       actions: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
+          padding:  EdgeInsets.symmetric(horizontal: 10.w),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               TextButton(
                 child: Text("Cancel",
-                    style: TextStyle(color: textWhite, fontSize: 16)),
+                    style: TextStyle(color: textWhite, fontSize: 16.w.h)),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -75,10 +76,10 @@ class _CreatePlaylistFormState extends State<CreatePlaylistForm> {
               // add playlist from db
               TextButton(
                 child: Text("Create",
-                    style: TextStyle(color: textWhite, fontSize: 16)),
+                    style: TextStyle(color: textWhite, fontSize: 16.w.h)),
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
-                    box.put(title, playlist);  
+                    box.put(title, playlist); 
                     Navigator.pop(context);
                     setState(() {});
                   }
