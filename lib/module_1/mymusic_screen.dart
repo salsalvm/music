@@ -7,12 +7,12 @@ import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/main.dart';
 import 'package:music/module_1/home.dart';
 import 'package:music/module_1/refactor/open_palyer.dart';
-import 'package:music/module_3/2-favourite_screen.dart';
+import 'package:music/module_3/favourite_screen.dart';
 import 'package:music/module_4/refactor/menu_popup_horiz.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class MusicList extends StatefulWidget {
-  // final songId;
+  
   MusicList({Key? key}) : super(key: key);
 
   @override
@@ -69,7 +69,7 @@ List<SongsModel>recent=[];
                     child: ListTile(
                       onTap: (() async {
                       // log('message')
-                        await OpenPlayer(fullSongs: [], index: index)
+                        await OpenPlayer(fullSongs: [], index: index,songId: fullSongs[index].metas.id.toString())
                             .openAssetPlayer(
                           index: index,
                           songs: fullSongs,

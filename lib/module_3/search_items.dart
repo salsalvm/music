@@ -101,7 +101,7 @@ class MySearch extends SearchDelegate {
                           borderRadius: BorderRadius.circular(15.w.h)),
                       child: ListTile(
                         onTap: (() async {
-                          await OpenPlayer(fullSongs: [], index: index)
+                          await OpenPlayer(fullSongs: [], index: index,songId: int.parse(searchSongItems[index].metas.id!).toString())
                               .openAssetPlayer(index: index, songs: fullSongs);
                           Navigator.push(
                               context,

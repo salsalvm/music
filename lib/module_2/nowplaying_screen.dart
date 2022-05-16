@@ -12,7 +12,8 @@ import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/main.dart';
 import 'package:music/module_2/refactor/nowplaying_function.dart';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
-import 'package:music/module_3/2-favourite_screen.dart';
+import 'package:music/module_3/favourite_screen.dart';
+
 import 'package:music/module_4/refactor/menu_popup_horiz.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 

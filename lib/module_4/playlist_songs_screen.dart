@@ -6,7 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:music/main.dart';
 import 'package:music/module_1/refactor/open_palyer.dart';
 import 'package:music/module_2/nowplaying_screen.dart';
-import 'package:music/module_3/2-favourite_screen.dart';
+import 'package:music/module_3/favourite_screen.dart';
 import 'package:music/module_4/refactor/read_add_playlist.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
@@ -169,7 +169,7 @@ class _PlayListSongsState extends State<PlayListSongs> {
                                           artist: element.artist)));
                                 }
                                 OpenPlayer(
-                                        fullSongs: playPlaylist, index: index)
+                                        fullSongs: playPlaylist, index: index,songId: playPlaylist[index].metas.id.toString())
                                     .openAssetPlayer(
                                         index: index, songs: playPlaylist);
                                 Navigator.push(

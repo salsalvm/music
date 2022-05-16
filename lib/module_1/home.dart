@@ -5,10 +5,12 @@ import 'package:marquee/marquee.dart';
 import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/main.dart';
 import 'package:flutter/material.dart';
-import 'package:music/module_1/1-music_screen.dart';
-import 'package:music/module_1/3-recent_screen.dart';
+
+import 'package:music/module_1/mymusic_screen.dart';
+import 'package:music/module_1/recent_screen.dart';
 import 'package:music/module_2/nowplaying_screen.dart';
-import 'package:music/module_3/2-favourite_screen.dart';
+
+import 'package:music/module_3/favourite_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:music/module_1/refactor/home_widget.dart';
 import 'package:music/module_3/search_items.dart';

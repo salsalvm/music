@@ -91,7 +91,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                     ),
                   )
                 : ListView.separated(
-                    separatorBuilder: (context, index) =>  SizedBox(
+                    separatorBuilder: (context, index) => SizedBox(
                       height: 10.h,
                     ),
                     shrinkWrap: true,
@@ -110,7 +110,10 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                                       artist: item.artist,
                                       title: item.songname)));
                             }
-                            OpenPlayer(fullSongs: favSong, index: index)
+                            OpenPlayer(
+                                    fullSongs: favSong,
+                                    index: index,
+                                    songId: favSong[index].metas.id.toString())
                                 .openAssetPlayer(index: index, songs: favSong);
                             Navigator.push(
                                 context,
@@ -124,16 +127,17 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                               id: favouritesSongs[index].id,
                               type: ArtworkType.AUDIO),
                           title: Padding(
-                            padding:  EdgeInsets.only(
+                            padding: EdgeInsets.only(
                                 top: 3.h, left: 5.w, bottom: 3.h),
                             child: Text(
                               favouritesSongs[index].songname,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(color: textWhite, fontSize: 18.w.h),
+                              style:
+                                  TextStyle(color: textWhite, fontSize: 18.w.h),
                             ),
                           ),
                           subtitle: Padding(
-                            padding:  EdgeInsets.only(left: 8.0.w),
+                            padding: EdgeInsets.only(left: 8.0.w),
                             child: Text(
                               favouritesSongs[index].artist,
                               style: TextStyle(color: textGrey),
@@ -152,7 +156,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                     }),
                   ),
             Padding(
-              padding:  EdgeInsets.only(
+              padding: EdgeInsets.only(
                 top: 480.0.h,
               ),
               child: Container(
@@ -161,15 +165,14 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                   backgroundColor: darkBlue,
                   onPressed: () {
                     showModalBottomSheet(
-                        shape:  RoundedRectangleBorder(
+                        shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.vertical(
                                 top: Radius.circular(25.w.h))),
                         backgroundColor: boxColor,
                         context: context,
                         builder: (ctx) {
                           return Container(
-                              height: 350.h,
-                               child: AddSongFavourites());
+                              height: 350.h, child: AddSongFavourites());
                         });
                   },
                   child: Icon(Icons.add, color: textWhite),

@@ -27,7 +27,7 @@ class _StackItemsState extends State<StackItems> {
       children: [
         CircleAvatar(
           backgroundColor: Colors.black12,
-          radius: 35,
+          radius: 35.r,
           child: IconButton(
             onPressed: () {
               showDialog(
@@ -37,13 +37,13 @@ class _StackItemsState extends State<StackItems> {
                       title: Center(child: Text('Do you want to Exit',style: TextStyle(color: Colors.red[200]),)),
                       actions: [
                         Padding(
-                          padding:  EdgeInsets.symmetric(horizontal: 10.w.h),
+                          padding: const EdgeInsets.symmetric(horizontal: 10).r,
                           child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              TextButton(onPressed: () {Navigator.pop(context);}, child: Text('No',style: TextStyle(color: textWhite,fontSize: 18.w.h),)),
+                              TextButton(onPressed: () {Navigator.pop(context);}, child: Text('No',style: TextStyle(color: textWhite,fontSize: 18.sp),)),
                             
                      
-                          TextButton(onPressed: () {exit(0);}, child: Text('Yes',style: TextStyle(color: textWhite,fontSize: 18.w.h),))
+                          TextButton(onPressed: () {exit(0);}, child: Text('Yes',style: TextStyle(color: textWhite,fontSize: 18.sp),))
       ],),
                         )],
                     );
@@ -51,7 +51,7 @@ class _StackItemsState extends State<StackItems> {
             },
             icon: Icon(
               Icons.exit_to_app_outlined,
-              size: 35.w.h,
+              size: 35.sp,
             ),
             color: textWhite,
           ),
@@ -172,7 +172,6 @@ showAlertDialog(BuildContext context) {
     },
   );
 }
-
 
 // horiz
 
