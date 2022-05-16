@@ -25,7 +25,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
         appBar: AppBar(
           actions: [
             IconButton(
-                padding:  EdgeInsets.only(right: 20).r,
+                padding: EdgeInsets.only(right: 20).r,
                 onPressed: () {
                   showDialog(
                       context: context,
@@ -33,7 +33,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
                         return CreatePlaylistForm();
                       });
                 },
-                icon:  Icon(
+                icon: Icon(
                   Icons.add,
                   size: 30.sp,
                 ))
@@ -56,18 +56,17 @@ class _PlayListScreenState extends State<PlayListScreen> {
                     var playlistSongs = box.get(playlists[index]);
                     return Container(
                         child: playlists[index] != "music" &&
-                                playlists[index] != "favourites"
+                                playlists[index] != "favourites" &&
+                                playlists[index] != "recentPlayed"
                             ? ListTile(
-                                onTap: () {setState(() {
-                                  
-                                });
+                                onTap: () {
+                                  setState(() {});
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: ((context) => PlayListSongs(
                                           playListName: playlists[index]))));
                                 },
                                 leading: Padding(
-                                  padding:
-                                       EdgeInsets.only(left: 6.0, top: 5).r,
+                                  padding: EdgeInsets.only(left: 6.0, top: 5).r,
                                   child: Icon(
                                     Icons.queue_music_rounded,
                                     color: textWhite,
@@ -75,8 +74,9 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                   ),
                                 ),
                                 title: Padding(
-                                  padding:  EdgeInsets.only(
-                                      left: 3.0, bottom: 3, top: 5).r,
+                                  padding: EdgeInsets.only(
+                                          left: 3.0, bottom: 3, top: 5)
+                                      .r,
                                   child: Text(
                                     playlists[index].toString(),
                                     style: TextStyle(
@@ -84,7 +84,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                   ),
                                 ),
                                 subtitle: Padding(
-                                  padding:  EdgeInsets.only(left: 3.0).r,
+                                  padding: EdgeInsets.only(left: 3.0).r,
                                   child: Text(
                                     "${playlistSongs!.length} Song",
                                     style: TextStyle(
@@ -131,8 +131,8 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                               ),
                                             ),
                                             content: Padding(
-                                              padding:  EdgeInsets.only(
-                                                  top: 8.0).r,
+                                              padding:
+                                                  EdgeInsets.only(top: 8.0).r,
                                               child: Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
@@ -146,9 +146,9 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                             ),
                                             actions: [
                                               Padding(
-                                                padding:
-                                                     EdgeInsets.symmetric(
-                                                        horizontal: 20).r,
+                                                padding: EdgeInsets.symmetric(
+                                                        horizontal: 20)
+                                                    .r,
                                                 child: Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment
