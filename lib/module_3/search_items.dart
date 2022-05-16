@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:music/main.dart';
-import 'package:music/module_1/home.dart';
 import 'package:music/module_1/refactor/open_palyer.dart';
 import 'package:music/module_1/splash_Screen.dart';
 import 'package:music/module_2/nowplaying_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class MySearch extends SearchDelegate {
-  
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
@@ -71,7 +69,7 @@ class MySearch extends SearchDelegate {
   Widget buildSuggestions(BuildContext context) {
     final searchSongItems = query.isEmpty
         ? fullSongs
-        :fullSongs
+        : fullSongs
                 .where((element) => element.metas.title!
                     .toLowerCase()
                     .startsWith(query.toLowerCase().toString()))
@@ -91,7 +89,7 @@ class MySearch extends SearchDelegate {
               style: TextStyle(color: Colors.green),
             ))
           : Padding(
-              padding:  EdgeInsets.symmetric(horizontal: 15, vertical: 15).r,
+              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15).r,
               child: ListView.separated(
                   physics: const BouncingScrollPhysics(),
                   shrinkWrap: true,
@@ -102,7 +100,12 @@ class MySearch extends SearchDelegate {
                           borderRadius: BorderRadius.circular(15).r),
                       child: ListTile(
                         onTap: (() async {
-                          await OpenPlayer(fullSongs: [], index: index,songId: int.parse(searchSongItems[index].metas.id!).toString())
+                          await OpenPlayer(
+                                  fullSongs: [],
+                                  index: index,
+                                  songId: int.parse(
+                                          searchSongItems[index].metas.id!)
+                                      .toString())
                               .openAssetPlayer(index: index, songs: fullSongs);
                           Navigator.push(
                               context,
@@ -120,8 +123,8 @@ class MySearch extends SearchDelegate {
                             id: int.parse(searchSongItems[index].metas.id!),
                             type: ArtworkType.AUDIO),
                         title: Padding(
-                          padding:  EdgeInsets.only(
-                              left: 5.0, bottom: 3, top: 3).r,
+                          padding:
+                              EdgeInsets.only(left: 5.0, bottom: 3, top: 3).r,
                           child: Text(
                             searchSongItems[index].metas.title!,
                             overflow: TextOverflow.ellipsis,
@@ -129,7 +132,7 @@ class MySearch extends SearchDelegate {
                           ),
                         ),
                         subtitle: Padding(
-                          padding:  EdgeInsets.only(left: 7.0).r,
+                          padding: EdgeInsets.only(left: 7.0).r,
                           child: Text(
                             searchSongItems[index].metas.artist!,
                             overflow: TextOverflow.ellipsis,
@@ -148,7 +151,7 @@ class MySearch extends SearchDelegate {
                     // return ListTile(
                   },
                   separatorBuilder: (context, index) {
-                    return  SizedBox(
+                    return SizedBox(
                       height: 10.h,
                     );
                   },

@@ -3,14 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/main.dart';
+import 'package:music/module_1/splash_Screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class AddSongFavourites extends StatefulWidget {
-  // List favSongsList;
-
   AddSongFavourites({
     Key? key,
-    // required this.favSongsList,
   }) : super(key: key);
 
   @override
@@ -19,20 +17,17 @@ class AddSongFavourites extends StatefulWidget {
 
 class _AddSongFavouritesState extends State<AddSongFavourites> {
   final box = PlaylistBox.getInstance();
-  List<SongsModel> dbSong = [];
   List<SongsModel> favSongs = [];
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    dbSong = box.get("music") as List<SongsModel>;
     favSongs = box.get("favourites")!.cast<SongsModel>();
   }
 
   @override
   Widget build(BuildContext context) {
-    // final dbSong=
     return ValueListenableBuilder(
         valueListenable: box.listenable(),
         builder: ((context, value, child) {
@@ -43,7 +38,7 @@ class _AddSongFavouritesState extends State<AddSongFavourites> {
                 child: ListTile(
                     tileColor: boxColor,
                     leading: QueryArtworkWidget(
-                      id: dbSong[index].id!,
+                      id: dbSongs[index].id!,
                       type: ArtworkType.AUDIO,
                       artworkHeight: 55.h,
                       artworkWidth: 55.w,
@@ -51,7 +46,7 @@ class _AddSongFavouritesState extends State<AddSongFavourites> {
                     title: Padding(
                       padding: EdgeInsets.only(left: 5.0, bottom: 3, top: 3).r,
                       child: Text(
-                        dbSong[index].songname!,
+                        dbSongs[index].songname!,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(color: textWhite, fontSize: 18.sp),
                       ),
@@ -59,7 +54,7 @@ class _AddSongFavouritesState extends State<AddSongFavourites> {
                     subtitle: Padding(
                       padding: EdgeInsets.only(left: 7.0).r,
                       child: Text(
-                        dbSong[index].artist!.toLowerCase(),
+                        dbSongs[index].artist!.toLowerCase(),
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(color: textGrey),
                       ),
@@ -67,21 +62,22 @@ class _AddSongFavouritesState extends State<AddSongFavourites> {
                     trailing: favSongs
                             .where((element) =>
                                 element.id.toString() ==
-                                dbSong[index].id.toString())
+                                dbSongs[index].id.toString())
                             .isEmpty
                         ? StatefulBuilder(builder: (context, setState) {
                             return IconButton(
                                 onPressed: () {
-                                  favSongs.add(dbSong[index]);
+                                  favSongs.add(dbSongs[index]);
                                   box.put("favourites", favSongs);
-                                  
-                                  setState(() {});ScaffoldMessenger.of(context).showSnackBar(
+
+                                  setState(() {});
+                                  ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                           behavior: SnackBarBehavior.floating,
                                           backgroundColor: boxColor,
                                           margin: EdgeInsets.all(10).r,
                                           content: Text(
-                                              '${dbSong[index].songname} Song Removed ')));
+                                              '${dbSongs[index].songname} Song Removed ')));
                                 },
                                 icon: Icon(
                                   Icons.favorite,
@@ -93,7 +89,7 @@ class _AddSongFavouritesState extends State<AddSongFavourites> {
                             onPressed: () {
                               favSongs.removeWhere((element) =>
                                   element.id.toString() ==
-                                  dbSong[index].id.toString());
+                                  dbSongs[index].id.toString());
                               box.put("favourites", favSongs);
                               setState(() {});
                             },
@@ -101,7 +97,7 @@ class _AddSongFavouritesState extends State<AddSongFavourites> {
                                 size: 35.sp, color: Colors.red))),
               );
             }),
-            itemCount: dbSong.length,
+            itemCount: dbSongs.length,
           );
         }));
   }

@@ -40,8 +40,9 @@ class AlbumItems extends StatelessWidget {
               ),
             ),
             Padding(
-              padding:  EdgeInsets.symmetric(vertical: 5,horizontal: 10).r,
-              child: Row(mainAxisAlignment:MainAxisAlignment.spaceBetween ,
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10).r,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     albumName,

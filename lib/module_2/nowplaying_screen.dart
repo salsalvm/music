@@ -1,19 +1,14 @@
-import 'dart:developer';
-
 import 'package:assets_audio_player/assets_audio_player.dart';
-
-import 'package:audioplayers/audioplayers.dart';
-
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:marquee/marquee.dart';
 import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/main.dart';
+import 'package:music/module_1/splash_Screen.dart';
 import 'package:music/module_2/refactor/nowplaying_function.dart';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:music/module_3/favourite_screen.dart';
-
 import 'package:music/module_4/refactor/menu_popup_horiz.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
@@ -33,16 +28,9 @@ class NowPlaying extends StatefulWidget {
 }
 
 class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
-//  final String songId;
-
   final box = PlaylistBox.getInstance();
-
-  List<SongsModel> dbSongs = [];
-  List<Audio> fullsong = [];
   List playlist = [];
   List<dynamic> playlistSongs = [];
-  final AssetsAudioPlayer player = AssetsAudioPlayer.withId('0');
-  AudioPlayer audioPlayer = AudioPlayer();
 
   Audio find(List<Audio> source, String fromPath) {
     return source.firstWhere((element) => element.path == fromPath);
@@ -53,7 +41,6 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
   bool pressed = true;
   @override
   Widget build(BuildContext context) {
-    dbSongs = box.get("music") as List<SongsModel>;
     final playlistName = databaseSongs(dbSongs, widget.songId);
 
     return Scaffold(
@@ -66,7 +53,7 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
         ),
         centerTitle: true,
         leading: IconButton(
-          icon:  Icon(
+          icon: Icon(
             Icons.arrow_drop_down_outlined,
             size: 35.sp,
           ),
@@ -75,14 +62,16 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
           },
         ),
       ),
+      resizeToAvoidBottomInset: false,
       body: player.builderCurrent(builder: (context, Playing? playing) {
         final myAudio = find(widget.allSongs, playing!.audio.assetAudioPath);
+// final count=box.get(playlists);
 
         return Center(
           child: Column(
             children: [
               Padding(
-                padding:  EdgeInsets.symmetric(vertical: 75).r,
+                padding: EdgeInsets.symmetric(vertical: 70).r,
                 child: Container(
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.teal.shade200),
@@ -100,7 +89,7 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
               ),
 
               Padding(
-                padding:  EdgeInsets.only(top: 5.0).r,
+                padding: EdgeInsets.only(top: 5.0).r,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20).r,
                   child: Row(
@@ -159,7 +148,8 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
                               startAfter: Duration.zero,
                               velocity: 60,
                               text: myAudio.metas.title!,
-                              style: TextStyle(fontSize: 22.sp, color: textWhite),
+                              style:
+                                  TextStyle(fontSize: 22.sp, color: textWhite),
                             ),
                           ),
                           Text(
@@ -201,7 +191,7 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
               }),
 
               Padding(
-                padding:  EdgeInsets.symmetric(horizontal: 25).r,
+                padding: EdgeInsets.symmetric(horizontal: 25).r,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -295,7 +285,7 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
                           icon:
                               Icon(isPlaying ? Icons.pause : Icons.play_arrow),
                           onPressed: () {
-                             player.playOrPause();
+                            player.playOrPause();
                           },
                         );
                       }),
@@ -305,7 +295,6 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
                   IconButton(
                     iconSize: 45.sp,
                     onPressed: () {
-                     
                       player.next();
                     },
                     icon: Icon(

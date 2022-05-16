@@ -33,19 +33,41 @@ class _StackItemsState extends State<StackItems> {
               showDialog(
                   context: context,
                   builder: (context) {
-                    return AlertDialog(backgroundColor: darkBlue,
-                      title: Center(child: Text('Do you want to Exit',style: TextStyle(color: Colors.red[200]),)),
+                    return AlertDialog(
+                      backgroundColor: darkBlue,
+                      title: Center(
+                          child: Text(
+                        'Do you want to Exit',
+                        style: TextStyle(color: Colors.red[200]),
+                      )),
                       actions: [
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10).r,
-                          child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              TextButton(onPressed: () {Navigator.pop(context);}, child: Text('No',style: TextStyle(color: textWhite,fontSize: 18.sp),)),
-                            
-                     
-                          TextButton(onPressed: () {exit(0);}, child: Text('Yes',style: TextStyle(color: textWhite,fontSize: 18.sp),))
-      ],),
-                        )],
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text(
+                                    'No',
+                                    style: TextStyle(
+                                        color: textWhite, fontSize: 18.sp),
+                                  )),
+                              TextButton(
+                                  onPressed: () {
+                                    exit(0);
+                                  },
+                                  child: Text(
+                                    'Yes',
+                                    style: TextStyle(
+                                        color: textWhite, fontSize: 18.sp),
+                                  ))
+                            ],
+                          ),
+                        )
+                      ],
                     );
                   });
             },
@@ -91,10 +113,6 @@ class _StackItemsState extends State<StackItems> {
   }
 }
 
-// Widget stackItems(BuildContext context ) {
-//   return
-// }
-
 Widget MyTile(
   BuildContext context,
   IconData icon,
@@ -132,46 +150,3 @@ Widget MyTile(
     ],
   );
 }
-
-// delete a song
-
-showAlertDialog(BuildContext context) {
-  // set up the buttons
-  Widget cancelButton = TextButton(
-    child: Text(
-      "Cancel",
-      style: TextStyle(color: textWhite),
-    ),
-    onPressed: () {
-      Navigator.of(context).pop();
-    },
-  );
-  Widget continueButton = TextButton(
-    child: Text("Yes", style: TextStyle(color: textWhite)),
-    onPressed: () {
-      // signOut(context);
-    },
-  );
-
-  // set up the AlertDialog
-  AlertDialog alert = AlertDialog(
-    backgroundColor: darkBlue,
-    title: Text("Delete this Song", style: TextStyle(color: textWhite)),
-    content: Text("Are You Confirm ", style: TextStyle(color: textGrey)),
-    actions: [
-      cancelButton,
-      continueButton,
-    ],
-  );
-
-  // show the dialog
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return alert;
-    },
-  );
-}
-
-// horiz
-

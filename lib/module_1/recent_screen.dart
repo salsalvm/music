@@ -21,12 +21,6 @@ List<Audio> recent = [];
 
 class _RecentSongsState extends State<RecentSongs> {
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final box = PlaylistBox.getInstance();
 
@@ -65,7 +59,10 @@ class _RecentSongsState extends State<RecentSongs> {
                                   artist: item.artist,
                                   title: item.songname)));
                         }
-                        OpenPlayer(fullSongs: favSong, index: index,songId: recent[index].metas.id!)
+                        OpenPlayer(
+                                fullSongs: favSong,
+                                index: index,
+                                songId: recent[index].metas.id!)
                             .openAssetPlayer(index: index, songs: favSong);
                         Navigator.push(
                             context,
@@ -79,8 +76,7 @@ class _RecentSongsState extends State<RecentSongs> {
                           id: recentPlayedSong[index].id,
                           type: ArtworkType.AUDIO),
                       title: Padding(
-                        padding:
-                            EdgeInsets.only(top: 3, left: 5, bottom: 3).r,
+                        padding: EdgeInsets.only(top: 3, left: 5, bottom: 3).r,
                         child: Text(
                           recentPlayedSong[index].songname,
                           overflow: TextOverflow.ellipsis,
@@ -109,6 +105,4 @@ class _RecentSongsState extends State<RecentSongs> {
       },
     );
   }
-
-  // void cast() {}
 }

@@ -5,13 +5,13 @@ import 'package:music/dbFunction/songmodel.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:music/main.dart';
 import 'package:music/module_1/refactor/open_palyer.dart';
+import 'package:music/module_1/splash_Screen.dart';
 import 'package:music/module_2/nowplaying_screen.dart';
 import 'package:music/module_3/favourite_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class PlayListSongs extends StatefulWidget {
   final String playListName;
-
   const PlayListSongs({
     Key? key,
     required this.playListName,
@@ -22,10 +22,7 @@ class PlayListSongs extends StatefulWidget {
 }
 
 class _PlayListSongsState extends State<PlayListSongs> {
-  final box = PlaylistBox.getInstance();
-
   List<SongsModel> playlistSongs = [];
-
   List<Audio> playPlaylist = [];
 
   @override
@@ -44,13 +41,13 @@ class _PlayListSongsState extends State<PlayListSongs> {
         ),
         actions: [
           Padding(
-            padding:  EdgeInsets.only(right: 10.0, top: 8).r,
+            padding: EdgeInsets.only(right: 10.0, top: 8).r,
             child: IconButton(
                 onPressed: () {
                   showModalBottomSheet(
-                      shape:  RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.vertical(top: Radius.circular(25).r)),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(25).r)),
                       backgroundColor: boxColor,
                       context: context,
                       builder: (ctx) {
@@ -68,7 +65,7 @@ class _PlayListSongsState extends State<PlayListSongs> {
       ),
       body: SafeArea(
         child: Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 15.0, vertical: 10).r,
+          padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10).r,
           child: ValueListenableBuilder(
               valueListenable: box.listenable(),
               builder: (context, value, child) {
@@ -77,7 +74,7 @@ class _PlayListSongsState extends State<PlayListSongs> {
                 return playlistSongs!.isEmpty
                     ? Center(
                         child: Container(
-                          child:const Text(
+                          child: const Text(
                             'add Songs',
                             style: TextStyle(color: Colors.green),
                           ),
@@ -96,17 +93,18 @@ class _PlayListSongsState extends State<PlayListSongs> {
                                   id: playlistSongs[index].id,
                                   type: ArtworkType.AUDIO),
                               title: Padding(
-                                padding:  EdgeInsets.only(
-                                    left: 5.0, bottom: 3, top: 3).r,
+                                padding: EdgeInsets.only(
+                                        left: 5.0, bottom: 3, top: 3)
+                                    .r,
                                 child: Text(
                                   playlistSongs[index].songname,
                                   overflow: TextOverflow.ellipsis,
-                                  style:
-                                      TextStyle(color: textWhite, fontSize: 18.sp),
+                                  style: TextStyle(
+                                      color: textWhite, fontSize: 18.sp),
                                 ),
                               ),
                               subtitle: Padding(
-                                padding:  EdgeInsets.only(left: 7.0).r,
+                                padding: EdgeInsets.only(left: 7.0).r,
                                 child: Text(
                                   playlistSongs[index].artist.toLowerCase(),
                                   overflow: TextOverflow.ellipsis,
@@ -120,8 +118,8 @@ class _PlayListSongsState extends State<PlayListSongs> {
                                           playlistSongs[index].id.toString()),
                                   PopupMenuButton(
                                     child: Padding(
-                                      padding:  EdgeInsets.only(
-                                          top: 11.0, left: 5).r,
+                                      padding:
+                                          EdgeInsets.only(top: 11.0, left: 5).r,
                                       child: Icon(
                                         Icons.more_vert,
                                         color: textWhite,
@@ -168,7 +166,12 @@ class _PlayListSongsState extends State<PlayListSongs> {
                                           artist: element.artist)));
                                 }
                                 OpenPlayer(
-                                        fullSongs: playPlaylist, index: index,songId: playPlaylist[index].metas.id.toString())
+                                        fullSongs: playPlaylist,
+                                        index: index,
+                                        songId: playPlaylist[index]
+                                            .metas
+                                            .id
+                                            .toString())
                                     .openAssetPlayer(
                                         index: index, songs: playPlaylist);
                                 Navigator.push(
@@ -186,7 +189,7 @@ class _PlayListSongsState extends State<PlayListSongs> {
                           );
                         },
                         separatorBuilder: (context, index) {
-                          return  SizedBox(
+                          return SizedBox(
                             height: 10.h,
                           );
                         },
@@ -198,8 +201,6 @@ class _PlayListSongsState extends State<PlayListSongs> {
   }
 }
 
-
-
 class AddSongBox extends StatefulWidget {
   String playListName;
 
@@ -210,21 +211,18 @@ class AddSongBox extends StatefulWidget {
 }
 
 class _AddSongBoxState extends State<AddSongBox> {
-  final box = PlaylistBox.getInstance();
-  List<SongsModel> dbSong = [];
   List<SongsModel> playListsong = [];
 
   @override
   void initState() {
     // TODO: implement initState
+
     super.initState();
-    dbSong = box.get("music") as List<SongsModel>;
     playListsong = box.get(widget.playListName)!.cast<SongsModel>();
   }
 
   @override
   Widget build(BuildContext context) {
-    // final dbSong=
     return ValueListenableBuilder(
         valueListenable: box.listenable(),
         builder: ((context, value, child) {
@@ -234,16 +232,8 @@ class _AddSongBoxState extends State<AddSongBox> {
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20).r,
                 child: ListTile(
                     tileColor: boxColor,
-                    // onTap: (() async {
-                    //   await OpenPlayer(
-                    //           fullSongs: [], index: index)
-                    //       .openAssetPlayer(
-                    //     index: index,
-                    //     songs: fullSongs,
-                    //   );
-                    // }),
                     leading: QueryArtworkWidget(
-                      id: dbSong[index].id!,
+                      id: dbSongs[index].id!,
                       type: ArtworkType.AUDIO,
                       artworkHeight: 55.h,
                       artworkWidth: 55.w,
@@ -251,7 +241,7 @@ class _AddSongBoxState extends State<AddSongBox> {
                     title: Padding(
                       padding: EdgeInsets.only(left: 5.0, bottom: 3, top: 3).r,
                       child: Text(
-                        dbSong[index].songname!,
+                        dbSongs[index].songname!,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(color: textWhite, fontSize: 18.sp),
                       ),
@@ -259,7 +249,7 @@ class _AddSongBoxState extends State<AddSongBox> {
                     subtitle: Padding(
                       padding: EdgeInsets.only(left: 7.0).r,
                       child: Text(
-                        dbSong[index].artist!.toLowerCase(),
+                        dbSongs[index].artist!.toLowerCase(),
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(color: textGrey),
                       ),
@@ -267,15 +257,13 @@ class _AddSongBoxState extends State<AddSongBox> {
                     trailing: playListsong
                             .where((element) =>
                                 element.id.toString() ==
-                                dbSong[index].id.toString())
+                                dbSongs[index].id.toString())
                             .isEmpty
                         ? IconButton(
                             onPressed: () {
-                              setState(() {});
-                              playListsong.add(dbSong[index]);
+                              playListsong.add(dbSongs[index]);
                               box.put(widget.playListName, playListsong);
-
-                              // setState(() {});
+                              setState(() {});
                             },
                             icon: Icon(
                               Icons.playlist_add,
@@ -287,14 +275,14 @@ class _AddSongBoxState extends State<AddSongBox> {
                               setState(() {});
                               playListsong.removeWhere((element) =>
                                   element.id.toString() ==
-                                  dbSong[index].id.toString());
+                                  dbSongs[index].id.toString());
                               box.put(widget.playListName, playListsong);
                             },
                             icon: Icon(Icons.playlist_add_check,
                                 size: 35.sp, color: Colors.red))),
               );
             }),
-            itemCount: dbSong.length,
+            itemCount: dbSongs.length,
           );
         }));
   }

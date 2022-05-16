@@ -13,7 +13,6 @@ import 'package:music/module_4/refactor/menu_popup_horiz.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class MusicList extends StatefulWidget {
-  
   MusicList({Key? key}) : super(key: key);
 
   @override
@@ -21,16 +20,16 @@ class MusicList extends StatefulWidget {
 }
 
 class _MusicListState extends State<MusicList> {
-  final box=PlaylistBox.getInstance();
+  final box = PlaylistBox.getInstance();
 
-List<SongsModel>recent=[];
+  List<SongsModel> recent = [];
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-       recent= box.get("favourites")!.cast<SongsModel>();
-
+    recent = box.get("favourites")!.cast<SongsModel>();
   }
+
   // List<Audio> fav = [];
   @override
   Widget build(BuildContext context) {
@@ -63,19 +62,19 @@ List<SongsModel>recent=[];
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
                   return Container(
-                    
                     decoration: BoxDecoration(
                         color: boxColor,
                         borderRadius: BorderRadius.circular(15).r),
                     child: ListTile(
                       onTap: (() async {
-                      // log('message')
-                        await OpenPlayer(fullSongs: [], index: index,songId: fullSongs[index].metas.id.toString())
+                        await OpenPlayer(
+                                fullSongs: [],
+                                index: index,
+                                songId: fullSongs[index].metas.id.toString())
                             .openAssetPlayer(
                           index: index,
                           songs: fullSongs,
                         );
-                        
                       }),
                       leading: QueryArtworkWidget(
                           artworkHeight: 60.h,
@@ -84,7 +83,7 @@ List<SongsModel>recent=[];
                           type: ArtworkType.AUDIO),
                       title: Padding(
                         padding:
-                             EdgeInsets.only(left: 5.0, bottom: 3, top: 3).r,
+                            EdgeInsets.only(left: 5.0, bottom: 3, top: 3).r,
                         child: Text(
                           item.data![index].displayNameWOExt,
                           overflow: TextOverflow.ellipsis,
@@ -92,7 +91,7 @@ List<SongsModel>recent=[];
                         ),
                       ),
                       subtitle: Padding(
-                        padding:  EdgeInsets.only(left: 7.0).r,
+                        padding: EdgeInsets.only(left: 7.0).r,
                         child: Text(
                           "${item.data![index].artist}".toLowerCase(),
                           overflow: TextOverflow.ellipsis,
@@ -110,10 +109,9 @@ List<SongsModel>recent=[];
                       ),
                     ),
                   );
-                  // return ListTile(
                 },
                 separatorBuilder: (context, index) {
-                  return  SizedBox(
+                  return SizedBox(
                     height: 10.h,
                   );
                 },

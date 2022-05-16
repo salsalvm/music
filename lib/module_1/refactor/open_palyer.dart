@@ -8,8 +8,9 @@ class OpenPlayer {
   List<Audio> fullSongs;
   int index;
   bool? notify;
-final String songId;
-  OpenPlayer({required this.fullSongs, required this.index,required this.songId});
+  final String songId;
+  OpenPlayer(
+      {required this.fullSongs, required this.index, required this.songId});
   final box = PlaylistBox.getInstance();
 
   final AssetsAudioPlayer player = AssetsAudioPlayer.withId('0');
@@ -28,17 +29,22 @@ final String songId;
     );
 
     List? recentSongs = box.get("recentPlayed");
-    final recent=databaseSongs(dbSongs, songId);
-    recentSongs!.where((element) => element.id.toString()==recent.id.toString()).isEmpty?addToRecent(recentSongs,recent):null;
+    final recent = databaseSongs(dbSongs, songId);
+    recentSongs!
+            .where((element) => element.id.toString() == recent.id.toString())
+            .isEmpty
+        ? addToRecent(recentSongs, recent)
+        : null;
   }
 }
-  addToRecent(List recentSongs,recent){
-if (recentSongs.length<4) {
-  recentSongs.add(recent);
-  box.put("recentPlayed", recentSongs);
-}else{
-recentSongs.removeAt(0);
-recentSongs.add(recent);
-box.put("recentPlayed", recentSongs);
-}
+
+addToRecent(List recentSongs, recent) {
+  if (recentSongs.length < 4) {
+    recentSongs.add(recent);
+    box.put("recentPlayed", recentSongs);
+  } else {
+    recentSongs.removeAt(0);
+    recentSongs.add(recent);
+    box.put("recentPlayed", recentSongs);
   }
+}

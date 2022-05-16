@@ -29,9 +29,6 @@ class AlbumPage extends StatelessWidget {
                 itemBuilder: (BuildContext ctx, index) {
                   return GestureDetector(
                     onTap: () {
-          //              Navigator.of(context)
-          // .push(MaterialPageRoute(builder: ((context) => PlayListSongs(playListName: ))));
-    
                     },
                     child: AlbumItems(
                         assetImage: albumList[index]["leadImage"],
@@ -41,15 +38,6 @@ class AlbumPage extends StatelessWidget {
                 }),
           ),
         ),
-        // bottomNavigationBar: BottomAppBar(
-        //     shape: CircularNotchedRectangle(),
-        //     color: lightBlue,
-        //     elevation: 50,
-        //     child: Container(
-        //       child: bottomNavigation(
-        //         context,
-        //       ),
-            // )
             );
   }
 }

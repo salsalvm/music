@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:music/dbFunction/songmodel.dart';
@@ -15,7 +14,6 @@ class CreatePlaylistForm extends StatefulWidget {
 class _CreatePlaylistFormState extends State<CreatePlaylistForm> {
   @override
   Widget build(BuildContext context) {
-    
     List<PlaylistModel> playlist = [];
     final box = PlaylistBox.getInstance();
     String? title;
@@ -61,7 +59,7 @@ class _CreatePlaylistFormState extends State<CreatePlaylistForm> {
       ),
       actions: [
         Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 10).r,
+          padding: EdgeInsets.symmetric(horizontal: 10).r,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -79,7 +77,7 @@ class _CreatePlaylistFormState extends State<CreatePlaylistForm> {
                     style: TextStyle(color: textWhite, fontSize: 16.sp)),
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
-                    box.put(title, playlist); 
+                    box.put(title, playlist);
                     Navigator.pop(context);
                     setState(() {});
                   }

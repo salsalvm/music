@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:music/dbFunction/songmodel.dart';
@@ -38,7 +36,7 @@ class UpdatePlaylist extends StatelessWidget {
             return null;
           },
           decoration: InputDecoration(
-              focusedBorder:  OutlineInputBorder(
+              focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.green, width: 5.w),
               ),
               enabledBorder: OutlineInputBorder(
@@ -48,7 +46,7 @@ class UpdatePlaylist extends StatelessWidget {
       ),
       actions: [
         Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 15).r,
+          padding: EdgeInsets.symmetric(horizontal: 15).r,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

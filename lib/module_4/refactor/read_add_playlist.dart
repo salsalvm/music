@@ -1,34 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/main.dart';
-import 'package:on_audio_query/on_audio_query.dart';
-
-// create play list
-
-// get playlist
+import 'package:music/module_1/splash_Screen.dart';
 
 class PlayListItem extends StatelessWidget {
-  // final onTap;
   SongsModel song;
   List playlists = [];
   List<dynamic>? playlistSongs = [];
-
-  // final playListName;
   final countSong;
-  PlayListItem(
-      {Key? key,
-      // required this.onTap,
-      required this.countSong,
-      required this.song})
+  PlayListItem({Key? key, required this.countSong, required this.song})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final box = PlaylistBox.getInstance();
     playlists = box.keys.toList();
-
     return Column(
       children: [
         ...playlists
@@ -49,8 +35,7 @@ class PlayListItem extends StatelessWidget {
                                   element.id.toString() == song.id.toString())
                               .toList();
                           if (existingSongs.isEmpty) {
-                            final songs = box.get("music") as List<SongsModel>;
-                            final temp = songs.firstWhere((element) =>
+                            final temp = dbSongs.firstWhere((element) =>
                                 element.id.toString() == song.id.toString());
                             playlistSongs?.add(temp);
                             await box.put(playlistName, playlistSongs!);

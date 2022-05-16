@@ -1,10 +1,12 @@
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/main.dart';
+import 'package:music/module_1/splash_Screen.dart';
 import 'package:music/module_4/playlist_songs_screen.dart';
-import 'package:music/module_4/refactor/create_playlist.dart';
+import 'package:music/module_4/refactor/form_playlist_create.dart';
 import 'package:music/module_4/refactor/update_playlist.dart';
 
 class PlayListScreen extends StatefulWidget {
@@ -15,7 +17,6 @@ class PlayListScreen extends StatefulWidget {
 }
 
 class _PlayListScreenState extends State<PlayListScreen> {
-  final box = PlaylistBox.getInstance();
   List playlists = [];
 
   @override
@@ -59,11 +60,11 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                 playlists[index] != "favourites" &&
                                 playlists[index] != "recentPlayed"
                             ? ListTile(
-                                onTap: () {
-                                  setState(() {});
+                                onTap: ()  {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: ((context) => PlayListSongs(
                                           playListName: playlists[index]))));
+                                  setState(() {});
                                 },
                                 leading: Padding(
                                   padding: EdgeInsets.only(left: 6.0, top: 5).r,

@@ -11,6 +11,7 @@ class SplashScreen extends StatefulWidget {
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
+  final AssetsAudioPlayer player = AssetsAudioPlayer.withId('0');
 List<SongModel> fetchedSongs = [];
 List<SongModel> allSongs = [];
 List<SongsModel> mappedSongs = [];
@@ -18,19 +19,42 @@ List<SongsModel> dbSongs = [];
 List<Audio> fullSongs = [];
 final box = PlaylistBox.getInstance();
 final OnAudioQuery _audioQuery = OnAudioQuery();
+
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     requestStoragePermissiono();
-    
+
     super.initState();
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: const BoxDecoration(
+          gradient: LinearGradient(
+        begin: Alignment.topRight,
+        end: Alignment.bottomLeft,
+        colors: [
+          Color.fromRGBO(119, 213, 248, 1),
+          Color.fromRGBO(0, 88, 146, 1)
+        ],
+      )),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Center(
+          child: splash(content: 'Music of Your...'),
+        ),
+      ),
+    );
+  }
+
   requestStoragePermissiono() async {
     bool permissionStatus = await _audioQuery.permissionsStatus();
     if (!permissionStatus) {
-     await _audioQuery.permissionsRequest();
+      await _audioQuery.permissionsRequest();
     }
-  
+
     setState(() {});
 
     fetchedSongs = await _audioQuery.querySongs();
@@ -42,7 +66,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
     mappedSongs = allSongs
         .map((audio) => SongsModel(
-          
             id: audio.id,
             artist: audio.artist,
             duration: audio.duration,
@@ -66,49 +89,20 @@ class _SplashScreenState extends State<SplashScreen> {
       );
     }
     setState(() {});
-    goTo();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    
-    return Container(
-      decoration: const BoxDecoration(
-          gradient: LinearGradient(
-        begin: Alignment.topRight,
-        end: Alignment.bottomLeft,
-        colors: [
-          Color.fromRGBO(119, 213, 248, 1),
-          Color.fromRGBO(0, 88, 146, 1)
-        ],
-      )),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: Center(
-          child: splash(content: 'Music of Your...'),
-        ),
-      ),
-    );
-  }
-
-// delayed
-
-  Future goTo() async {
+    // delayed
     await Future.delayed(const Duration(seconds: 2));
     Navigator.of(context)
         .pushReplacement(MaterialPageRoute(builder: (ctx) => HomeScreen()));
   }
-  
 }
 
 // design
-
 Widget splash({required String content}) {
   return Column(children: [
     SizedBox(
       height: 350.h,
     ),
-     Icon(
+    Icon(
       Icons.music_video,
       size: 50.sp,
       color: Colors.white,
@@ -116,10 +110,8 @@ Widget splash({required String content}) {
     SizedBox(height: 30.h),
     Text(
       content,
-      style:  TextStyle(
-          color: Colors.white, fontSize: 30.sp, fontFamily: 'mono'),
+      style:
+          TextStyle(color: Colors.white, fontSize: 30.sp, fontFamily: 'mono'),
     )
   ]);
-
-  
 }

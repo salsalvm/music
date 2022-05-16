@@ -1,4 +1,3 @@
-
 import 'dart:ui';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,17 +20,14 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _animation1;
   late Animation<double> _animation2;
   late Animation<double> _animation3;
 
-  final AssetsAudioPlayer assetsAudioPlayer = AssetsAudioPlayer.withId('0');
   bool _bool = true;
   bool pressed = false;
-  
 
   @override
   void initState() {
@@ -61,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           appBar: AppBar(
             // brightness: Brightness.light,
             elevation: 0, backgroundColor: black,
-           
+
             leading: IconButton(
               icon: Icon(Icons.menu),
               splashColor: Colors.transparent,
@@ -106,31 +102,35 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           ),
           body: Stack(
             children: [
- TabBarView(
+              TabBarView(
                 children: [
                   //  musiclist
                   SingleChildScrollView(
                     child: Padding(
-                      padding:  EdgeInsets.symmetric(
-                          horizontal: 15.0, vertical: 13).r,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 15.0, vertical: 13)
+                              .r,
                       child: MusicList(),
                     ),
                   ),
 
                   //  favourites
-                   SingleChildScrollView(
+                  SingleChildScrollView(
                       child: SafeArea(
                           child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 13).r,
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 15.0, vertical: 13).r,
                     child: FavouriteScreen(),
                   ))),
 
                   //  recent
-                   SingleChildScrollView(
-                      child: SafeArea(child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 13,horizontal: 15.0).r,
-                        child: RecentSongs(),
-                      ))),
+                  SingleChildScrollView(
+                      child: SafeArea(
+                          child: Padding(
+                    padding:
+                        EdgeInsets.symmetric(vertical: 13, horizontal: 15.0).r,
+                    child: RecentSongs(),
+                  ))),
                 ],
               ),
 
@@ -140,7 +140,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           ),
 
           // bottm tile
-          bottomSheet: assetsAudioPlayer.builderCurrent(
+          bottomSheet: player.builderCurrent(
               builder: (BuildContext context, Playing? playing) {
             final myAudio = find(fullSongs, playing!.audio.assetAudioPath);
             return Container(
@@ -185,11 +185,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     IconButton(
                       onPressed: playing.index == 0
                           ? () {
-                              assetsAudioPlayer.id;
+                              player.id;
                             }
                           : () {},
                       icon: playing.index == 0
-                          ?  Icon(
+                          ? Icon(
                               Icons.skip_previous_rounded,
                               color: Colors.black45,
                               size: 43.sp,
@@ -202,7 +202,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     ),
                     // play pause
                     PlayerBuilder.isPlaying(
-                        player: assetsAudioPlayer,
+                        player: player,
                         builder: (context, isPlaying) {
                           return IconButton(
                             icon: Icon(
@@ -212,7 +212,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                               size: 43.sp,
                             ),
                             onPressed: () {
-                              assetsAudioPlayer.playOrPause();
+                              player.playOrPause();
                             },
                             color: textWhite,
                           );
@@ -224,7 +224,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       onPressed: playing.index == fullSongs.length - 1
                           ? () {}
                           : () {
-                              assetsAudioPlayer.next();
+                              player.next();
                             },
                       icon: playing.index == fullSongs.length - 1
                           ? Icon(

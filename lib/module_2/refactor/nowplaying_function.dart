@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:music/main.dart';
 
-Widget BlankSpace =  SizedBox(
-  height: 75.h,
-);
-
 Widget smallwidth =  SizedBox(
   width: 30.w,
 );

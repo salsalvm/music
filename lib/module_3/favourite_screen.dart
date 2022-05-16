@@ -1,11 +1,9 @@
-import 'dart:developer';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/main.dart';
-import 'package:music/module_1/home.dart';
 import 'package:music/module_1/refactor/open_palyer.dart';
 import 'package:music/module_1/splash_Screen.dart';
 import 'package:music/module_2/nowplaying_screen.dart';
@@ -23,8 +21,6 @@ class FavouriteIcon extends StatefulWidget {
 }
 
 class _FavouriteIconState extends State<FavouriteIcon> {
-  final box = PlaylistBox.getInstance();
-
   List favouritesSong = [];
 
   @override
@@ -72,8 +68,6 @@ class FavouriteScreen extends StatefulWidget {
 List<Audio> favSong = [];
 
 class _FavouriteScreenState extends State<FavouriteScreen> {
-  final box = PlaylistBox.getInstance();
-
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
@@ -128,8 +122,8 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                               id: favouritesSongs[index].id,
                               type: ArtworkType.AUDIO),
                           title: Padding(
-                            padding: EdgeInsets.only(
-                                top: 3, left: 5, bottom: 3).r,
+                            padding:
+                                EdgeInsets.only(top: 3, left: 5, bottom: 3).r,
                             child: Text(
                               favouritesSongs[index].songname,
                               overflow: TextOverflow.ellipsis,

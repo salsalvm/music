@@ -3,23 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/main.dart';
+import 'package:music/module_1/splash_Screen.dart';
 import 'package:music/module_4/refactor/read_add_playlist.dart';
-import 'package:music/module_4/refactor/create_playlist.dart';
+import 'package:music/module_4/refactor/form_playlist_create.dart';
+import 'package:on_audio_query/on_audio_query.dart';
 
 class MenuHoriz extends StatelessWidget {
   final String songId;
   MenuHoriz({Key? key, required this.songId}) : super(key: key);
 
-  final box = PlaylistBox.getInstance();
-
-  List<SongsModel> dbSongs = [];
-  List<Audio> fullsong = [];
   List playlist = [];
-  List<dynamic> playlistSongs = [];
   @override
   Widget build(BuildContext context) {
-
-    dbSongs = box.get("music") as List<SongsModel>;
     final playlistName = databaseSongs(dbSongs, songId);
 
     return PopupMenuButton(
@@ -27,8 +22,7 @@ class MenuHoriz extends StatelessWidget {
       icon: Icon(
         Icons.more_vert_outlined,
         color: textWhite,
-      ), //don't specify icon if you want 3 dot menu
-      // color: Colors.blue,
+      ),
       itemBuilder: (context) => [
         PopupMenuItem(
           onTap: () {},
@@ -79,7 +73,7 @@ PlayListShowBottomSheet(BuildContext context, playlistName) {
         return Container(
           decoration: BoxDecoration(
             color: boxColor,
-            borderRadius:  BorderRadius.only(
+            borderRadius: BorderRadius.only(
               topLeft: Radius.circular(25.0).r,
               topRight: Radius.circular(25).r,
               bottomLeft: Radius.zero,
@@ -89,18 +83,15 @@ PlayListShowBottomSheet(BuildContext context, playlistName) {
           height: 300.h,
           width: double.infinity,
           child: Padding(
-            padding:  EdgeInsets.symmetric(horizontal: 10, vertical: 5).r,
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5).r,
             child: Stack(
               children: [
-                ListView(
-                  shrinkWrap: true,
-                 children: [
-                     PlayListItem(
-                      song: playlistName,
-                      countSong: "song",
-                    )]
-                )
-                ,
+                ListView(shrinkWrap: true, children: [
+                  PlayListItem(
+                    song: playlistName,
+                    countSong: "song",
+                  )
+                ]),
 
                 //  floatting
                 Container(
