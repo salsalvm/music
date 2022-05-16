@@ -1,6 +1,7 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/module_1/home.dart';
+import 'package:music/module_1/splash_Screen.dart';
 import 'package:music/module_3/favourite_screen.dart';
 
 class OpenPlayer {

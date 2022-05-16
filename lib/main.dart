@@ -3,6 +3,7 @@ import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/module_1/splash_Screen.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,12 +25,16 @@ Future<void> main() async {
   }
   runApp(const MyApp());
 }
-
+// void requestPermission(){
+//     Permission.storage.request();
+   
+// }
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    // requestPermission();
     return ScreenUtilInit(splitScreenMode: true,minTextAdapt: true,useInheritedMediaQuery: true,
         designSize: const Size(392.7, 781.1),
         builder: (child) {

@@ -1,15 +1,14 @@
+
 import 'dart:ui';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:marquee/marquee.dart';
-import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/main.dart';
 import 'package:flutter/material.dart';
-
 import 'package:music/module_1/mymusic_screen.dart';
 import 'package:music/module_1/recent_screen.dart';
+import 'package:music/module_1/splash_Screen.dart';
 import 'package:music/module_2/nowplaying_screen.dart';
-
 import 'package:music/module_3/favourite_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:music/module_1/refactor/home_widget.dart';
@@ -22,12 +21,6 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-List<SongModel> fetchedSongs = [];
-List<SongModel> allSongs = [];
-List<SongsModel> mappedSongs = [];
-List<SongsModel> dbSongs = [];
-List<Audio> fullSongs = [];
-final box = PlaylistBox.getInstance();
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   late AnimationController _animationController;
@@ -38,11 +31,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   final AssetsAudioPlayer assetsAudioPlayer = AssetsAudioPlayer.withId('0');
   bool _bool = true;
   bool pressed = false;
-  final OnAudioQuery _audioQuery = OnAudioQuery();
+  
 
   @override
   void initState() {
-    requestStoragePermissiono();
     super.initState();
     animationDrawer();
   }
@@ -267,50 +259,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             );
           }),
         ));
-  }
-
-  requestStoragePermissiono() async {
-    bool permissionStatus = await _audioQuery.permissionsStatus();
-    if (!permissionStatus) {
-      _audioQuery.permissionsRequest();
-    }
-    setState(() {});
-
-    // allmedia fetched from storage
-    fetchedSongs = await _audioQuery.querySongs();
-    for (var element in fetchedSongs) {
-      if (element.fileExtension == "mp3") {
-        allSongs.add(element);
-      }
-    }
-
-    mappedSongs = allSongs
-        .map((audio) => SongsModel(
-          
-            id: audio.id,
-            artist: audio.artist,
-            duration: audio.duration,
-            songname: audio.title,
-            songurl: audio.uri))
-        .toList();
-
-    await box.put("music", mappedSongs);
-    dbSongs = box.get("music") as List<SongsModel>;
-
-// seperat song details
-    for (var element in dbSongs) {
-      fullSongs.add(
-        Audio.file(
-          element.songurl.toString(),
-          metas: Metas(
-            title: element.songname,
-            id: element.id.toString(),
-            artist: element.artist,
-          ),
-        ),
-      );
-    }
-    setState(() {});
   }
 
   void animationDrawer() {

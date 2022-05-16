@@ -1,6 +1,9 @@
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/module_1/home.dart';
+import 'package:on_audio_query/on_audio_query.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -8,49 +11,63 @@ class SplashScreen extends StatefulWidget {
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
-
+List<SongModel> fetchedSongs = [];
+List<SongModel> allSongs = [];
+List<SongsModel> mappedSongs = [];
+List<SongsModel> dbSongs = [];
+List<Audio> fullSongs = [];
+final box = PlaylistBox.getInstance();
+final OnAudioQuery _audioQuery = OnAudioQuery();
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-   
-    goTo();
+    requestStoragePermissiono();
+    
     super.initState();
   }
+  requestStoragePermissiono() async {
+    bool permissionStatus = await _audioQuery.permissionsStatus();
+    if (!permissionStatus) {
+     await _audioQuery.permissionsRequest();
+    }
   
+    setState(() {});
 
-//   final OnAudioQuery _audioQuery = OnAudioQuery();
+    fetchedSongs = await _audioQuery.querySongs();
+    for (var element in fetchedSongs) {
+      if (element.fileExtension == "mp3") {
+        allSongs.add(element);
+      }
+    }
 
-//   List<SongModel> fetchedSongs = [];
-//   List<SongModel> allSongs = [];
-//   List<Audio> fullSong = [];
+    mappedSongs = allSongs
+        .map((audio) => SongsModel(
+          
+            id: audio.id,
+            artist: audio.artist,
+            duration: audio.duration,
+            songname: audio.title,
+            songurl: audio.uri))
+        .toList();
 
-//   requestStoragePermissiono() async {
-//     bool permissionStatus = await _audioQuery.permissionsStatus();
-//     if (!permissionStatus) {
-//       _audioQuery.permissionsRequest();
-//     }
-//     setState(() {});
+    await box.put("music", mappedSongs);
+    dbSongs = box.get("music") as List<SongsModel>;
 
-//     // allmedia fetched from storage
-//     fetchedSongs = await _audioQuery.querySongs();
-//     for (var element in fetchedSongs) {
-//       if (element.fileExtension == "mp3") {
-//         allSongs.add(element);
-//       }
-//     }
-
-// // seperat song details
-//     for (var element in allSongs) {
-//       fullSong.add(
-//         Audio.file(element.uri.toString(),
-//             metas: Metas(
-//               title: element.title,
-//               id: element.id.toString(),P
-//               artist: element.artist,
-//             )),
-//       );
-//     }
-//   }
+    for (var element in dbSongs) {
+      fullSongs.add(
+        Audio.file(
+          element.songurl.toString(),
+          metas: Metas(
+            title: element.songname,
+            id: element.id.toString(),
+            artist: element.artist,
+          ),
+        ),
+      );
+    }
+    setState(() {});
+    goTo();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,6 +98,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Navigator.of(context)
         .pushReplacement(MaterialPageRoute(builder: (ctx) => HomeScreen()));
   }
+  
 }
 
 // design
@@ -102,4 +120,6 @@ Widget splash({required String content}) {
           color: Colors.white, fontSize: 30.sp, fontFamily: 'mono'),
     )
   ]);
+
+  
 }
