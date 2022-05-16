@@ -14,11 +14,11 @@ class MostPlayedSong extends StatelessWidget {
       backgroundColor: lightBlue,
       appBar: AppBar(
         backgroundColor: lightBlue,
-        title: Text('Most Played Song'),
+        title:const Text('Most Played Song'),
         centerTitle: true,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: Icon(
+          icon:const Icon(
             Icons.arrow_back,
           ),
         ),
@@ -27,7 +27,7 @@ class MostPlayedSong extends StatelessWidget {
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: Padding(
-            padding:  EdgeInsets.symmetric(horizontal: 15.0.w, vertical: 13.h),
+            padding:  EdgeInsets.symmetric(horizontal: 15.0, vertical: 13).r,
             child: ListView.separated(
                 physics: BouncingScrollPhysics(),
                 shrinkWrap: true,

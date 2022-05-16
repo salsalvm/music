@@ -88,18 +88,18 @@ class _SplashScreenState extends State<SplashScreen> {
 Widget splash({required String content}) {
   return Column(children: [
     SizedBox(
-      height: 350,
+      height: 350.h,
     ),
      Icon(
       Icons.music_video,
-      size: 50.w.h,
+      size: 50.sp,
       color: Colors.white,
     ),
     SizedBox(height: 30.h),
     Text(
       content,
       style:  TextStyle(
-          color: Colors.white, fontSize: 30.w.h, fontFamily: 'mono'),
+          color: Colors.white, fontSize: 30.sp, fontFamily: 'mono'),
     )
   ]);
 }

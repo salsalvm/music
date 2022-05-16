@@ -25,7 +25,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
         appBar: AppBar(
           actions: [
             IconButton(
-                padding:  EdgeInsets.only(right: 20.w),
+                padding:  EdgeInsets.only(right: 20).r,
                 onPressed: () {
                   showDialog(
                       context: context,
@@ -35,7 +35,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
                 },
                 icon:  Icon(
                   Icons.add,
-                  size: 30.w.h,
+                  size: 30.sp,
                 ))
           ],
           title: const Text('Playlist'),
@@ -67,24 +67,24 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                 },
                                 leading: Padding(
                                   padding:
-                                       EdgeInsets.only(left: 6.0.w, top: 5.h),
+                                       EdgeInsets.only(left: 6.0, top: 5).r,
                                   child: Icon(
                                     Icons.queue_music_rounded,
                                     color: textWhite,
-                                    size: 30.w.h,
+                                    size: 30.sp,
                                   ),
                                 ),
                                 title: Padding(
                                   padding:  EdgeInsets.only(
-                                      left: 3.0.w, bottom: 3.h, top: 5.h),
+                                      left: 3.0, bottom: 3, top: 5).r,
                                   child: Text(
                                     playlists[index].toString(),
                                     style: TextStyle(
-                                        color: textWhite, fontSize: 18.w.h),
+                                        color: textWhite, fontSize: 18.sp),
                                   ),
                                 ),
                                 subtitle: Padding(
-                                  padding:  EdgeInsets.only(left: 3.0.w),
+                                  padding:  EdgeInsets.only(left: 3.0).r,
                                   child: Text(
                                     "${playlistSongs!.length} Song",
                                     style: TextStyle(
@@ -132,7 +132,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                             ),
                                             content: Padding(
                                               padding:  EdgeInsets.only(
-                                                  top: 8.0.h),
+                                                  top: 8.0).r,
                                               child: Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
@@ -148,7 +148,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                               Padding(
                                                 padding:
                                                      EdgeInsets.symmetric(
-                                                        horizontal: 20.w),
+                                                        horizontal: 20).r,
                                                 child: Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment
@@ -158,7 +158,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                                       child: Text("Cancel",
                                                           style: TextStyle(
                                                               color: textWhite,
-                                                              fontSize: 18.w.h)),
+                                                              fontSize: 18.sp)),
                                                       onPressed: () {
                                                         Navigator.of(context)
                                                             .pop();
@@ -168,7 +168,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                                       child: Text("Yes",
                                                           style: TextStyle(
                                                               color: textWhite,
-                                                              fontSize: 18.w.h)),
+                                                              fontSize: 18.sp)),
                                                       onPressed: () {
                                                         Navigator.pop(context);
                                                         box.delete(

@@ -18,13 +18,13 @@ class AlbumPage extends StatelessWidget {
         ),
         body: SafeArea(
           child: Padding(
-            padding:  EdgeInsets.all(15.0.w.h),
+            padding:  EdgeInsets.all(15.0).r,
             child: GridView.builder(
                 gridDelegate:  SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 200.w.h,
+                    maxCrossAxisExtent: 200.r,
                     childAspectRatio: 3 / 2.1,
-                    crossAxisSpacing: 10.w.h,
-                    mainAxisSpacing: 10.w.h),
+                    crossAxisSpacing: 10.r,
+                    mainAxisSpacing: 10.r),
                 itemCount: albumList.length,
                 itemBuilder: (BuildContext ctx, index) {
                   return GestureDetector(

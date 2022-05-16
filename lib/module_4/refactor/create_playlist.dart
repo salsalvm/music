@@ -61,13 +61,13 @@ class _CreatePlaylistFormState extends State<CreatePlaylistForm> {
       ),
       actions: [
         Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 10.w),
+          padding:  EdgeInsets.symmetric(horizontal: 10).r,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               TextButton(
                 child: Text("Cancel",
-                    style: TextStyle(color: textWhite, fontSize: 16.w.h)),
+                    style: TextStyle(color: textWhite, fontSize: 16.sp)),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -76,7 +76,7 @@ class _CreatePlaylistFormState extends State<CreatePlaylistForm> {
               // add playlist from db
               TextButton(
                 child: Text("Create",
-                    style: TextStyle(color: textWhite, fontSize: 16.w.h)),
+                    style: TextStyle(color: textWhite, fontSize: 16.sp)),
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
                     box.put(title, playlist); 

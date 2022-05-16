@@ -7,7 +7,6 @@ import 'package:music/main.dart';
 import 'package:music/module_1/refactor/open_palyer.dart';
 import 'package:music/module_2/nowplaying_screen.dart';
 import 'package:music/module_3/favourite_screen.dart';
-import 'package:music/module_4/refactor/read_add_playlist.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class PlayListSongs extends StatefulWidget {
@@ -45,13 +44,13 @@ class _PlayListSongsState extends State<PlayListSongs> {
         ),
         actions: [
           Padding(
-            padding:  EdgeInsets.only(right: 10.0.w, top: 8.h),
+            padding:  EdgeInsets.only(right: 10.0, top: 8).r,
             child: IconButton(
                 onPressed: () {
                   showModalBottomSheet(
                       shape:  RoundedRectangleBorder(
                           borderRadius:
-                              BorderRadius.vertical(top: Radius.circular(25.w.h))),
+                              BorderRadius.vertical(top: Radius.circular(25).r)),
                       backgroundColor: boxColor,
                       context: context,
                       builder: (ctx) {
@@ -69,7 +68,7 @@ class _PlayListSongsState extends State<PlayListSongs> {
       ),
       body: SafeArea(
         child: Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 15.0.w, vertical: 10.h),
+          padding:  EdgeInsets.symmetric(horizontal: 15.0, vertical: 10).r,
           child: ValueListenableBuilder(
               valueListenable: box.listenable(),
               builder: (context, value, child) {
@@ -89,7 +88,7 @@ class _PlayListSongsState extends State<PlayListSongs> {
                           return Container(
                             decoration: BoxDecoration(
                                 color: boxColor,
-                                borderRadius: BorderRadius.circular(15.w.h)),
+                                borderRadius: BorderRadius.circular(15).r),
                             child: ListTile(
                               leading: QueryArtworkWidget(
                                   artworkHeight: 60.h,
@@ -98,16 +97,16 @@ class _PlayListSongsState extends State<PlayListSongs> {
                                   type: ArtworkType.AUDIO),
                               title: Padding(
                                 padding:  EdgeInsets.only(
-                                    left: 5.0.w, bottom: 3.h, top: 3.h),
+                                    left: 5.0, bottom: 3, top: 3).r,
                                 child: Text(
                                   playlistSongs[index].songname,
                                   overflow: TextOverflow.ellipsis,
                                   style:
-                                      TextStyle(color: textWhite, fontSize: 18.w.h),
+                                      TextStyle(color: textWhite, fontSize: 18.sp),
                                 ),
                               ),
                               subtitle: Padding(
-                                padding:  EdgeInsets.only(left: 7.0.w),
+                                padding:  EdgeInsets.only(left: 7.0).r,
                                 child: Text(
                                   playlistSongs[index].artist.toLowerCase(),
                                   overflow: TextOverflow.ellipsis,
@@ -122,7 +121,7 @@ class _PlayListSongsState extends State<PlayListSongs> {
                                   PopupMenuButton(
                                     child: Padding(
                                       padding:  EdgeInsets.only(
-                                          top: 11.0.h, left: 5.w),
+                                          top: 11.0, left: 5).r,
                                       child: Icon(
                                         Icons.more_vert,
                                         color: textWhite,
@@ -137,7 +136,7 @@ class _PlayListSongsState extends State<PlayListSongs> {
                                                   behavior:
                                                       SnackBarBehavior.floating,
                                                   backgroundColor: boxColor,
-                                                  margin: EdgeInsets.all(10.w.h),
+                                                  margin: EdgeInsets.all(10).r,
                                                   content: Text(
                                                       '${playlistSongs[index].songname} Song Removed ')));
                                         },
@@ -196,5 +195,107 @@ class _PlayListSongsState extends State<PlayListSongs> {
         ),
       ),
     );
+  }
+}
+
+
+
+class AddSongBox extends StatefulWidget {
+  String playListName;
+
+  AddSongBox({Key? key, required this.playListName}) : super(key: key);
+
+  @override
+  State<AddSongBox> createState() => _AddSongBoxState();
+}
+
+class _AddSongBoxState extends State<AddSongBox> {
+  final box = PlaylistBox.getInstance();
+  List<SongsModel> dbSong = [];
+  List<SongsModel> playListsong = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    dbSong = box.get("music") as List<SongsModel>;
+    playListsong = box.get(widget.playListName)!.cast<SongsModel>();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // final dbSong=
+    return ValueListenableBuilder(
+        valueListenable: box.listenable(),
+        builder: ((context, value, child) {
+          return ListView.builder(
+            itemBuilder: ((context, index) {
+              return Padding(
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20).r,
+                child: ListTile(
+                    tileColor: boxColor,
+                    // onTap: (() async {
+                    //   await OpenPlayer(
+                    //           fullSongs: [], index: index)
+                    //       .openAssetPlayer(
+                    //     index: index,
+                    //     songs: fullSongs,
+                    //   );
+                    // }),
+                    leading: QueryArtworkWidget(
+                      id: dbSong[index].id!,
+                      type: ArtworkType.AUDIO,
+                      artworkHeight: 55.h,
+                      artworkWidth: 55.w,
+                    ),
+                    title: Padding(
+                      padding: EdgeInsets.only(left: 5.0, bottom: 3, top: 3).r,
+                      child: Text(
+                        dbSong[index].songname!,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(color: textWhite, fontSize: 18.sp),
+                      ),
+                    ),
+                    subtitle: Padding(
+                      padding: EdgeInsets.only(left: 7.0).r,
+                      child: Text(
+                        dbSong[index].artist!.toLowerCase(),
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(color: textGrey),
+                      ),
+                    ),
+                    trailing: playListsong
+                            .where((element) =>
+                                element.id.toString() ==
+                                dbSong[index].id.toString())
+                            .isEmpty
+                        ? IconButton(
+                            onPressed: () {
+                              setState(() {});
+                              playListsong.add(dbSong[index]);
+                              box.put(widget.playListName, playListsong);
+
+                              // setState(() {});
+                            },
+                            icon: Icon(
+                              Icons.playlist_add,
+                              size: 35.sp,
+                              color: Colors.green,
+                            ))
+                        : IconButton(
+                            onPressed: () {
+                              setState(() {});
+                              playListsong.removeWhere((element) =>
+                                  element.id.toString() ==
+                                  dbSong[index].id.toString());
+                              box.put(widget.playListName, playListsong);
+                            },
+                            icon: Icon(Icons.playlist_add_check,
+                                size: 35.sp, color: Colors.red))),
+              );
+            }),
+            itemCount: dbSong.length,
+          );
+        }));
   }
 }

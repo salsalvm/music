@@ -18,10 +18,10 @@ class Settings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  EdgeInsets.only(bottom: 10.0.h),
+      padding:  EdgeInsets.only(bottom: 10.0).r,
       child: Container(
         decoration: BoxDecoration(
-            color: boxColor, borderRadius: BorderRadius.circular(15)),
+            color: boxColor, borderRadius: BorderRadius.circular(15).r),
         child: ListTile(
             onTap: onTap,
             leading: Icon(

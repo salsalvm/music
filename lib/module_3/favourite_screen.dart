@@ -100,7 +100,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                       return Container(
                         decoration: BoxDecoration(
                             color: boxColor,
-                            borderRadius: BorderRadius.circular(15.h.w)),
+                            borderRadius: BorderRadius.circular(15).r),
                         child: ListTile(
                           onTap: () {
                             for (var item in favouritesSongs) {
@@ -128,16 +128,16 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                               type: ArtworkType.AUDIO),
                           title: Padding(
                             padding: EdgeInsets.only(
-                                top: 3.h, left: 5.w, bottom: 3.h),
+                                top: 3, left: 5, bottom: 3).r,
                             child: Text(
                               favouritesSongs[index].songname,
                               overflow: TextOverflow.ellipsis,
                               style:
-                                  TextStyle(color: textWhite, fontSize: 18.w.h),
+                                  TextStyle(color: textWhite, fontSize: 18.sp),
                             ),
                           ),
                           subtitle: Padding(
-                            padding: EdgeInsets.only(left: 8.0.w),
+                            padding: EdgeInsets.only(left: 8.0).r,
                             child: Text(
                               favouritesSongs[index].artist,
                               style: TextStyle(color: textGrey),
@@ -157,8 +157,8 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                   ),
             Padding(
               padding: EdgeInsets.only(
-                top: 480.0.h,
-              ),
+                top: 480.0,
+              ).r,
               child: Container(
                 alignment: Alignment.bottomRight,
                 child: FloatingActionButton(
@@ -167,7 +167,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                     showModalBottomSheet(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(25.w.h))),
+                                top: Radius.circular(25).r)),
                         backgroundColor: boxColor,
                         context: context,
                         builder: (ctx) {

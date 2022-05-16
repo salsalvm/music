@@ -32,7 +32,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ),
       body: SafeArea(
           child: Padding(
-        padding:  EdgeInsets.symmetric(horizontal: 15.w, vertical: 13.h),
+        padding:  EdgeInsets.symmetric(horizontal: 15, vertical: 13).r,
         child: ListView(children: [
           Settings(
             leadIcon: Icons.notification_add,
@@ -110,9 +110,3 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 }
 
-enum PermissionStatus {
-  provisional, // iOS Only
-  granted,
-  unknown,
-  denied
-}

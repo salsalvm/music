@@ -48,7 +48,7 @@ class UpdatePlaylist extends StatelessWidget {
       ),
       actions: [
         Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 15.w),
+          padding:  EdgeInsets.symmetric(horizontal: 15).r,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -58,7 +58,7 @@ class UpdatePlaylist extends StatelessWidget {
                   },
                   child: Text(
                     'Cancel',
-                    style: TextStyle(color: textWhite, fontSize: 18.w.h),
+                    style: TextStyle(color: textWhite, fontSize: 18.sp),
                   )),
               TextButton(
                   onPressed: () {
@@ -71,12 +71,12 @@ class UpdatePlaylist extends StatelessWidget {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         behavior: SnackBarBehavior.floating,
                         backgroundColor: boxColor,
-                        margin: EdgeInsets.all(10.w.h),
+                        margin: EdgeInsets.all(10).r,
                         content: Text('Playlist Renamed')));
                   },
                   child: Text(
                     'Update',
-                    style: TextStyle(color: textWhite, fontSize: 18.w.h),
+                    style: TextStyle(color: textWhite, fontSize: 18.sp),
                   ))
             ],
           ),

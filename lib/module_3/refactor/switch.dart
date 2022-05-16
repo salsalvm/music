@@ -25,11 +25,11 @@ class _SwitchFunctionState extends State<SwitchFunction> {
             inactiveColor: textGrey,
             width: 110.0.w,
             height: 40.0.h,
-            valueFontSize: 20.0.w.h,
-            toggleSize: 20.0.w.h,
+            valueFontSize: 20.0.sp,
+            toggleSize: 20.0.sp,
             value: status,
-            borderRadius: 30.0.w.h,
-            padding: 10.0.w.h,
+            borderRadius: 30.0.r,
+            padding: 10.0.r,
             showOnOff: true,
             onToggle: (val) {
               setState(() {

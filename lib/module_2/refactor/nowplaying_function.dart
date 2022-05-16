@@ -15,26 +15,26 @@ Widget bottomPlaylist({onTap, required playListName, required countSong}) {
     children: [
       Container(
         decoration: BoxDecoration(
-            color: boxColor, borderRadius: BorderRadius.circular(15)),
+            color: boxColor, borderRadius: BorderRadius.circular(15).r),
         child: ListTile(
           onTap: onTap,
           leading: Padding(
-            padding:  EdgeInsets.only(left: 6.0.w, top: 5.h),
+            padding:  EdgeInsets.only(left: 6, top: 5).r,
             child: Icon(
               Icons.queue_music_rounded,
               color: textWhite,
-              size: 30.w.h,
+              size: 30.sp,
             ),
           ),
           title: Padding(
-            padding:  EdgeInsets.only(left: 3.0.w, bottom: 3.h, top: 5.h),
+            padding:  EdgeInsets.only(left: 3.0, bottom: 3, top: 5).r,
             child: Text(
               playListName,
-              style: TextStyle(color: textWhite, fontSize: 18.w.h),
+              style: TextStyle(color: textWhite, fontSize: 18.sp),
             ),
           ),
           subtitle: Padding(
-            padding:  EdgeInsets.only(left: 3.0.w),
+            padding:  EdgeInsets.only(left: 3.0).r,
             child: Text(
               countSong,
               style: TextStyle(

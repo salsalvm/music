@@ -65,7 +65,7 @@ List<SongsModel>recent=[];
                     
                     decoration: BoxDecoration(
                         color: boxColor,
-                        borderRadius: BorderRadius.circular(15)),
+                        borderRadius: BorderRadius.circular(15).r),
                     child: ListTile(
                       onTap: (() async {
                       // log('message')
@@ -83,15 +83,15 @@ List<SongsModel>recent=[];
                           type: ArtworkType.AUDIO),
                       title: Padding(
                         padding:
-                             EdgeInsets.only(left: 5.0.w, bottom: 3.h, top: 3.h),
+                             EdgeInsets.only(left: 5.0, bottom: 3, top: 3).r,
                         child: Text(
                           item.data![index].displayNameWOExt,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(color: textWhite, fontSize: 18),
+                          style: TextStyle(color: textWhite, fontSize: 18.sp),
                         ),
                       ),
                       subtitle: Padding(
-                        padding:  EdgeInsets.only(left: 7.0.w),
+                        padding:  EdgeInsets.only(left: 7.0).r,
                         child: Text(
                           "${item.data![index].artist}".toLowerCase(),
                           overflow: TextOverflow.ellipsis,

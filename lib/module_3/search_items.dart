@@ -90,7 +90,7 @@ class MySearch extends SearchDelegate {
               style: TextStyle(color: Colors.green),
             ))
           : Padding(
-              padding:  EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
+              padding:  EdgeInsets.symmetric(horizontal: 15, vertical: 15).r,
               child: ListView.separated(
                   physics: const BouncingScrollPhysics(),
                   shrinkWrap: true,
@@ -98,7 +98,7 @@ class MySearch extends SearchDelegate {
                     return Container(
                       decoration: BoxDecoration(
                           color: boxColor,
-                          borderRadius: BorderRadius.circular(15.w.h)),
+                          borderRadius: BorderRadius.circular(15).r),
                       child: ListTile(
                         onTap: (() async {
                           await OpenPlayer(fullSongs: [], index: index,songId: int.parse(searchSongItems[index].metas.id!).toString())
@@ -120,15 +120,15 @@ class MySearch extends SearchDelegate {
                             type: ArtworkType.AUDIO),
                         title: Padding(
                           padding:  EdgeInsets.only(
-                              left: 5.0.w, bottom: 3.h, top: 3.h),
+                              left: 5.0, bottom: 3, top: 3).r,
                           child: Text(
                             searchSongItems[index].metas.title!,
                             overflow: TextOverflow.ellipsis,
-                            style: TextStyle(color: textWhite, fontSize: 18),
+                            style: TextStyle(color: textWhite, fontSize: 18.sp),
                           ),
                         ),
                         subtitle: Padding(
-                          padding:  EdgeInsets.only(left: 7.0.w),
+                          padding:  EdgeInsets.only(left: 7.0).r,
                           child: Text(
                             searchSongItems[index].metas.artist!,
                             overflow: TextOverflow.ellipsis,
@@ -139,7 +139,7 @@ class MySearch extends SearchDelegate {
                             onPressed: () {},
                             icon: Icon(
                               Icons.play_arrow,
-                              size: 25.w.h,
+                              size: 25.sp,
                               color: textWhite,
                             )),
                       ),

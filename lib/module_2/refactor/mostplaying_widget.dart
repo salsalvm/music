@@ -19,25 +19,25 @@ class MostPlayed extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: boxColor, borderRadius: BorderRadius.circular(15)),
+          color: boxColor, borderRadius: BorderRadius.circular(15).r),
       child: ListTile(
           onTap: () {},
           leading: CircleAvatar(
-            radius: 30,
+            radius: 30.r,
             backgroundColor: Colors.transparent,
             backgroundImage: AssetImage(
               leadImage,
             ),
           ),
           title: Padding(
-            padding:  EdgeInsets.only(left: 5.0.w, bottom: 3.h, top: 3.h),
+            padding:  EdgeInsets.only(left: 5.0, bottom: 3, top: 3).r,
             child: Text(
               songName,
-              style: TextStyle(color: textWhite, fontSize: 18.w.h),
+              style: TextStyle(color: textWhite, fontSize: 18.sp),
             ),
           ),
           subtitle: Padding(
-            padding:  EdgeInsets.only(left: 5.0.w),
+            padding:  EdgeInsets.only(left: 5.0).r,
             child: Text(
               singerName,
               style: TextStyle(color: textGrey),
@@ -49,7 +49,7 @@ class MostPlayed extends StatelessWidget {
                   onPressed: () {},
                   icon: Icon(
                     Icons.favorite,
-                    size: 22.w.h,
+                    size: 22.sp,
                     color: favour,
                   )),
             // MenuHoriz(songId: songId)

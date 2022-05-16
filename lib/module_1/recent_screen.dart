@@ -55,7 +55,7 @@ class _RecentSongsState extends State<RecentSongs> {
                   return Container(
                     decoration: BoxDecoration(
                         color: boxColor,
-                        borderRadius: BorderRadius.circular(15)),
+                        borderRadius: BorderRadius.circular(15).r),
                     child: ListTile(
                       onTap: () {
                         for (var item in recentPlayedSong) {
@@ -80,15 +80,15 @@ class _RecentSongsState extends State<RecentSongs> {
                           type: ArtworkType.AUDIO),
                       title: Padding(
                         padding:
-                            EdgeInsets.only(top: 3.h, left: 5.w, bottom: 3.h),
+                            EdgeInsets.only(top: 3, left: 5, bottom: 3).r,
                         child: Text(
                           recentPlayedSong[index].songname,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(color: textWhite, fontSize: 18.w.h),
+                          style: TextStyle(color: textWhite, fontSize: 18.sp),
                         ),
                       ),
                       subtitle: Padding(
-                        padding: EdgeInsets.only(left: 8.0.w),
+                        padding: EdgeInsets.only(left: 8.0).r,
                         child: Text(
                           recentPlayedSong[index].artist,
                           style: TextStyle(color: textGrey),

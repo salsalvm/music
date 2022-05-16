@@ -14,7 +14,6 @@ import 'package:music/module_3/favourite_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:music/module_1/refactor/home_widget.dart';
 import 'package:music/module_3/search_items.dart';
-import 'dart:developer' as devlog;
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -68,8 +67,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           backgroundColor: lightBlue,
           extendBodyBehindAppBar: true,
           appBar: AppBar(
-            brightness: Brightness.light,
-            elevation: 0, backgroundColor: lightBlue,
+            // brightness: Brightness.light,
+            elevation: 0, backgroundColor: black,
            
             leading: IconButton(
               icon: Icon(Icons.menu),
@@ -121,7 +120,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   SingleChildScrollView(
                     child: Padding(
                       padding:  EdgeInsets.symmetric(
-                          horizontal: 15.0.w, vertical: 13.h),
+                          horizontal: 15.0, vertical: 13).r,
                       child: MusicList(),
                     ),
                   ),
@@ -130,14 +129,14 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                    SingleChildScrollView(
                       child: SafeArea(
                           child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15.0.w, vertical: 13.h),
+                    padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 13).r,
                     child: FavouriteScreen(),
                   ))),
 
                   //  recent
                    SingleChildScrollView(
                       child: SafeArea(child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 13.h,horizontal: 15.0.w),
+                        padding: EdgeInsets.symmetric(vertical: 13,horizontal: 15.0).r,
                         child: RecentSongs(),
                       ))),
                 ],
@@ -171,7 +170,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   artworkWidth: 60.w,
                   id: int.parse(myAudio.metas.id!),
                   type: ArtworkType.AUDIO,
-                  artworkBorder: BorderRadius.circular(8),
+                  artworkBorder: BorderRadius.circular(8).r,
                 ),
                 title: SizedBox(
                     height: 18.h,
@@ -201,12 +200,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           ?  Icon(
                               Icons.skip_previous_rounded,
                               color: Colors.black45,
-                              size: 43.w.h,
+                              size: 43.sp,
                             )
                           : Icon(
                               Icons.skip_previous_rounded,
                               color: textWhite,
-                              size: 43.w.h,
+                              size: 43.sp,
                             ),
                     ),
                     // play pause
@@ -218,7 +217,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                               isPlaying
                                   ? Icons.pause_circle
                                   : Icons.play_circle,
-                              size: 43.w.h,
+                              size: 43.sp,
                             ),
                             onPressed: () {
                               assetsAudioPlayer.playOrPause();
@@ -229,7 +228,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
                     // next
                     IconButton(
-                      iconSize: 45.w.h,
+                      iconSize: 45.sp,
                       onPressed: playing.index == fullSongs.length - 1
                           ? () {}
                           : () {
@@ -239,12 +238,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           ? Icon(
                               Icons.skip_next_rounded,
                               color: black,
-                              size: 43.w.h,
+                              size: 43.sp,
                             )
                           : Icon(
                               Icons.skip_next_rounded,
                               color: textWhite,
-                              size: 43.w.h,
+                              size: 43.sp,
                             ),
                     ),
                     // IconButton(
@@ -316,7 +315,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   void animationDrawer() {
     _animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 600));
+        AnimationController(vsync: this, duration: Duration(milliseconds: 0));
 
     _animation1 = Tween<double>(begin: 0, end: 20).animate(CurvedAnimation(
       parent: _animationController,

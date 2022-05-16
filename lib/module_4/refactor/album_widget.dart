@@ -18,7 +18,7 @@ class AlbumItems extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         decoration: BoxDecoration(
-            color: boxColor, borderRadius: BorderRadius.circular(10.w.h)),
+            color: boxColor, borderRadius: BorderRadius.circular(10).r),
         alignment: Alignment.center,
         child:
             //  Text(myProducts[index]["name"]),
@@ -28,27 +28,27 @@ class AlbumItems extends StatelessWidget {
               width: 180.w,
               height: 90.h,
               decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(10.w.h)),
+                  BoxDecoration(borderRadius: BorderRadius.circular(10).r),
               child: ClipRRect(
                 child: Image(
                   image: AssetImage(assetImage),
                   fit: BoxFit.fill,
                 ),
                 borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10.w.h),
-                    topRight: Radius.circular(10.w.h)),
+                    topLeft: Radius.circular(10).r,
+                    topRight: Radius.circular(10).r),
               ),
             ),
             Padding(
-              padding:  EdgeInsets.symmetric(vertical: 5.h,horizontal: 10.w),
+              padding:  EdgeInsets.symmetric(vertical: 5,horizontal: 10).r,
               child: Row(mainAxisAlignment:MainAxisAlignment.spaceBetween ,
                 children: [
                   Text(
                     albumName,
-                    style: TextStyle(fontSize: 18.w.h, color: textWhite),
+                    style: TextStyle(fontSize: 18.sp, color: textWhite),
                   ),
                   Text(songCount,
-                      style: TextStyle(fontSize: 15.w.h, color: textGrey)),
+                      style: TextStyle(fontSize: 15.sp, color: textGrey)),
                 ],
               ),
             ),

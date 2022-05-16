@@ -34,11 +34,12 @@ class PlayListItem extends StatelessWidget {
         ...playlists
             .map(
               (playlistName) => playlistName != "music" &&
-                      playlistName != "favourites"
+                      playlistName != "favourites" &&
+                      playlistName != "recentPlayed"
                   ? Container(
                       decoration: BoxDecoration(
                           color: boxColor,
-                          borderRadius: BorderRadius.circular(15)),
+                          borderRadius: BorderRadius.circular(15).r),
                       child: ListTile(
                         onTap: () async {
                           playlistSongs = box.get(playlistName);
@@ -74,25 +75,25 @@ class PlayListItem extends StatelessWidget {
                           }
                         },
                         leading: Padding(
-                          padding:  EdgeInsets.only(left: 6.0.w, top: 5.h),
+                          padding: EdgeInsets.only(left: 6.0, top: 5).r,
                           child: Icon(
                             Icons.queue_music_rounded,
                             color: textWhite,
-                            size: 30.w.h,
+                            size: 30.sp,
                           ),
                         ),
 
                         // playlist name
                         title: Padding(
-                          padding:  EdgeInsets.only(
-                              left: 3.0.w, bottom: 3.h, top: 5.h),
+                          padding:
+                              EdgeInsets.only(left: 3.0, bottom: 3, top: 5).r,
                           child: Text(
                             playlistName.toString(),
-                            style: TextStyle(color: textWhite, fontSize: 18.w.h),
+                            style: TextStyle(color: textWhite, fontSize: 18.sp),
                           ),
                         ),
                         subtitle: Padding(
-                          padding:  EdgeInsets.only(left: 3.0.w),
+                          padding: EdgeInsets.only(left: 3.0).r,
                           child: Text(
                             countSong,
                             style: TextStyle(
@@ -107,110 +108,5 @@ class PlayListItem extends StatelessWidget {
             .toList()
       ],
     );
-  }
-}
-
-// add song to playlis box
-
-class AddSongBox extends StatefulWidget {
-  String playListName;
-
-  AddSongBox({Key? key, required this.playListName}) : super(key: key);
-
-  @override
-  State<AddSongBox> createState() => _AddSongBoxState();
-}
-
-class _AddSongBoxState extends State<AddSongBox> {
-  final box = PlaylistBox.getInstance();
-  List<SongsModel> dbSong = [];
-  List<SongsModel> playListsong = [];
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    dbSong = box.get("music") as List<SongsModel>;
-    playListsong = box.get(widget.playListName)!.cast<SongsModel>();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // final dbSong=
-    return ValueListenableBuilder(
-        valueListenable: box.listenable(),
-        builder: ((context, value, child) {
-             
-
-          return ListView.builder(
-            itemBuilder: ((context, index) {
-              return Padding(
-                padding:
-                     EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
-                child: ListTile(
-                    tileColor: boxColor,
-                    // onTap: (() async {
-                    //   await OpenPlayer(
-                    //           fullSongs: [], index: index)
-                    //       .openAssetPlayer(
-                    //     index: index,
-                    //     songs: fullSongs,
-                    //   );
-                    // }),
-                    leading: QueryArtworkWidget(
-                      id: dbSong[index].id!,
-                      type: ArtworkType.AUDIO,
-                      artworkHeight: 55.h,
-                      artworkWidth: 55.w,
-                    ),
-                    title: Padding(
-                      padding:
-                           EdgeInsets.only(left: 5.0.w, bottom: 3.h, top: 3.h),
-                      child: Text(
-                        dbSong[index].songname!,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(color: textWhite, fontSize: 18.w.h),
-                      ),
-                    ),
-                    subtitle: Padding(
-                      padding:  EdgeInsets.only(left: 7.0.w),
-                      child: Text(
-                        dbSong[index].artist!.toLowerCase(),
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(color: textGrey),
-                      ),
-                    ),
-                    trailing: playListsong
-                            .where((element) =>
-                                element.id.toString() ==
-                                dbSong[index].id.toString())
-                            .isEmpty
-                        ? IconButton(
-                            onPressed: () { setState(() {});
-                              playListsong.add(dbSong[index]);
-                              box.put(widget.playListName, playListsong);
-                              
-                              // setState(() {});
-                            },
-                            icon:  Icon(
-                              Icons.playlist_add,
-                              size: 35.w.h,
-                              color: Colors.green,
-                            ))
-                        : IconButton(
-                            onPressed: () { setState(() {});
-                              playListsong.removeWhere((element) =>
-                                  element.id.toString() ==
-                                  dbSong[index].id.toString());
-                              box.put(widget.playListName, playListsong);
-                             
-                            },
-                            icon:  Icon(Icons.playlist_add_check,
-                                size: 35.w.h, color: Colors.red))),
-              );
-            }),
-            itemCount: dbSong.length,
-          );
-        }));
   }
 }

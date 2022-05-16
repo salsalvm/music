@@ -80,8 +80,8 @@ PlayListShowBottomSheet(BuildContext context, playlistName) {
           decoration: BoxDecoration(
             color: boxColor,
             borderRadius:  BorderRadius.only(
-              topLeft: Radius.circular(25.0.w.h),
-              topRight: Radius.circular(25.w.h),
+              topLeft: Radius.circular(25.0).r,
+              topRight: Radius.circular(25).r,
               bottomLeft: Radius.zero,
               bottomRight: Radius.zero,
             ),
@@ -89,7 +89,7 @@ PlayListShowBottomSheet(BuildContext context, playlistName) {
           height: 300.h,
           width: double.infinity,
           child: Padding(
-            padding:  EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+            padding:  EdgeInsets.symmetric(horizontal: 10, vertical: 5).r,
             child: Stack(
               children: [
                 ListView(
