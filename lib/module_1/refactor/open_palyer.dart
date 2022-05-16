@@ -1,5 +1,5 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
-
+ 
 class OpenPlayer {
   List<Audio> fullSongs;
   int index;
@@ -7,9 +7,11 @@ class OpenPlayer {
 
   OpenPlayer({required this.fullSongs, required this.index});
 
-  final AssetsAudioPlayer player = AssetsAudioPlayer.withId('0');
 
+  // final AssetsAudioPlayer player = AssetsAudioPlayer.withId('0');
+  
   openAssetPlayer({List<Audio>? songs, required int index}) async {
+    
     player.open(
       Playlist(audios: songs, startIndex: index),
       showNotification: notify == null || notify == true ? true : false,
