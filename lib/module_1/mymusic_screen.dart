@@ -76,11 +76,13 @@ class _MusicListState extends State<MusicList> {
                           songs: fullSongs,
                         );
                       }),
-                      leading: QueryArtworkWidget(
-                          artworkHeight: 60.h,
-                          artworkWidth: 60.w,
-                          id: item.data![index].id,
-                          type: ArtworkType.AUDIO),
+                      leading: item.data!.isEmpty
+                          ? CircleAvatar(backgroundColor: Colors.green,child: Icon(Icons.music_note,color: textWhite,),)
+                          : QueryArtworkWidget(
+                              artworkHeight: 60.h,
+                              artworkWidth: 60.w,
+                              id: item.data![index].id,
+                              type: ArtworkType.AUDIO),
                       title: Padding(
                         padding:
                             EdgeInsets.only(left: 5.0, bottom: 3, top: 3).r,

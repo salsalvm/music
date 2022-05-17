@@ -1,8 +1,6 @@
-import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/main.dart';
 import 'package:music/module_1/splash_Screen.dart';
 import 'package:music/module_4/playlist_songs_screen.dart';
