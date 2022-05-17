@@ -7,7 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  Hive.registerAdapter(SongsModelAdapter());
+  Hive.registerAdapter(SongsAdapter());
   await Hive.openBox<List>(boxname);
 
   // final box = PlaylistBox.getInstance();

@@ -28,7 +28,7 @@ class NowPlaying extends StatefulWidget {
 }
 
 class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
-  final box = PlaylistBox.getInstance();
+  final box = StorageBox.getInstance();
   List playlist = [];
   List<dynamic> playlistSongs = [];
 
@@ -311,7 +311,7 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
     );
   }
 
-  SongsModel databaseSongs(List<SongsModel> songs, String id) {
+  Songs databaseSongs(List<Songs> songs, String id) {
     return songs.firstWhere(
       (element) => element.songurl.toString().contains(id.toString()),
     );

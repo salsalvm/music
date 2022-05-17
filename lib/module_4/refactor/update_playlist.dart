@@ -6,7 +6,7 @@ import 'package:music/main.dart';
 class UpdatePlaylist extends StatelessWidget {
   String playlistName;
   UpdatePlaylist({Key? key, required this.playlistName}) : super(key: key);
-  final box = PlaylistBox.getInstance();
+  final box = StorageBox.getInstance();
   String? title;
   final formKey = GlobalKey<FormState>();
 

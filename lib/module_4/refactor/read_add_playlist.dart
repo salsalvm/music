@@ -5,7 +5,7 @@ import 'package:music/main.dart';
 import 'package:music/module_1/splash_Screen.dart';
 
 class PlayListItem extends StatelessWidget {
-  SongsModel song;
+  Songs song;
   List playlists = [];
   List<dynamic>? playlistSongs = [];
   final countSong;

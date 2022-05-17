@@ -16,14 +16,14 @@ class AddSongFavourites extends StatefulWidget {
 }
 
 class _AddSongFavouritesState extends State<AddSongFavourites> {
-  final box = PlaylistBox.getInstance();
-  List<SongsModel> favSongs = [];
+  final box = StorageBox.getInstance();
+  List<Songs> favSongs = [];
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    favSongs = box.get("favourites")!.cast<SongsModel>();
+    favSongs = box.get("favourites")!.cast<Songs>();
   }
 
   @override

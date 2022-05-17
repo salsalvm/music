@@ -11,7 +11,7 @@ class OpenPlayer {
   final String songId;
   OpenPlayer(
       {required this.fullSongs, required this.index, required this.songId});
-  final box = PlaylistBox.getInstance();
+  final box = StorageBox.getInstance();
 
   final AssetsAudioPlayer player = AssetsAudioPlayer.withId('0');
 

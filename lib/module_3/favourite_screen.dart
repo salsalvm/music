@@ -181,6 +181,6 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
   }
 }
 
-SongsModel databaseSongs(List<SongsModel> songs, String id) {
+Songs databaseSongs(List<Songs> songs, String id) {
   return songs.firstWhere((element) => element.id.toString().contains(id));
 }

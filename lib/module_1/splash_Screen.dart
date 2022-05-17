@@ -11,14 +11,15 @@ class SplashScreen extends StatefulWidget {
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
-  final AssetsAudioPlayer player = AssetsAudioPlayer.withId('0');
+
+final box = StorageBox.getInstance();
+final OnAudioQuery _audioQuery = OnAudioQuery();
+final AssetsAudioPlayer player = AssetsAudioPlayer.withId('0');
 List<SongModel> fetchedSongs = [];
 List<SongModel> allSongs = [];
-List<SongsModel> mappedSongs = [];
-List<SongsModel> dbSongs = [];
+List<Songs> mappedSongs = [];
+List<Songs> dbSongs = [];
 List<Audio> fullSongs = [];
-final box = PlaylistBox.getInstance();
-final OnAudioQuery _audioQuery = OnAudioQuery();
 
 class _SplashScreenState extends State<SplashScreen> {
   @override
@@ -65,7 +66,7 @@ class _SplashScreenState extends State<SplashScreen> {
     }
 
     mappedSongs = allSongs
-        .map((audio) => SongsModel(
+        .map((audio) => Songs(
             id: audio.id,
             artist: audio.artist,
             duration: audio.duration,
@@ -74,7 +75,7 @@ class _SplashScreenState extends State<SplashScreen> {
         .toList();
 
     await box.put("music", mappedSongs);
-    dbSongs = box.get("music") as List<SongsModel>;
+    dbSongs = box.get("music") as List<Songs>;
 
     for (var element in dbSongs) {
       fullSongs.add(

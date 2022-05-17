@@ -22,7 +22,7 @@ List<Audio> recent = [];
 class _RecentSongsState extends State<RecentSongs> {
   @override
   Widget build(BuildContext context) {
-    final box = PlaylistBox.getInstance();
+    final box = StorageBox.getInstance();
 
     return ValueListenableBuilder(
       valueListenable: box.listenable(),

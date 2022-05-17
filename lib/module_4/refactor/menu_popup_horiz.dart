@@ -58,7 +58,7 @@ class MenuHoriz extends StatelessWidget {
     );
   }
 
-  SongsModel databaseSongs(List<SongsModel> songs, String id) {
+  Songs databaseSongs(List<Songs> songs, String id) {
     return songs.firstWhere(
       (element) => element.songurl.toString().contains(id),
     );

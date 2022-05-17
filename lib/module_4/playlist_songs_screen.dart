@@ -22,7 +22,7 @@ class PlayListSongs extends StatefulWidget {
 }
 
 class _PlayListSongsState extends State<PlayListSongs> {
-  List<SongsModel> playlistSongs = [];
+  List<Songs> playlistSongs = [];
   List<Audio> playPlaylist = [];
 
   @override
@@ -211,14 +211,14 @@ class AddSongBox extends StatefulWidget {
 }
 
 class _AddSongBoxState extends State<AddSongBox> {
-  List<SongsModel> playListsong = [];
+  List<Songs> playListsong = [];
 
   @override
   void initState() {
     // TODO: implement initState
 
     super.initState();
-    playListsong = box.get(widget.playListName)!.cast<SongsModel>();
+    playListsong = box.get(widget.playListName)!.cast<Songs>();
   }
 
   @override
@@ -260,10 +260,10 @@ class _AddSongBoxState extends State<AddSongBox> {
                                 dbSongs[index].id.toString())
                             .isEmpty
                         ? IconButton(
-                            onPressed: () {
+                            onPressed: (){    setState(() {});
                               playListsong.add(dbSongs[index]);
                               box.put(widget.playListName, playListsong);
-                              setState(() {});
+                          
                             },
                             icon: Icon(
                               Icons.playlist_add,

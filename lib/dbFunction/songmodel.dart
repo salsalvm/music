@@ -1,7 +1,7 @@
 import 'package:hive/hive.dart';
 part 'songmodel.g.dart';
 @HiveType(typeId: 0)
-class SongsModel extends HiveObject {
+class Songs extends HiveObject {
   @HiveField(0)
   String? artist;
   @HiveField(1)
@@ -12,7 +12,7 @@ class SongsModel extends HiveObject {
   String? songurl;
   @HiveField(4)
   int? id;
-  SongsModel(
+  Songs(
       {required this.id,
       required this.artist,
       required this.duration,
@@ -22,7 +22,7 @@ class SongsModel extends HiveObject {
 
 String boxname = "songs";
 
-class PlaylistBox {
+class StorageBox {
   static Box<List>? _box;
   static Box<List> getInstance() {
     return _box ??= Hive.box(boxname);

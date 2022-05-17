@@ -20,14 +20,14 @@ class MusicList extends StatefulWidget {
 }
 
 class _MusicListState extends State<MusicList> {
-  final box = PlaylistBox.getInstance();
+  final box = StorageBox.getInstance();
 
-  List<SongsModel> recent = [];
+  List<Songs> recent = [];
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    recent = box.get("favourites")!.cast<SongsModel>();
+    recent = box.get("favourites")!.cast<Songs>();
   }
 
   // List<Audio> fav = [];
