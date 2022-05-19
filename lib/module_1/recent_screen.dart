@@ -19,20 +19,26 @@ class RecentSongs extends StatefulWidget {
 }
 
 List<Audio> recent = [];
-
 class _RecentSongsState extends State<RecentSongs> {@override
   void initState() {
     // TODO: implement initState
-    super.initState();var recentPlayedSong = box.get("recentPlayed");
+    super.initState();
+    
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    // box.delete("recentPlayed");
   }
   @override
   Widget build(BuildContext context) {
     final box = StorageBox.getInstance();
-
     return ValueListenableBuilder(
       valueListenable: box.listenable(),
       builder: (context, value, child) {
         var recentPlayedSong = box.get("recentPlayed");
+        
         return recentPlayedSong!.isEmpty
             ? Container(
                 child: const Center(
