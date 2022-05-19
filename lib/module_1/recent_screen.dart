@@ -5,6 +5,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/main.dart';
 import 'package:music/module_1/refactor/open_palyer.dart';
+import 'package:music/module_1/splash_Screen.dart';
 import 'package:music/module_2/nowplaying_screen.dart';
 import 'package:music/module_3/favourite_screen.dart';
 import 'package:music/module_4/refactor/menu_popup_horiz.dart';
@@ -19,7 +20,11 @@ class RecentSongs extends StatefulWidget {
 
 List<Audio> recent = [];
 
-class _RecentSongsState extends State<RecentSongs> {
+class _RecentSongsState extends State<RecentSongs> {@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();var recentPlayedSong = box.get("recentPlayed");
+  }
   @override
   Widget build(BuildContext context) {
     final box = StorageBox.getInstance();
@@ -44,7 +49,7 @@ class _RecentSongsState extends State<RecentSongs> {
                 ),
                 shrinkWrap: true,
                 itemCount:
-                    recentPlayedSong.length < 4 ? recentPlayedSong.length : 4,
+                    recentPlayedSong.length < 20 ? recentPlayedSong.length : 20,
                 itemBuilder: ((context, index) {
                   return Container(
                     decoration: BoxDecoration(

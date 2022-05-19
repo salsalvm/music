@@ -17,7 +17,6 @@ Future<void> main() async {
     await box.put("favourites", favouritesSongs);
   }
   List<dynamic> recentKey = box.keys.toList();
-  List<dynamic> recentPlayed = [];
   if (!(recentKey.contains("recentPlayed"))) {
     List<dynamic> recentPlayed = [];
     await box.put("recentPlayed", recentPlayed);
@@ -26,7 +25,7 @@ Future<void> main() async {
 }
 // void requestPermission(){
 //     Permission.storage.request();
-   
+
 // }
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -34,7 +33,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // requestPermission();
-    return ScreenUtilInit(splitScreenMode: true,minTextAdapt: true,useInheritedMediaQuery: true,
+    return ScreenUtilInit(
+        splitScreenMode: true,
+        minTextAdapt: true,
+        useInheritedMediaQuery: true,
         designSize: const Size(392.7, 781.1),
         builder: (child) {
           return MaterialApp(

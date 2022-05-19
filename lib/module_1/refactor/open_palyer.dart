@@ -1,8 +1,10 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:hive/hive.dart';
 import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/module_1/home.dart';
 import 'package:music/module_1/splash_Screen.dart';
 import 'package:music/module_3/favourite_screen.dart';
+import 'package:on_audio_query/on_audio_query.dart';
 
 class OpenPlayer {
   List<Audio> fullSongs;
@@ -38,11 +40,12 @@ class OpenPlayer {
 }
 
 addToRecent(List recentSongs, recent) {
-  if (recentSongs.length < 4) {
+  if (recentSongs.length <20) {
     recentSongs.add(recent);
 
     box.put("recentPlayed", recentSongs);
   } else {
+    print(recentSongs);
     recentSongs.removeAt(0);
     recentSongs.add(recent);
     box.put("recentPlayed", recentSongs);
@@ -50,11 +53,13 @@ addToRecent(List recentSongs, recent) {
 }
 
 sameIndexToRecent(List recentSongs, recent) {
-
-
+  if (recentSongs.length <= 4) {
     recentSongs.remove(recent);
     recentSongs.add(recent);
     box.put("recentPlayed", recentSongs);
- 
-
+  } else {
+    recentSongs.remove(recent);
+    recentSongs.add(recent);
+    box.put("recentPlayed", recentSongs);
+  }
 }

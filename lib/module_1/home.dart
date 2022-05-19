@@ -143,7 +143,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   void animationDrawer() {
     _animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 0));
+        AnimationController(vsync: this, duration: Duration(milliseconds: 600));
 
     _animation1 = Tween<double>(begin: 0, end: 20).animate(CurvedAnimation(
       parent: _animationController,

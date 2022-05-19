@@ -1,11 +1,8 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:music/main.dart';
-
 import 'package:music/module_2/most_played_screen.dart';
 import 'package:music/module_3/setting_screen.dart';
 import 'package:music/module_4/album_screen.dart';
