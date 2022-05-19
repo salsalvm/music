@@ -34,7 +34,6 @@ class _AddSongBoxState extends State<AddSongBox> {
     return ValueListenableBuilder(
         valueListenable: box.listenable(),
         builder: ((context, value, child) {
-          print(playListsong);
           playListsong = box.get(widget.playListName)!.cast<Songs>();
           return ListView.builder(
             itemBuilder: ((context, index) {
