@@ -32,22 +32,22 @@ class MenuHoriz extends StatelessWidget {
             style: TextStyle(color: textWhite),
           ),
         ),
-        PopupMenuItem(
-          onTap: () {},
-          value: 1,
-          child: Text(
-            "View Details",
-            style: TextStyle(color: textWhite),
-          ),
-        ),
-        PopupMenuItem(
-          onTap: () {},
-          value: 2,
-          child: Text(
-            "Delete Song",
-            style: TextStyle(color: textWhite),
-          ),
-        ),
+        // PopupMenuItem(
+        //   onTap: () {},
+        //   value: 1,
+        //   child: Text(
+        //     "View Details",
+        //     style: TextStyle(color: textWhite),
+        //   ),
+        // ),
+        // PopupMenuItem(
+        //   onTap: () {},
+        //   value: 2,
+        //   child: Text(
+        //     "Delete Song",
+        //     style: TextStyle(color: textWhite),
+        //   ),
+        // ),
       ],
       onSelected: (item) => {
         if (item == 0)

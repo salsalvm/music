@@ -35,7 +35,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
           Settings(
             leadIcon: Icons.notification_add,
             text: 'Notification',
-            onTap: () {},
+            onTap: () {
+             
+            },
             trialing: Switch(
               activeColor: textWhite,
               inactiveTrackColor: Colors.green,
@@ -49,15 +51,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
             ),
           ),
-          Settings(
-            leadIcon: Icons.privacy_tip,
-            text: 'Privacy and Security',
-            onTap: () {},
-            trialing: Icon(
-              Icons.arrow_right,
-              color: textWhite,
-            ),
-          ),
+          // Settings(
+          //   leadIcon: Icons.privacy_tip,
+          //   text: 'Privacy and Security',
+          //   onTap: () {},
+          //   trialing: Icon(
+          //     Icons.arrow_right,
+          //     color: textWhite,
+          //   ),
+          // ),
           Settings(
               leadIcon: Icons.share,
               text: 'Share',
@@ -68,15 +70,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 Icons.arrow_right,
                 color: textWhite,
               )),
-          Settings(
-            leadIcon: Icons.headphones,
-            text: 'Help and Support',
-            onTap: () {},
-            trialing: Icon(
-              Icons.arrow_right,
-              color: textWhite,
-            ),
-          ),
+          // Settings(
+          //   leadIcon: Icons.headphones,
+          //   text: 'Help and Support',
+          //   onTap: () {},
+          //   trialing: Icon(
+          //     Icons.arrow_right,
+          //     color: textWhite,
+          //   ),
+          // ),
           Settings(
             leadIcon: Icons.perm_device_information,
             text: 'About',
