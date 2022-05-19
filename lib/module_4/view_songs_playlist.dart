@@ -1,20 +1,21 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:music/dbFunction/songmodel.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/main.dart';
 import 'package:music/module_1/refactor/open_palyer.dart';
 import 'package:music/module_1/splash_Screen.dart';
 import 'package:music/module_2/nowplaying_screen.dart';
 import 'package:music/module_3/favourite_screen.dart';
+import 'package:music/module_4/refactor/bottomsheet_dbsong.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class PlayListSongs extends StatefulWidget {
-  final String playListName;
-  const PlayListSongs({
+  String playlistName;
+  PlayListSongs({
     Key? key,
-    required this.playListName,
+    required this.playlistName,
   }) : super(key: key);
 
   @override
@@ -24,6 +25,13 @@ class PlayListSongs extends StatefulWidget {
 class _PlayListSongsState extends State<PlayListSongs> {
   List<Songs> playlistSongs = [];
   List<Audio> playPlaylist = [];
+  @override
+  void initState() {
+    playlistSongs = box.get(widget.playlistName)!.cast<Songs>();
+
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +39,7 @@ class _PlayListSongsState extends State<PlayListSongs> {
       backgroundColor: lightBlue,
       appBar: AppBar(
         backgroundColor: lightBlue,
-        title: Text(widget.playListName),
+        title: Text(widget.playlistName),
         centerTitle: true,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
@@ -54,7 +62,7 @@ class _PlayListSongsState extends State<PlayListSongs> {
                         return Container(
                           height: 350.h,
                           child: AddSongBox(
-                            playListName: widget.playListName,
+                            playListName: widget.playlistName,
                           ),
                         );
                       });
@@ -69,9 +77,9 @@ class _PlayListSongsState extends State<PlayListSongs> {
           child: ValueListenableBuilder(
               valueListenable: box.listenable(),
               builder: (context, value, child) {
-                var playlistSongs = box.get(widget.playListName);
+                playlistSongs = box.get(widget.playlistName)!.cast<Songs>();
                 // songCount
-                return playlistSongs!.isEmpty
+                return playlistSongs.isEmpty
                     ? Center(
                         child: Container(
                           child: const Text(
@@ -90,14 +98,14 @@ class _PlayListSongsState extends State<PlayListSongs> {
                               leading: QueryArtworkWidget(
                                   artworkHeight: 60.h,
                                   artworkWidth: 60.w,
-                                  id: playlistSongs[index].id,
+                                  id: playlistSongs[index].id!,
                                   type: ArtworkType.AUDIO),
                               title: Padding(
                                 padding: EdgeInsets.only(
                                         left: 5.0, bottom: 3, top: 3)
                                     .r,
                                 child: Text(
-                                  playlistSongs[index].songname,
+                                  playlistSongs[index].songname!,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                       color: textWhite, fontSize: 18.sp),
@@ -106,7 +114,7 @@ class _PlayListSongsState extends State<PlayListSongs> {
                               subtitle: Padding(
                                 padding: EdgeInsets.only(left: 7.0).r,
                                 child: Text(
-                                  playlistSongs[index].artist.toLowerCase(),
+                                  playlistSongs[index].artist!.toLowerCase(),
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(color: textGrey),
                                 ),
@@ -149,7 +157,7 @@ class _PlayListSongsState extends State<PlayListSongs> {
                                       if (value == "1") {
                                         setState(() {
                                           playlistSongs.removeAt(index);
-                                          box.put(widget.playListName,
+                                          box.put(widget.playlistName,
                                               playlistSongs);
                                         });
                                       }
@@ -159,7 +167,7 @@ class _PlayListSongsState extends State<PlayListSongs> {
                               ),
                               onTap: () {
                                 for (var element in playlistSongs) {
-                                  playPlaylist.add(Audio.file(element.songurl,
+                                  playPlaylist.add(Audio.file(element.songurl!,
                                       metas: Metas(
                                           title: element.songname,
                                           id: element.id.toString(),
@@ -198,92 +206,5 @@ class _PlayListSongsState extends State<PlayListSongs> {
         ),
       ),
     );
-  }
-}
-
-class AddSongBox extends StatefulWidget {
-  String playListName;
-
-  AddSongBox({Key? key, required this.playListName}) : super(key: key);
-
-  @override
-  State<AddSongBox> createState() => _AddSongBoxState();
-}
-
-class _AddSongBoxState extends State<AddSongBox> {
-  List<Songs> playListsong = [];
-
-  @override
-  void initState() {
-    // TODO: implement initState
-
-    super.initState();
-    playListsong = box.get(widget.playListName)!.cast<Songs>();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-        valueListenable: box.listenable(),
-        builder: ((context, value, child) {
-          return ListView.builder(
-            itemBuilder: ((context, index) {
-              return Padding(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20).r,
-                child: ListTile(
-                    tileColor: boxColor,
-                    leading: QueryArtworkWidget(
-                      id: dbSongs[index].id!,
-                      type: ArtworkType.AUDIO,
-                      artworkHeight: 55.h,
-                      artworkWidth: 55.w,
-                    ),
-                    title: Padding(
-                      padding: EdgeInsets.only(left: 5.0, bottom: 3, top: 3).r,
-                      child: Text(
-                        dbSongs[index].songname!,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(color: textWhite, fontSize: 18.sp),
-                      ),
-                    ),
-                    subtitle: Padding(
-                      padding: EdgeInsets.only(left: 7.0).r,
-                      child: Text(
-                        dbSongs[index].artist!.toLowerCase(),
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(color: textGrey),
-                      ),
-                    ),
-                    trailing: playListsong
-                            .where((element) =>
-                                element.id.toString() ==
-                                dbSongs[index].id.toString())
-                            .isEmpty
-                        ? IconButton(
-                            onPressed: (){    setState(() {});
-                              playListsong.add(dbSongs[index]);
-                              box.put(widget.playListName, playListsong);
-                          
-                            },
-                            icon: Icon(
-                              Icons.playlist_add,
-                              size: 35.sp,
-                              color: Colors.green,
-                            ))
-                        : IconButton(
-                            onPressed: () {
-                              setState(() {});
-                              playListsong.removeWhere((element) =>
-                                  element.id.toString() ==
-                                  dbSongs[index].id.toString());
-                              box.put(widget.playListName, playListsong);
-                            },
-                            icon: Icon(Icons.playlist_add_check,
-                                size: 35.sp, color: Colors.red))),
-              );
-            }),
-            itemCount: dbSongs.length,
-          );
-        }));
   }
 }

@@ -14,7 +14,7 @@ class CreatePlaylistForm extends StatefulWidget {
 class _CreatePlaylistFormState extends State<CreatePlaylistForm> {
   @override
   Widget build(BuildContext context) {
-    List<PlaylistModel> playlist = [];
+    List<Songs> playlist = [];
     final box = StorageBox.getInstance();
     String? title;
     final formKey = GlobalKey<FormState>();

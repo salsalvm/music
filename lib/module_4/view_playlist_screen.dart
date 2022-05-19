@@ -3,7 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:music/main.dart';
 import 'package:music/module_1/splash_Screen.dart';
-import 'package:music/module_4/playlist_songs_screen.dart';
+import 'package:music/module_4/view_songs_playlist.dart';
 import 'package:music/module_4/refactor/form_playlist_create.dart';
 import 'package:music/module_4/refactor/update_playlist.dart';
 
@@ -15,7 +15,7 @@ class PlayListScreen extends StatefulWidget {
 }
 
 class _PlayListScreenState extends State<PlayListScreen> {
-  List playlists = [];
+  List playlistsName = [];
 
   @override
   Widget build(BuildContext context) {
@@ -48,20 +48,20 @@ class _PlayListScreenState extends State<PlayListScreen> {
           child: ValueListenableBuilder(
               valueListenable: box.listenable(),
               builder: (context, boxes, child) {
-                var playlists = box.keys.toList();
+                var playlistsName = box.keys.toList();
                 return ListView.builder(
-                  itemCount: playlists.length,
+                  itemCount: playlistsName.length,
                   itemBuilder: (context, index) {
-                    var playlistSongs = box.get(playlists[index]);
+                    var playlistSongs = box.get(playlistsName[index]);
                     return Container(
-                        child: playlists[index] != "music" &&
-                                playlists[index] != "favourites" &&
-                                playlists[index] != "recentPlayed"
+                        child: playlistsName[index] != "music" &&
+                                playlistsName[index] != "favourites" &&
+                                playlistsName[index] != "recentPlayed"
                             ? ListTile(
-                                onTap: ()  {
+                                onTap: () {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: ((context) => PlayListSongs(
-                                          playListName: playlists[index]))));
+                                          playlistName: playlistsName[index]))));
                                   setState(() {});
                                 },
                                 leading: Padding(
@@ -77,7 +77,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                           left: 3.0, bottom: 3, top: 5)
                                       .r,
                                   child: Text(
-                                    playlists[index].toString(),
+                                    playlistsName[index].toString(),
                                     style: TextStyle(
                                         color: textWhite, fontSize: 18.sp),
                                   ),
@@ -171,9 +171,9 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                                       onPressed: () {
                                                         Navigator.pop(context);
                                                         box.delete(
-                                                            playlists[index]);
+                                                            playlistsName[index]);
                                                         setState(() {
-                                                          playlists =
+                                                          playlistsName =
                                                               box.keys.toList();
                                                         });
                                                       },
@@ -191,7 +191,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                           context: context,
                                           builder: (BuildContext context) {
                                             return UpdatePlaylist(
-                                              playlistName: playlists[index],
+                                              playlistName: playlistsName[index],
                                             );
                                           });
                                     }

@@ -60,10 +60,10 @@ class _RecentSongsState extends State<RecentSongs> {
                                   title: item.songname)));
                         }
                         OpenPlayer(
-                                fullSongs: favSong,
+                                fullSongs: recent,
                                 index: index,
                                 songId: recent[index].metas.id!)
-                            .openAssetPlayer(index: index, songs: favSong);
+                            .openAssetPlayer(index: index, songs: recent);
                         Navigator.push(
                             context,
                             MaterialPageRoute(

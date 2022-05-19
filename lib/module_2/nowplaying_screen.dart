@@ -242,7 +242,7 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
                           borderRadius: BorderRadius.circular(50).r),
                       child: IconButton(
                           onPressed: () {
-                            PlayListShowBottomSheet(context, playlistName);
+                            playlistShowBottomSheet(context, playlistName);
                           },
                           icon: Icon(
                             Icons.add,

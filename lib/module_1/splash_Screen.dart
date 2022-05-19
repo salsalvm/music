@@ -1,6 +1,7 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:music/dbFunction/songmodel.dart';
 import 'package:music/module_1/home.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -12,7 +13,7 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-final box = StorageBox.getInstance();
+final Box<List<dynamic>> box = StorageBox.getInstance();
 final OnAudioQuery _audioQuery = OnAudioQuery();
 final AssetsAudioPlayer player = AssetsAudioPlayer.withId('0');
 List<SongModel> fetchedSongs = [];

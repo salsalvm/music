@@ -52,7 +52,7 @@ class MenuHoriz extends StatelessWidget {
       onSelected: (item) => {
         if (item == 0)
           {
-            PlayListShowBottomSheet(context, playlistName),
+            playlistShowBottomSheet(context, playlistName),
           }
       },
     );
@@ -65,7 +65,7 @@ class MenuHoriz extends StatelessWidget {
   }
 }
 
-PlayListShowBottomSheet(BuildContext context, playlistName) {
+playlistShowBottomSheet(BuildContext context, playlistName) {
   return showModalBottomSheet(
       backgroundColor: black,
       context: context,

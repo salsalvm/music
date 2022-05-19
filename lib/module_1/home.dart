@@ -10,7 +10,7 @@ import 'package:music/module_1/splash_Screen.dart';
 import 'package:music/module_2/nowplaying_screen.dart';
 import 'package:music/module_3/favourite_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:music/module_1/refactor/home_widget.dart';
+import 'package:music/module_1/refactor/widget_home.dart';
 import 'package:music/module_3/search_items.dart';
 
 class HomeScreen extends StatefulWidget {

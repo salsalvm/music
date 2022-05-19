@@ -9,7 +9,7 @@ import 'package:music/main.dart';
 import 'package:music/module_2/most_played_screen.dart';
 import 'package:music/module_3/setting_screen.dart';
 import 'package:music/module_4/album_screen.dart';
-import 'package:music/module_4/playlist_view_screen.dart';
+import 'package:music/module_4/view_playlist_screen.dart';
 
 class StackItems extends StatefulWidget {
   const StackItems({Key? key}) : super(key: key);

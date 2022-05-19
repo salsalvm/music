@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:music/main.dart';
 import 'package:music/module_4/refactor/album_widget.dart';
-import 'package:music/module_4/playlist_songs_screen.dart';
+import 'package:music/module_4/refactor/bottomsheet_dbsong.dart';
 
 class AlbumPage extends StatelessWidget {
   const AlbumPage({Key? key}) : super(key: key);

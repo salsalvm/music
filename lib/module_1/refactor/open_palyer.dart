@@ -11,7 +11,6 @@ class OpenPlayer {
   final String songId;
   OpenPlayer(
       {required this.fullSongs, required this.index, required this.songId});
-  final box = StorageBox.getInstance();
 
   final AssetsAudioPlayer player = AssetsAudioPlayer.withId('0');
 
@@ -34,17 +33,28 @@ class OpenPlayer {
             .where((element) => element.id.toString() == recent.id.toString())
             .isEmpty
         ? addToRecent(recentSongs, recent)
-        : null;
+        : sameIndexToRecent(recentSongs, recent);
   }
 }
 
 addToRecent(List recentSongs, recent) {
   if (recentSongs.length < 4) {
     recentSongs.add(recent);
+
     box.put("recentPlayed", recentSongs);
   } else {
     recentSongs.removeAt(0);
     recentSongs.add(recent);
     box.put("recentPlayed", recentSongs);
   }
+}
+
+sameIndexToRecent(List recentSongs, recent) {
+
+
+    recentSongs.remove(recent);
+    recentSongs.add(recent);
+    box.put("recentPlayed", recentSongs);
+ 
+
 }
