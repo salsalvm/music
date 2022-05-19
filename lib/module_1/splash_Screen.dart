@@ -17,7 +17,7 @@ final Box<List<dynamic>> box = StorageBox.getInstance();
 final OnAudioQuery _audioQuery = OnAudioQuery();
 final AssetsAudioPlayer player = AssetsAudioPlayer.withId('0');
 List<SongModel> fetchedSongs = [];
-List<SongModel> allSongs = [];
+// List<SongModel> allSongs = [];
 List<Songs> mappedSongs = [];
 List<Songs> dbSongs = [];
 List<Audio> fullSongs = [];
@@ -60,13 +60,7 @@ class _SplashScreenState extends State<SplashScreen> {
     setState(() {});
 
     fetchedSongs = await _audioQuery.querySongs();
-    for (var element in fetchedSongs) {
-      if (element.fileExtension == "mp3") {
-        allSongs.add(element);
-      }
-    }
-
-    mappedSongs = allSongs
+    mappedSongs = fetchedSongs
         .map((audio) => Songs(
             id: audio.id,
             artist: audio.artist,

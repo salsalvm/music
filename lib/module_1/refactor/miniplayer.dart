@@ -30,7 +30,9 @@ class MiniPlayer extends StatelessWidget {
                               )));
                 },
                 tileColor: boxColor,
-                leading: QueryArtworkWidget(
+                leading: QueryArtworkWidget(nullArtworkWidget: Icon(Icons.music_note),
+                              artworkQuality: FilterQuality.high,
+                              size: 2000,quality: 100,
                   artworkHeight: 60.h,
                   artworkWidth: 60.w,
                   id: int.parse(myAudio.metas.id!),
@@ -58,9 +60,9 @@ class MiniPlayer extends StatelessWidget {
                     IconButton(
                       onPressed: playing.index == 0
                           ? () {
-                              player.id;
+                             
                             }
-                          : () {},
+                          : () { player.previous();},
                       icon: playing.index == 0
                           ? Icon(
                               Icons.skip_previous_rounded,
@@ -85,7 +87,7 @@ class MiniPlayer extends StatelessWidget {
                               size: 43.sp,
                             ),
                             onPressed: () {
-                              player.playOrPause();
+                             player.playOrPause();
                             },
                             color: textWhite,
                           );
