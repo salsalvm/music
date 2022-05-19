@@ -92,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             labelColor: Colors.white,
           ),
           title: const Text(
-            'beatzz',
+            'beatz',
             style: TextStyle(color: Colors.green),
           ),
           centerTitle: true,

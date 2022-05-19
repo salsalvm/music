@@ -86,7 +86,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   applicationIcon: const Icon(
                     Icons.music_note,
                   ),
-                  applicationName: 'beatzz',
+                  applicationName: 'beatz',
                   applicationVersion: '1.0.1.0.1');
             },
             trialing: Icon(
