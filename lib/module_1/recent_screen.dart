@@ -27,7 +27,7 @@ class _RecentSongsState extends State<RecentSongs> {
     return ValueListenableBuilder(
       valueListenable: box.listenable(),
       builder: (context, value, child) {
-        final recentPlayedSong = box.get("recentPlayed");
+        var recentPlayedSong = box.get("recentPlayed");
         return recentPlayedSong!.isEmpty
             ? Container(
                 child: const Center(
