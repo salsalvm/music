@@ -2,21 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:music/main.dart';
 import 'package:music/module_2/refactor/mostplaying_widget.dart';
+
 class MostPlayedSong extends StatelessWidget {
   const MostPlayedSong({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       backgroundColor: lightBlue,
       appBar: AppBar(
         backgroundColor: lightBlue,
-        title:const Text('Most Played Song'),
+        title: const Text('Most Played Song'),
         centerTitle: true,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon:const Icon(
+          icon: const Icon(
             Icons.arrow_back,
           ),
         ),
@@ -25,7 +25,7 @@ class MostPlayedSong extends StatelessWidget {
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: Padding(
-            padding:  EdgeInsets.symmetric(horizontal: 15.0, vertical: 13).r,
+            padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 13).r,
             child: ListView.separated(
                 physics: BouncingScrollPhysics(),
                 shrinkWrap: true,
@@ -38,7 +38,7 @@ class MostPlayedSong extends StatelessWidget {
                   );
                 }),
                 separatorBuilder: (context, index) {
-                  return  SizedBox(
+                  return SizedBox(
                     height: 10.h,
                   );
                 },

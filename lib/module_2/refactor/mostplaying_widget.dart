@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:music/main.dart';
 
-
 class MostPlayed extends StatelessWidget {
   final leadImage;
   final songName;
@@ -29,14 +28,14 @@ class MostPlayed extends StatelessWidget {
             ),
           ),
           title: Padding(
-            padding:  EdgeInsets.only(left: 5.0, bottom: 3, top: 3).r,
+            padding: EdgeInsets.only(left: 5.0, bottom: 3, top: 3).r,
             child: Text(
               songName,
               style: TextStyle(color: textWhite, fontSize: 18.sp),
             ),
           ),
           subtitle: Padding(
-            padding:  EdgeInsets.only(left: 5.0).r,
+            padding: EdgeInsets.only(left: 5.0).r,
             child: Text(
               singerName,
               style: TextStyle(color: textGrey),
@@ -51,7 +50,7 @@ class MostPlayed extends StatelessWidget {
                     size: 22.sp,
                     color: favour,
                   )),
-            // MenuHoriz(songId: songId)
+              // MenuHoriz(songId: songId)
             ],
           )),
     );

@@ -80,7 +80,11 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
                   height: 280.h,
                   width: 350.w,
                   child: QueryArtworkWidget(
-                      nullArtworkWidget: Icon(Icons.music_note,color: textWhite,size: 50,),
+                      nullArtworkWidget: Icon(
+                        Icons.music_note,
+                        color: textWhite,
+                        size: 50,
+                      ),
                       artworkQuality: FilterQuality.high,
                       size: 2000,
                       quality: 100,

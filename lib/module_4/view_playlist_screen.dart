@@ -61,7 +61,8 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                 onTap: () {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: ((context) => PlayListSongs(
-                                          playlistName: playlistsName[index]))));
+                                          playlistName:
+                                              playlistsName[index]))));
                                   setState(() {});
                                 },
                                 leading: Padding(
@@ -171,7 +172,8 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                                       onPressed: () {
                                                         Navigator.pop(context);
                                                         box.delete(
-                                                            playlistsName[index]);
+                                                            playlistsName[
+                                                                index]);
                                                         setState(() {
                                                           playlistsName =
                                                               box.keys.toList();
@@ -191,7 +193,8 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                           context: context,
                                           builder: (BuildContext context) {
                                             return UpdatePlaylist(
-                                              playlistName: playlistsName[index],
+                                              playlistName:
+                                                  playlistsName[index],
                                             );
                                           });
                                     }

@@ -35,13 +35,13 @@ class OpenPlayer {
             .where((element) => element.id.toString() == recent.id.toString())
             .isEmpty
         ? addToRecent(recentSongs, recent)
-        :sameIndexToRecent(recentSongs, recent);
-        //  sameIndexToRecent(recentSongs, recent);
+        : sameIndexToRecent(recentSongs, recent);
+    //  sameIndexToRecent(recentSongs, recent);
   }
 }
 
 addToRecent(List recentSongs, recent) {
-  if (recentSongs.length <20) {
+  if (recentSongs.length < 20) {
     recentSongs.add(recent);
 
     box.put("recentPlayed", recentSongs);
