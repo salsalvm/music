@@ -35,9 +35,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           Settings(
             leadIcon: Icons.notification_add,
             text: 'Notification',
-            onTap: () {
-             
-            },
+            onTap: () {},
             trialing: Switch(
               activeColor: textWhite,
               inactiveTrackColor: Colors.green,
@@ -55,9 +53,29 @@ class _SettingsScreenState extends State<SettingsScreen> {
             leadIcon: Icons.privacy_tip,
             text: 'Privacy and Policy',
             onTap: () {
-              showDialog(context: context, builder: (context){
-                return SingleChildScrollView(child: AlertDialog(content: Text(policy),));
-              });
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return SingleChildScrollView(
+                        child: Padding(
+                      padding: const EdgeInsets.all(38.0),
+                      child: AlertDialog(
+                        title: IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: Icon(
+                              Icons.exit_to_app,
+                              color: textWhite,
+                            )),
+                        backgroundColor: darkBlue,
+                        content: Text(
+                          policy,
+                          style: TextStyle(color: textWhite),
+                        ),
+                      ),
+                    ));
+                  });
             },
             trialing: Icon(
               Icons.arrow_right,
@@ -103,8 +121,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ]),
       )),
     );
-  }}
- String policy='''
+  }
+}
+
+String policy = '''
 Privacy Policy
 Last updated: May 20, 2022
 This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You.
