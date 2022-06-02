@@ -6,7 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Future<void> main() async {
-
+  WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   Hive.registerAdapter(SongsAdapter());
   await Hive.openBox<List>(boxname);
@@ -24,16 +24,12 @@ Future<void> main() async {
   }
   runApp(const MyApp());
 }
-// void requestPermission(){
-//     Permission.storage.request();
 
-// }
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // requestPermission();
     return ScreenUtilInit(
         splitScreenMode: true,
         minTextAdapt: true,
@@ -48,5 +44,3 @@ class MyApp extends StatelessWidget {
         });
   }
 }
-
-
