@@ -10,8 +10,7 @@ Future<void> main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(SongsAdapter());
   await Hive.openBox<List>(boxname);
-
-  // final box = PlaylistBox.getInstance();
+  
   List<dynamic> favKey = box.keys.toList();
   if (!(favKey.contains("favourites"))) {
     List<dynamic> favouritesSongs = [];
