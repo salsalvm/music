@@ -7,7 +7,7 @@ import 'package:music/presentation/mymusic_screen/mymusic_screen.dart';
 import 'package:music/presentation/recent_screen/recent_screen.dart';
 import 'package:music/presentation/home/widget/miniplayer.dart';
 import 'package:music/presentation/favourites_screen/favourite_screen.dart';
-import 'package:music/presentation/home/widget/widget_home.dart';
+import 'package:music/presentation/home/widget/drawer.dart';
 import 'package:music/presentation/search_screen/search_items.dart';
 
 class HomeScreen extends StatefulWidget {
