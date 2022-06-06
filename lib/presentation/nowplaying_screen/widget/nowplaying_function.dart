@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:music/core/constant.dart';
 
-Widget smallwidth = SizedBox(
-  width: 30.w,
-);
+
 
 Widget bottomPlaylist({onTap, required playListName, required countSong}) {
   return Column(

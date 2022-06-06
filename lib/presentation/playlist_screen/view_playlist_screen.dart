@@ -2,10 +2,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:music/core/constant.dart';
+import 'package:music/presentation/playlist_screen/update/update_playlist.dart';
 import 'package:music/presentation/splash_screen/splash_Screen.dart';
 import 'package:music/presentation/playlist_screen/view_songs_playlist.dart';
 import 'package:music/presentation/playlist_screen/widget/form_playlist_create.dart';
-import 'package:music/presentation/playlist_screen/update_playlist/update_playlist.dart';
 
 class PlayListScreen extends StatefulWidget {
   const PlayListScreen({Key? key}) : super(key: key);
