@@ -46,7 +46,7 @@ class PlayListItem extends StatelessWidget {
                                 backgroundColor: darkBlue,
                                 content: Text(
                                   song.songname! + 'Added to Playlist',
-                                  style: TextStyle(color: textWhite),
+                                  style:const TextStyle(color: textWhite),
                                 ),
                               ),
                             );
@@ -55,7 +55,7 @@ class PlayListItem extends StatelessWidget {
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                 content: Text(
                               song.songname! + 'is Already in Playlist.',
-                              style: TextStyle(color: textWhite),
+                              style:const TextStyle(color: textWhite),
                             )));
                           }
                         },
@@ -81,7 +81,7 @@ class PlayListItem extends StatelessWidget {
                           padding:const EdgeInsets.only(left: 3.0).r,
                           child: Text(
                             countSong,
-                            style: TextStyle(
+                            style:const TextStyle(
                               color: textGrey,
                             ),
                           ),

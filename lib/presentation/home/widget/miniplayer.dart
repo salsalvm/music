@@ -31,7 +31,7 @@ class MiniPlayer extends StatelessWidget {
           },
           tileColor: boxColor,
           leading: QueryArtworkWidget(
-            nullArtworkWidget: Icon(Icons.music_note),
+            nullArtworkWidget:const Icon(Icons.music_note),
             artworkQuality: FilterQuality.high,
             size: 2000,
             quality: 100,
@@ -45,14 +45,14 @@ class MiniPlayer extends StatelessWidget {
               height: 18.h,
               child: Marquee(
                 text: myAudio.metas.title!,
-                style: TextStyle(color: textWhite),
+                style:const TextStyle(color: textWhite),
                 velocity: 20,
                 startAfter: Duration.zero,
                 blankSpace: 100.w.h,
               )),
           subtitle: Text(
             myAudio.metas.artist!.toLowerCase(),
-            style: TextStyle(color: textGrey),
+            style:const TextStyle(color: textGrey),
             overflow: TextOverflow.ellipsis,
           ),
           trailing: Wrap(

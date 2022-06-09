@@ -4,42 +4,30 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:music/core/constant.dart';
 import 'package:music/domain/songmodel.dart';
+import 'package:music/presentation/favourites_screen/widget/favourite_icon_add.dart';
 import 'package:music/presentation/nowplaying_screen/nowplaying_screen.dart';
 import 'package:music/presentation/widget/open_palyer.dart';
 import 'package:music/presentation/splash_screen/splash_Screen.dart';
-import 'package:music/presentation/favourites_screen/favourite_screen.dart';
 import 'package:music/presentation/playlist_screen/widget/bottomsheet_dbsong.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-class PlayListSongs extends StatefulWidget {
+class PlayListSongs extends StatelessWidget {
   String playlistName;
   PlayListSongs({
     Key? key,
     required this.playlistName,
   }) : super(key: key);
 
-  @override
-  State<PlayListSongs> createState() => _PlayListSongsState();
-}
-
-class _PlayListSongsState extends State<PlayListSongs> {
   List<Songs> playlistSongs = [];
   List<Audio> playPlaylist = [];
   @override
-  void initState() {
-    playlistSongs = box.get(widget.playlistName)!.cast<Songs>();
-
-
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    playlistSongs = box.get(playlistName)!.cast<Songs>();
     return Scaffold(
       backgroundColor: lightBlue,
       appBar: AppBar(
         backgroundColor: lightBlue,
-        title: Text(widget.playlistName),
+        title: Text(playlistName),
         centerTitle: true,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
@@ -49,20 +37,20 @@ class _PlayListSongsState extends State<PlayListSongs> {
         ),
         actions: [
           Padding(
-            padding:const EdgeInsets.only(right: 10.0, top: 8).r,
+            padding: const EdgeInsets.only(right: 10.0, top: 8).r,
             child: IconButton(
                 onPressed: () {
                   showModalBottomSheet(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.vertical(
-                              top:const Radius.circular(25).r)),
+                              top: const Radius.circular(25).r)),
                       backgroundColor: boxColor,
                       context: context,
                       builder: (ctx) {
                         return SizedBox(
                           height: 350.h,
                           child: AddSongBox(
-                            playListName: widget.playlistName,
+                            playListName: playlistName,
                           ),
                         );
                       });
@@ -73,16 +61,16 @@ class _PlayListSongsState extends State<PlayListSongs> {
       ),
       body: SafeArea(
         child: Padding(
-          padding:const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10).r,
+          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10).r,
           child: ValueListenableBuilder(
               valueListenable: box.listenable(),
               builder: (context, value, child) {
-                playlistSongs = box.get(widget.playlistName)!.cast<Songs>();
+                playlistSongs = box.get(playlistName)!.cast<Songs>();
                 // songCount
                 return playlistSongs.isEmpty
-                    ?const Center(
+                    ? const Center(
                         child: SizedBox(
-                          child:  Text(
+                          child: Text(
                             'add Songs',
                             style: TextStyle(color: Colors.green),
                           ),
@@ -101,7 +89,7 @@ class _PlayListSongsState extends State<PlayListSongs> {
                                   id: playlistSongs[index].id!,
                                   type: ArtworkType.AUDIO),
                               title: Padding(
-                                padding:const EdgeInsets.only(
+                                padding: const EdgeInsets.only(
                                         left: 5.0, bottom: 3, top: 3)
                                     .r,
                                 child: Text(
@@ -112,11 +100,11 @@ class _PlayListSongsState extends State<PlayListSongs> {
                                 ),
                               ),
                               subtitle: Padding(
-                                padding:const EdgeInsets.only(left: 7.0).r,
+                                padding: const EdgeInsets.only(left: 7.0).r,
                                 child: Text(
                                   playlistSongs[index].artist!.toLowerCase(),
                                   overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(color: textGrey),
+                                  style: const TextStyle(color: textGrey),
                                 ),
                               ),
                               trailing: Wrap(
@@ -126,9 +114,10 @@ class _PlayListSongsState extends State<PlayListSongs> {
                                           playlistSongs[index].id.toString()),
                                   PopupMenuButton(
                                     child: Padding(
-                                      padding:
-                                         const EdgeInsets.only(top: 11.0, left: 5).r,
-                                      child: Icon(
+                                      padding: const EdgeInsets.only(
+                                              top: 11.0, left: 5)
+                                          .r,
+                                      child: const Icon(
                                         Icons.more_vert,
                                         color: textWhite,
                                       ),
@@ -142,11 +131,13 @@ class _PlayListSongsState extends State<PlayListSongs> {
                                                   behavior:
                                                       SnackBarBehavior.floating,
                                                   backgroundColor: boxColor,
-                                                  margin:const EdgeInsets.all(10).r,
+                                                  margin:
+                                                      const EdgeInsets.all(10)
+                                                          .r,
                                                   content: Text(
                                                       '${playlistSongs[index].songname} Song Removed ')));
                                         },
-                                        child: Text(
+                                        child: const Text(
                                           'Remove song',
                                           style: TextStyle(color: textGrey),
                                         ),
@@ -155,11 +146,8 @@ class _PlayListSongsState extends State<PlayListSongs> {
                                     ],
                                     onSelected: (value) {
                                       if (value == "1") {
-                                        setState(() {
-                                          playlistSongs.removeAt(index);
-                                          box.put(widget.playlistName,
-                                              playlistSongs);
-                                        });
+                                        playlistSongs.removeAt(index);
+                                        box.put(playlistName, playlistSongs);
                                       }
                                     },
                                   ),

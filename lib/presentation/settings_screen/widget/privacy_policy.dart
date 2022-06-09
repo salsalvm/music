@@ -3,8 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:music/core/constant.dart';
 
-class Categories extends StatelessWidget {
-  const Categories({Key? key}) : super(key: key);
+class Policy extends StatelessWidget {
+  const Policy({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class Categories extends StatelessWidget {
             children: [
               Text(
                 policy,
-                style: TextStyle(color: textWhite,fontSize: 18),
+                style:const TextStyle(color: textWhite,fontSize: 18),
               ),
               InkWell(
                 onTap: () => Navigator.pop(context),

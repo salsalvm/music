@@ -31,7 +31,7 @@ Widget bottomPlaylist({onTap, required playListName, required countSong}) {
             padding: const EdgeInsets.only(left: 3.0).r,
             child: Text(
               countSong,
-              style: TextStyle(
+              style:const TextStyle(
                 color: textGrey,
               ),
             ),

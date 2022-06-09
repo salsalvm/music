@@ -5,14 +5,10 @@ import 'package:music/presentation/settings_screen/widget/privacy_policy.dart';
 import 'package:music/presentation/settings_screen/widget/setting_widget.dart';
 import 'package:share_plus/share_plus.dart';
 
-class SettingsScreen extends StatefulWidget {
+class SettingsScreen extends StatelessWidget {
   SettingsScreen({Key? key}) : super(key: key);
 
-  @override
-  State<SettingsScreen> createState() => _SettingsScreenState();
-}
 
-class _SettingsScreenState extends State<SettingsScreen> {
   bool status = false;
   @override
   Widget build(BuildContext context) {
@@ -44,9 +40,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               // thumbColor: ,
               value: status,
               onChanged: (val) {
-                setState(() {
-                  status = val;
-                });
+              
               },
             ),
           ),
@@ -54,32 +48,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
             leadIcon: Icons.privacy_tip,
             text: 'Privacy and Policy',
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: ((context) => Categories())));
-              // showDialog(
-              //     context: context,
-              //     builder: (context) {
-              //       return SingleChildScrollView(
-              //           child: Padding(
-              //         padding: const EdgeInsets.all(38.0),
-              //         child: AlertDialog(
-              //           title: IconButton(
-              //               onPressed: () {
-              //                 Navigator.pop(context);
-              //               },
-              //               icon: Icon(
-              //                 Icons.exit_to_app,
-              //                 color: textWhite,
-              //               )),
-              //           backgroundColor: darkBlue,
-              //           content: Text(
-              //             policy,
-              //             style: TextStyle(color: textWhite),
-              //           ),
-              //         ),
-              //       ));
-              //     });
+              Navigator.push(context, MaterialPageRoute(builder: ((context) => Policy())));
             },
-            trialing: Icon(
+            trialing:const Icon(
               Icons.arrow_right,
               color: textWhite,
             ),
@@ -90,7 +61,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               onTap: () {
                 Share.share('check out my website https://example.com');
               },
-              trialing: Icon(
+              trialing:const Icon(
                 Icons.arrow_right,
                 color: textWhite,
               )),
@@ -104,9 +75,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     Icons.music_note,
                   ),
                   applicationName: 'beatz',
-                  applicationVersion: '1.0.1.0.1');
+                  applicationVersion: '1.0.1');
             },
-            trialing: Icon(
+            trialing:const Icon(
               Icons.arrow_right,
               color: textWhite,
             ),

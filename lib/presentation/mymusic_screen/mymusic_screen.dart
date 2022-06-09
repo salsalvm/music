@@ -3,32 +3,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:music/core/constant.dart';
 import 'package:music/domain/songmodel.dart';
+import 'package:music/presentation/favourites_screen/widget/favourite_icon_add.dart';
 import 'package:music/presentation/widget/open_palyer.dart';
 import 'package:music/presentation/splash_screen/splash_Screen.dart';
-import 'package:music/presentation/favourites_screen/favourite_screen.dart';
 import 'package:music/presentation/widget/menu_popup_horiz.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-class MusicList extends StatefulWidget {
-  const MusicList({Key? key}) : super(key: key);
-
-  @override
-  State<MusicList> createState() => _MusicListState();
-}
-
-class _MusicListState extends State<MusicList> {
-  final box = StorageBox.getInstance();
+class MusicList extends StatelessWidget {
+  MusicList({Key? key}) : super(key: key);
 
   List<Songs> recent = [];
-  @override
-  void initState() {
-    super.initState();
-    recent = box.get("favourites")!.cast<Songs>();
-  }
 
-  // List<Audio> fav = [];
   @override
   Widget build(BuildContext context) {
+    recent = box.get("favourites")!.cast<Songs>();
     final OnAudioQuery _audioQuery = OnAudioQuery();
     return FutureBuilder<List<SongModel>>(
       future: _audioQuery.querySongs(
@@ -39,9 +27,7 @@ class _MusicListState extends State<MusicList> {
       builder: (context, item) {
         if (item.data == null) {
           return const Center(
-            child: CircularProgressIndicator(
-              color: Colors.amber,
-            ),
+            child: CircularProgressIndicator(),
           );
         }
         if (item.data!.isEmpty) {
@@ -75,7 +61,7 @@ class _MusicListState extends State<MusicList> {
                       leading: QueryArtworkWidget(
                           artworkHeight: 60.h,
                           artworkWidth: 60.w,
-                          nullArtworkWidget: Icon(
+                          nullArtworkWidget: const Icon(
                             Icons.music_note,
                             color: textWhite,
                             size: 30,
@@ -100,7 +86,7 @@ class _MusicListState extends State<MusicList> {
                         child: Text(
                           "${item.data![index].artist}".toLowerCase(),
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(color: textGrey),
+                          style: const TextStyle(color: textGrey),
                         ),
                       ),
                       trailing: Wrap(
@@ -120,7 +106,7 @@ class _MusicListState extends State<MusicList> {
                     height: 10.h,
                   );
                 },
-                itemCount: fullSongs.length)));
+                itemCount: dbSongs.length)));
       },
     );
   }

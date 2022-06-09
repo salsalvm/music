@@ -2,26 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:music/core/constant.dart';
 import 'package:music/domain/songmodel.dart';
+import 'package:music/presentation/splash_screen/splash_Screen.dart';
 
-class CreatePlaylistForm extends StatefulWidget {
+class CreatePlaylistForm extends StatelessWidget {
   const CreatePlaylistForm({Key? key}) : super(key: key);
 
-  @override
-  State<CreatePlaylistForm> createState() => _CreatePlaylistFormState();
-}
 
-class _CreatePlaylistFormState extends State<CreatePlaylistForm> {
   @override
   Widget build(BuildContext context) {
     List<Songs> playlist = [];
-    final box = StorageBox.getInstance();
     String? title;
     final formKey = GlobalKey<FormState>();
 
     return AlertDialog(
       backgroundColor: darkBlue,
       alignment: Alignment.center,
-      title: Center(
+      title:const Center(
           child: Text(
         "Give Your Playlist Name",
         style: TextStyle(color: textWhite),
@@ -78,7 +74,6 @@ class _CreatePlaylistFormState extends State<CreatePlaylistForm> {
                   if (formKey.currentState!.validate()) {
                     box.put(title, playlist);
                     Navigator.pop(context);
-                    setState(() {});
                   }
                 },
               )

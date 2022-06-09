@@ -14,7 +14,7 @@ class UpdatePlaylist extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: darkBlue,
-      title: Center(
+      title:const Center(
           child: Text(
         'Edit Your Playlist Name',
         style: TextStyle(color: textWhite),
@@ -24,7 +24,7 @@ class UpdatePlaylist extends StatelessWidget {
         key: formKey,
         child: TextFormField(
           initialValue: playlistName,
-          style: TextStyle(color: textWhite),
+          style:const TextStyle(color: textWhite),
           onChanged: (value) {
             title = value.trim();
           },

@@ -8,14 +8,9 @@ import 'package:music/presentation/settings_screen/setting_screen.dart';
 import 'package:music/presentation/widget/album_screen/album_screen.dart';
 import 'package:music/presentation/playlist_screen/view_playlist_screen.dart';
 
-class StackItems extends StatefulWidget {
+class StackItems extends StatelessWidget {
   const StackItems({Key? key}) : super(key: key);
 
-  @override
-  State<StackItems> createState() => _StackItemsState();
-}
-
-class _StackItemsState extends State<StackItems> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -88,7 +83,7 @@ class _StackItemsState extends State<StackItems> {
             ),
             myTile(context, Icons.queue_music_sharp, 'Playlist', () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const PlayListScreen()));
+                  builder: (context) =>  PlayListScreen()));
               HapticFeedback.lightImpact();
             }),
             myTile(context, Icons.loop_sharp, 'Most Played Song', () {

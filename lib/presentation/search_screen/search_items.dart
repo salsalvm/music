@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:music/application/search/search_cubit.dart';
 import 'package:music/core/constant.dart';
 import 'package:music/presentation/nowplaying_screen/nowplaying_screen.dart';
 import 'package:music/presentation/widget/open_palyer.dart';
@@ -29,9 +31,9 @@ class MySearch extends SearchDelegate {
   ThemeData appBarTheme(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return theme.copyWith(
-      textTheme: TextTheme(displayMedium: TextStyle(color: textWhite)),
+      textTheme: const TextTheme(displayMedium: TextStyle(color: textWhite)),
       hintColor: textWhite,
-      appBarTheme: AppBarTheme(
+      appBarTheme: const AppBarTheme(
         color: black,
       ),
       inputDecorationTheme: searchFieldDecorationTheme ??
@@ -44,13 +46,14 @@ class MySearch extends SearchDelegate {
   @override
   Widget? buildLeading(BuildContext context) {
     return IconButton(
-        onPressed: () {
-          close(context, null);
-        },
-        icon: Icon(
-          Icons.arrow_back,
-          color: textWhite,
-        ));
+      onPressed: () {
+        close(context, null);
+      },
+      icon: const Icon(
+        Icons.arrow_back,
+        color: textWhite,
+      ),
+    );
   }
 
   @override
@@ -58,7 +61,7 @@ class MySearch extends SearchDelegate {
     return Center(
       child: Text(
         query,
-        style: TextStyle(color: textWhite),
+        style: const TextStyle(color: textWhite),
       ),
     );
   }
@@ -66,95 +69,104 @@ class MySearch extends SearchDelegate {
 // search element
   @override
   Widget buildSuggestions(BuildContext context) {
-    final searchSongItems = query.isEmpty
-        ? fullSongs
-        : fullSongs
-                .where((element) => element.metas.title!
-                    .toLowerCase()
-                    .startsWith(query.toLowerCase().toString()))
-                .toList() +
-            fullSongs
-                .where((element) => element.metas.artist!
-                    .toLowerCase()
-                    .startsWith(query.toLowerCase().toString()))
-                .toList();
-
-    return Scaffold(
-      backgroundColor: black,
-      body: searchSongItems.isEmpty
-          ? const Center(
-              child: Text(
-              "No Songs Found!",
-              style: TextStyle(color: Colors.green),
-            ))
-          : Padding(
-              padding:const EdgeInsets.symmetric(horizontal: 15, vertical: 15).r,
-              child: ListView.separated(
-                  physics: const BouncingScrollPhysics(),
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      decoration: BoxDecoration(
-                          color: boxColor,
-                          borderRadius: BorderRadius.circular(15).r),
-                      child: ListTile(
-                        onTap: (() async {
-                          await OpenPlayer(
-                                  fullSongs: [],
-                                  index: index,
-                                  songId: int.parse(
-                                          searchSongItems[index].metas.id!)
-                                      .toString())
-                              .openAssetPlayer(index: index, songs: fullSongs);
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: ((context) => NowPlaying(
-                                      allSongs: fullSongs,
-                                      index: 0,
-                                      songId: int.parse(
-                                              searchSongItems[index].metas.id!)
-                                          .toString()))));
-                        }),
-                        leading: QueryArtworkWidget(
-                            artworkHeight: 60.h,
-                            artworkWidth: 60.w,
-                            id: int.parse(searchSongItems[index].metas.id!),
-                            type: ArtworkType.AUDIO),
-                        title: Padding(
-                          padding:
-                            const  EdgeInsets.only(left: 5.0, bottom: 3, top: 3).r,
-                          child: Text(
-                            searchSongItems[index].metas.title!,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(color: textWhite, fontSize: 18.sp),
+    return BlocBuilder<SearchCubit, SearchState>(builder: (context, state) {
+      state as SearchInitial;
+      context.read<SearchCubit>().searchSong(query);
+      return Scaffold(
+        backgroundColor: black,
+        body: state.songDetails.isEmpty
+            ? const Center(
+                child: Text(
+                "No Songs Found!",
+                style: TextStyle(color: Colors.green),
+              ))
+            : Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 15).r,
+                child: ListView.separated(
+                    physics: const BouncingScrollPhysics(),
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        decoration: BoxDecoration(
+                            color: boxColor,
+                            borderRadius: BorderRadius.circular(15).r),
+                        child: ListTile(
+                          onTap: (() async {
+                            await OpenPlayer(
+                                    fullSongs: [],
+                                    index: index,
+                                    songId:
+                                        int.parse(fullSongs[index].metas.id!)
+                                            .toString())
+                                .openAssetPlayer(
+                                    index: index, songs: fullSongs);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: ((context) => NowPlaying(
+                                        allSongs: fullSongs,
+                                        index: 0,
+                                        songId: int.parse(fullSongs[index]
+                                                .metas
+                                                .id
+                                                .toString())
+                                            .toString()))));
+                          }),
+                          leading:
+                              // Image.network('https://cdn.britannica.com/84/73184-004-E5A450B5/Sunflower-field-Fargo-North-Dakota.jpg'),
+                              QueryArtworkWidget(
+                                  artworkHeight: 60.h,
+                                  artworkWidth: 60.w,
+                                  nullArtworkWidget: const Icon(
+                                    Icons.music_note,
+                                    color: textWhite,
+                                    size: 30,
+                                  ),
+                                  artworkQuality: FilterQuality.high,
+                                  size: 2000,
+                                  quality: 100,
+                                  id: int.parse(state
+                                      .songDetails[index].metas.id
+                                      .toString()),
+                                  type: ArtworkType.AUDIO),
+                          title: Padding(
+                            padding: const EdgeInsets.only(
+                                    left: 5.0, bottom: 3, top: 3)
+                                .r,
+                            child: Text(
+                              state.songDetails[index].metas.title!,
+                              overflow: TextOverflow.ellipsis,
+                              style:
+                                  TextStyle(color: textWhite, fontSize: 18.sp),
+                            ),
                           ),
-                        ),
-                        subtitle: Padding(
-                          padding:const EdgeInsets.only(left: 7.0).r,
-                          child: Text(
-                            searchSongItems[index].metas.artist!,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(color: textGrey),
+                          subtitle: Padding(
+                            padding: const EdgeInsets.only(left: 7.0).r,
+                            child: Text(
+                              fullSongs[index].metas.artist!,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(color: textGrey),
+                            ),
                           ),
+                          trailing: IconButton(
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.play_arrow,
+                                size: 25.sp,
+                                color: textWhite,
+                              )),
                         ),
-                        trailing: IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.play_arrow,
-                              size: 25.sp,
-                              color: textWhite,
-                            )),
-                      ),
-                    );
-                  },
-                  separatorBuilder: (context, index) {
-                    return SizedBox(
-                      height: 10.h,
-                    );
-                  },
-                  itemCount: searchSongItems.length),
-            ),
-    );
+                      );
+                    },
+                    separatorBuilder: (context, index) {
+                      return SizedBox(
+                        height: 10.h,
+                      );
+                    },
+                    itemCount: state.songDetails.length),
+              ),
+      );
+    });
   }
 }

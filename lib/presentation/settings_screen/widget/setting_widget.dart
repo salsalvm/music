@@ -28,7 +28,7 @@ class Settings extends StatelessWidget {
               ),
               title: Text(
                 text,
-                style: TextStyle(color: textWhite),
+                style:const TextStyle(color: textWhite),
               ),
               trailing: trialing),
         ));

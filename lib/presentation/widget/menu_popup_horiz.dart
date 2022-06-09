@@ -17,7 +17,7 @@ class MenuHoriz extends StatelessWidget {
 
     return PopupMenuButton(
       color: darkBlue,
-      icon: Icon(
+      icon:const Icon(
         Icons.more_vert_outlined,
         color: textWhite,
       ),

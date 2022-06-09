@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:music/application/favorite/favorites_bloc.dart';
+import 'package:music/application/playlist/playlist_bloc.dart';
+import 'package:music/application/repeat/repeat_bloc.dart';
+import 'package:music/application/search/search_cubit.dart';
+import 'package:music/application/shuffle/shuffle_bloc.dart';
 import 'package:music/core/constant.dart';
 import 'package:music/domain/songmodel.dart';
 import 'package:music/presentation/splash_screen/splash_Screen.dart';
@@ -10,7 +16,7 @@ Future<void> main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(SongsAdapter());
   await Hive.openBox<List>(boxname);
-  
+
   List<dynamic> favKey = box.keys.toList();
   if (!(favKey.contains("favourites"))) {
     List<dynamic> favouritesSongs = [];
@@ -35,10 +41,23 @@ class MyApp extends StatelessWidget {
         useInheritedMediaQuery: true,
         designSize: const Size(392.7, 781.1),
         builder: (child) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            color: lightBlue,
-            home: const SplashScreen(),
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (context) => RepeatBloc()),
+              BlocProvider(create: (context) => SearchCubit()),
+              BlocProvider(create: (context) => ShuffleBloc()),
+              BlocProvider(
+                create: ((context) => FavoritesBloc()),
+              ),
+              BlocProvider(
+                create: ((context) => PlaylistBloc()),
+              )
+            ],
+            child: const MaterialApp(
+              debugShowCheckedModeBanner: false,
+              color: lightBlue,
+              home: SplashScreen(),
+            ),
           );
         });
   }

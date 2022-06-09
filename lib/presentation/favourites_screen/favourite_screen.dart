@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:music/core/constant.dart';
 import 'package:music/domain/songmodel.dart';
+import 'package:music/presentation/favourites_screen/widget/favourite_icon_add.dart';
 import 'package:music/presentation/nowplaying_screen/nowplaying_screen.dart';
 import 'package:music/presentation/widget/open_palyer.dart';
 import 'package:music/presentation/splash_screen/splash_Screen.dart';
@@ -11,63 +12,12 @@ import 'package:music/presentation/favourites_screen/widget/add_favourites_song.
 import 'package:music/presentation/widget/menu_popup_horiz.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-class FavouriteIcon extends StatefulWidget {
-  final String songId;
 
-  const FavouriteIcon({Key? key, required this.songId}) : super(key: key);
+class FavouriteScreen extends StatelessWidget {
+   FavouriteScreen({Key? key}) : super(key: key);
 
-  @override
-  State<FavouriteIcon> createState() => _FavouriteIconState();
-}
 
-class _FavouriteIconState extends State<FavouriteIcon> {
-  List favouritesSong = [];
-
-  @override
-  Widget build(BuildContext context) {
-    final favouritesSong = box.get("favourites");
-    final fav = databaseSongs(dbSongs, widget.songId);
-
-    return
-        // songId==0
-        favouritesSong!
-                .where((element) => element.id.toString() == fav.id.toString())
-                .isEmpty
-            ? IconButton(
-                onPressed: () async {
-                  favouritesSong.add(fav);
-
-                  await box.put("favourites", favouritesSong);
-                  setState(() {});
-                },
-                icon: const Icon(
-                  Icons.favorite,
-                  color: Colors.white,
-                ))
-            : IconButton(
-                onPressed: () async {
-                  favouritesSong.removeWhere(
-                      (element) => element.id.toString() == fav.id.toString());
-                  await box.put("favourites", favouritesSong);
-                  setState(() {});
-                },
-                icon: const Icon(
-                  Icons.favorite,
-                  color: Colors.red,
-                ));
-  }
-}
-
-class FavouriteScreen extends StatefulWidget {
-  const FavouriteScreen({Key? key}) : super(key: key);
-
-  @override
-  State<FavouriteScreen> createState() => _FavouriteScreenState();
-}
-
-List<Audio> favSong = [];
-
-class _FavouriteScreenState extends State<FavouriteScreen> {
+  List<Audio> favSong = [];
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
@@ -77,8 +27,8 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
         return Stack(
           children: [
             favouritesSongs!.isEmpty
-                ? Container(
-                    child: const Center(
+                ?const SizedBox(
+                    child:  Center(
                       child: Text(
                         'no favourites songs',
                         style: TextStyle(color: Colors.green),
@@ -136,7 +86,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                             padding: const EdgeInsets.only(left: 8.0).r,
                             child: Text(
                               favouritesSongs[index].artist,
-                              style: TextStyle(color: textGrey),
+                              style:const TextStyle(color: textGrey),
                             ),
                           ),
                           trailing: Wrap(
@@ -168,10 +118,10 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                         context: context,
                         builder: (ctx) {
                           return SizedBox(
-                              height: 350.h, child: const AddSongFavourites());
+                              height: 350.h, child: AddSongFavourites());
                         });
                   },
-                  child: Icon(Icons.add, color: textWhite),
+                  child:const Icon(Icons.add, color: textWhite),
                 ),
               ),
             )

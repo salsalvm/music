@@ -31,11 +31,13 @@ dependencies:
   audio_video_progress_bar: ^0.10.0
   audioplayer: ^0.8.1
   audioplayers: ^0.20.1
+  cubit: ^0.1.2
   cupertino_icons: ^1.0.2
   curved_navigation_bar: ^1.0.3
   eva_icons_flutter: ^3.1.0
   flutter:
     sdk: flutter
+  flutter_bloc: ^8.0.1
   flutter_screenutil: ^5.5.2
   flutter_switch: ^0.3.2
   fluttertoast: ^8.0.9

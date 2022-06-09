@@ -10,8 +10,6 @@ class OpenPlayer {
   OpenPlayer(
       {required this.fullSongs, required this.index, required this.songId});
 
-  final AssetsAudioPlayer player = AssetsAudioPlayer.withId('0');
-
   openAssetPlayer({List<Audio>? songs, required int index}) async {
     player.open(
       Playlist(audios: songs, startIndex: index),
@@ -33,26 +31,20 @@ class OpenPlayer {
         ? addToRecent(recentSongs, recent)
         : sameIndexToRecent(recentSongs, recent);
   }
-}
 
-addToRecent(List recentSongs, recent) {
-  if (recentSongs.length < 20) {
-    recentSongs.add(recent);
+  addToRecent(List recentSongs, recent) {
+    if (recentSongs.length < 15) {
+      recentSongs.add(recent);
 
-    box.put("recentPlayed", recentSongs);
-  } else {
-    recentSongs.removeAt(0);
-    recentSongs.add(recent);
-    box.put("recentPlayed", recentSongs);
+      box.put("recentPlayed", recentSongs);
+    } else {
+      recentSongs.removeAt(0);
+      recentSongs.add(recent);
+      box.put("recentPlayed", recentSongs);
+    }
   }
-}
 
-sameIndexToRecent(List recentSongs, recent) {
-  if (recentSongs.length < 20) {
-    recentSongs.remove(recent);
-    recentSongs.add(recent);
-    box.put("recentPlayed", recentSongs);
-  } else {
+  sameIndexToRecent(List recentSongs, recent) {
     recentSongs.remove(recent);
     recentSongs.add(recent);
     box.put("recentPlayed", recentSongs);

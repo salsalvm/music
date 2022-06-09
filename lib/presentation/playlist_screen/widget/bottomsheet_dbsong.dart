@@ -1,37 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:music/application/playlist/playlist_bloc.dart';
 import 'package:music/core/constant.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:music/domain/songmodel.dart';
 import 'package:music/presentation/splash_screen/splash_Screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-class AddSongBox extends StatefulWidget {
+class AddSongBox extends StatelessWidget {
   String playListName;
 
   AddSongBox({Key? key, required this.playListName}) : super(key: key);
 
-  @override
-  State<AddSongBox> createState() => _AddSongBoxState();
-}
-
-class _AddSongBoxState extends State<AddSongBox> {
   List<Songs> playListsong = [];
 
-  @override
-  void initState() {
-    super.initState();
-    dbSongs = box.get("music") as List<Songs>;
 
-    playListsong = box.get(widget.playListName)!.cast<Songs>();
-  }
 
   @override
   Widget build(BuildContext context) {
+    playListsong = box.get(playListName)!.cast<Songs>();
     return ValueListenableBuilder(
         valueListenable: box.listenable(),
         builder: ((context, value, child) {
-          playListsong = box.get(widget.playListName)!.cast<Songs>();
+          playListsong = box.get(playListName)!.cast<Songs>();
           return ListView.builder(
             itemBuilder: ((context, index) {
               return Padding(
@@ -62,32 +54,44 @@ class _AddSongBoxState extends State<AddSongBox> {
                         style: TextStyle(color: textGrey),
                       ),
                     ),
-                    trailing: playListsong
-                            .where((element) =>
-                                element.id.toString() ==
-                                dbSongs[index].id.toString())
-                            .isEmpty
-                        ? IconButton(
-                            onPressed: () async {
-                              playListsong.add(dbSongs[index]);
-                              await box.put(widget.playListName, playListsong);
-                              setState(() {});
-                            },
-                            icon: Icon(
-                              Icons.playlist_add,
-                              size: 35.sp,
-                              color: Colors.green,
-                            ))
-                        : IconButton(
-                            onPressed: () async {
-                              setState(() {});
-                              playListsong.removeWhere((element) =>
-                                  element.id.toString() ==
-                                  dbSongs[index].id.toString());
-                              await box.put(widget.playListName, playListsong);
-                            },
-                            icon: Icon(Icons.playlist_add_check,
-                                size: 35.sp, color: Colors.red))),
+                    trailing:
+                        BlocBuilder<PlaylistBloc, PlaylistState>(
+                      builder: (context, state) {
+                        return playListsong
+                                .where((element) =>
+                                    element.id.toString() ==
+                                    dbSongs[index].id.toString())
+                                .isEmpty
+                            ? IconButton(
+                                onPressed: () async {
+                                  playListsong.add(dbSongs[index]);
+                                  await box.put(
+                                      playListName, playListsong);
+                                  context
+                                      .read<PlaylistBloc>()
+                                      .add(PlaylistIconPress(icon: Icons.add));
+                                },
+                                icon: Icon(
+                                  Icons.playlist_add,
+                                  size: 35.sp,
+                                  color: Colors.green,
+                                ))
+                            : IconButton(
+                                onPressed: () async {
+                                  playListsong.removeWhere((element) =>
+                                      element.id.toString() ==
+                                      dbSongs[index].id.toString());
+                                  await box.put(
+                                      playListName, playListsong);
+                                  context.read<PlaylistBloc>().add(
+                                      PlaylistIconPress(
+                                          icon: Icons.playlist_add_check));
+                                },
+                                icon: Icon(Icons.playlist_add_check,
+                                    size: 35.sp, color: Colors.red),
+                              );
+                      },
+                    )),
               );
             }),
             itemCount: dbSongs.length,

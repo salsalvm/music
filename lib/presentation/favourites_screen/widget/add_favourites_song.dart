@@ -1,32 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:music/application/favorite/favorites_bloc.dart';
 import 'package:music/core/constant.dart';
 import 'package:music/domain/songmodel.dart';
 import 'package:music/presentation/splash_screen/splash_Screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-class AddSongFavourites extends StatefulWidget {
-  const AddSongFavourites({
+class AddSongFavourites extends StatelessWidget {
+  AddSongFavourites({
     Key? key,
   }) : super(key: key);
 
-  @override
-  State<AddSongFavourites> createState() => _AddSongFavouritesState();
-}
-
-class _AddSongFavouritesState extends State<AddSongFavourites> {
-  final box = StorageBox.getInstance();
   List<Songs> favSongs = [];
 
   @override
-  void initState() {
-    super.initState();
-    favSongs = box.get("favourites")!.cast<Songs>();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    favSongs = box.get("favourites")!.cast<Songs>();
+
     return ValueListenableBuilder(
         valueListenable: box.listenable(),
         builder: ((context, value, child) {
@@ -60,42 +52,52 @@ class _AddSongFavouritesState extends State<AddSongFavourites> {
                         style: TextStyle(color: textGrey),
                       ),
                     ),
-                    trailing: favSongs
-                            .where((element) =>
-                                element.id.toString() ==
-                                dbSongs[index].id.toString())
-                            .isEmpty
-                        ? StatefulBuilder(builder: (context, setState) {
-                            return IconButton(
+                    trailing:
+                        BlocBuilder<FavoritesBloc, FavoritesState>(
+                      builder: (context, state) {
+                        return favSongs
+                                .where((element) =>
+                                    element.id.toString() ==
+                                    dbSongs[index].id.toString())
+                                .isEmpty
+                            ? StatefulBuilder(builder: (context, setState) {
+                                return IconButton(
+                                    onPressed: () {
+                                      favSongs.add(dbSongs[index]);
+                                      box.put("favourites", favSongs);
+                                      context.read<FavoritesBloc>().add(
+                                          FavIconPress(
+                                              icon: Icons.favorite));
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                              behavior:
+                                                  SnackBarBehavior.floating,
+                                              backgroundColor: boxColor,
+                                              margin:
+                                                  const EdgeInsets.all(10).r,
+                                              content: Text(
+                                                  '${dbSongs[index].songname} Song Removed ')));
+                                    },
+                                    icon: Icon(
+                                      Icons.favorite,
+                                      size: 35.sp,
+                                      color: Colors.white,
+                                    ));
+                              })
+                            : IconButton(
                                 onPressed: () {
-                                  favSongs.add(dbSongs[index]);
+                                  favSongs.removeWhere((element) =>
+                                      element.id.toString() ==
+                                      dbSongs[index].id.toString());
                                   box.put("favourites", favSongs);
-
-                                  setState(() {});
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                          behavior: SnackBarBehavior.floating,
-                                          backgroundColor: boxColor,
-                                          margin: const EdgeInsets.all(10).r,
-                                          content: Text(
-                                              '${dbSongs[index].songname} Song Removed ')));
+                                  context.read<FavoritesBloc>().add(
+                                      FavIconPress(icon: Icons.favorite));
                                 },
-                                icon: Icon(
-                                  Icons.favorite,
-                                  size: 35.sp,
-                                  color: Colors.white,
-                                ));
-                          })
-                        : IconButton(
-                            onPressed: () {
-                              favSongs.removeWhere((element) =>
-                                  element.id.toString() ==
-                                  dbSongs[index].id.toString());
-                              box.put("favourites", favSongs);
-                              setState(() {});
-                            },
-                            icon: Icon(Icons.favorite,
-                                size: 35.sp, color: Colors.red))),
+                                icon: Icon(Icons.favorite,
+                                    size: 35.sp, color: Colors.red),
+                              );
+                      },
+                    )),
               );
             }),
             itemCount: dbSongs.length,

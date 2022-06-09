@@ -1,18 +1,22 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:marquee/marquee.dart';
+import 'package:music/application/favorite/favorites_bloc.dart';
+import 'package:music/application/repeat/repeat_bloc.dart';
+import 'package:music/application/shuffle/shuffle_bloc.dart';
 import 'package:music/core/constant.dart';
 import 'package:music/domain/songmodel.dart';
+import 'package:music/presentation/favourites_screen/widget/favourite_icon_add.dart';
+import 'package:music/presentation/home/home.dart';
 import 'package:music/presentation/splash_screen/splash_Screen.dart';
-import 'package:music/presentation/nowplaying_screen/widget/nowplaying_function.dart';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
-import 'package:music/presentation/favourites_screen/favourite_screen.dart';
 import 'package:music/presentation/widget/menu_popup_horiz.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-class NowPlaying extends StatefulWidget {
+class NowPlaying extends StatelessWidget {
   List<Audio> allSongs = [];
   int index;
   final String songId;
@@ -23,25 +27,15 @@ class NowPlaying extends StatefulWidget {
       required this.songId})
       : super(key: key);
 
-  @override
-  State<NowPlaying> createState() => _NowPlayingState();
-}
-
-class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
-  final box = StorageBox.getInstance();
   List playlist = [];
   List<dynamic> playlistSongs = [];
-
-  Audio find(List<Audio> source, String fromPath) {
-    return source.firstWhere((element) => element.path == fromPath);
-  }
 
   bool isShuffle = false;
   bool isRepeate = false;
   bool pressed = true;
   @override
   Widget build(BuildContext context) {
-    final playlistName = databaseSongs(dbSongs, widget.songId);
+    final playlistName = databaseSongs(dbSongs, songId);
 
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -64,7 +58,7 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
       ),
       resizeToAvoidBottomInset: false,
       body: player.builderCurrent(builder: (context, Playing? playing) {
-        final myAudio = find(widget.allSongs, playing!.audio.assetAudioPath);
+        final myAudio = find(allSongs, playing!.audio.assetAudioPath);
 
         return Center(
           child: Column(
@@ -79,7 +73,7 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
                   height: 280.h,
                   width: 350.w,
                   child: QueryArtworkWidget(
-                      nullArtworkWidget: Icon(
+                      nullArtworkWidget: const Icon(
                         Icons.music_note,
                         color: textWhite,
                         size: 50,
@@ -103,48 +97,50 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       // shuffle
-                      StatefulBuilder(builder: ((BuildContext context,
-                          void Function(void Function()) setState) {
-                        return !isShuffle
-                            ? Container(
-                                decoration: BoxDecoration(
-                                    color: Colors.transparent,
-                                    borderRadius: BorderRadius.circular(50).r),
-                                child: IconButton(
-                                  onPressed: () {
-                                    setState(() {
+                      BlocBuilder<ShuffleBloc, ShuffleState>(
+                        builder: (context, state) {
+                          return !isShuffle
+                              ? Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.transparent,
+                                      borderRadius:
+                                          BorderRadius.circular(50).r),
+                                  child: IconButton(
+                                    onPressed: () {
+                                      context.read<FavoritesBloc>().add(
+                                          FavIconPress(icon: Icons.shuffle));
                                       isShuffle = true;
                                       player.toggleShuffle();
-                                    });
-                                  },
-                                  icon: Icon(
-                                    EvaIcons.shuffle2,
-                                    color: textWhite,
-                                    size: 30.sp,
+                                    },
+                                    icon: Icon(
+                                      EvaIcons.shuffle2,
+                                      color: textWhite,
+                                      size: 30.sp,
+                                    ),
                                   ),
-                                ),
-                              )
-                            : Container(
-                                decoration: BoxDecoration(
-                                    color: Colors.transparent,
-                                    borderRadius: BorderRadius.circular(50).r),
-                                child: IconButton(
-                                  onPressed: () {
-                                    setState(
-                                      () {
-                                        isShuffle = false;
-                                        player.setLoopMode(LoopMode.playlist);
-                                      },
-                                    );
-                                  },
-                                  icon: Icon(
-                                    Icons.cached,
-                                    color: textWhite,
-                                    size: 30.sp,
+                                )
+                              : Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.transparent,
+                                      borderRadius:
+                                          BorderRadius.circular(50).r),
+                                  child: IconButton(
+                                    onPressed: () {
+                                      context.read<FavoritesBloc>().add(
+                                          FavIconPress(icon: Icons.favorite));
+                                      isShuffle = false;
+                                      player.setLoopMode(LoopMode.playlist);
+                                    },
+                                    icon: Icon(
+                                      Icons.cached,
+                                      color: textWhite,
+                                      size: 30.sp,
+                                    ),
                                   ),
-                                ),
-                              );
-                      })),
+                                );
+                        },
+                      ),
+
                       Column(
                         children: [
                           SizedBox(
@@ -166,12 +162,13 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
                           )
                         ],
                       ),
-                      StatefulBuilder(
-                        builder: (BuildContext context,
-                            void Function(void Function()) setState) {
-                          return FavouriteIcon(songId: myAudio.metas.id!);
-                        },
-                      ),
+                      // StatefulBuilder(
+                      //   builder: (BuildContext context,
+                      //       void Function(void Function()) setState) {
+                      //     return FavouriteIcon(songId: myAudio.metas.id!);
+                      //   },
+                      // ),
+                      FavouriteIcon(songId: myAudio.metas.id!)
                     ],
                   ),
                 ),
@@ -191,7 +188,7 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
                       baseBarColor: textGrey,
                       barHeight: 7.h,
                       thumbColor: textWhite,
-                      timeLabelTextStyle: TextStyle(color: textWhite),
+                      timeLabelTextStyle: const TextStyle(color: textWhite),
                       progress: infos.currentPosition,
                       total: infos.duration),
                 );
@@ -202,47 +199,45 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    StatefulBuilder(builder: ((context, setState) {
-                      return !isRepeate
-                          ? Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.transparent,
-                                  borderRadius: BorderRadius.circular(50).r),
-                              child: IconButton(
-                                  onPressed: () {
-                                    setState(
-                                      () {
-                                        isRepeate = true;
-                                        player.setLoopMode(LoopMode.single);
-                                      },
-                                    );
-                                  },
-                                  icon: Icon(
-                                    Icons.repeat,
-                                    color: textWhite,
-                                    size: 30.sp,
-                                  )),
-                            )
-                          : Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.transparent,
-                                  borderRadius: BorderRadius.circular(50).r),
-                              child: IconButton(
-                                  onPressed: () {
-                                    setState(
-                                      () {
-                                        isRepeate = false;
-                                        player.setLoopMode(LoopMode.playlist);
-                                      },
-                                    );
-                                  },
-                                  icon: Icon(
-                                    Icons.repeat_one,
-                                    color: textWhite,
-                                    size: 30.sp,
-                                  )),
-                            );
-                    })),
+                    BlocBuilder<RepeatBloc, RepeatState>(
+                      builder: (context, state) {
+                        return !isRepeate
+                            ? Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.transparent,
+                                    borderRadius: BorderRadius.circular(50).r),
+                                child: IconButton(
+                                    onPressed: () {
+                                      context.read<RepeatBloc>().add(
+                                          RepeatIconPress(icon: Icons.repeat));
+                                      isRepeate = true;
+                                      player.setLoopMode(LoopMode.single);
+                                    },
+                                    icon: Icon(
+                                      Icons.repeat,
+                                      color: textWhite,
+                                      size: 30.sp,
+                                    )),
+                              )
+                            : Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.transparent,
+                                    borderRadius: BorderRadius.circular(50).r),
+                                child: IconButton(
+                                    onPressed: () {
+                                      context.read<RepeatBloc>().add(
+                                          RepeatIconPress(icon: Icons.repeat));
+                                      isRepeate = false;
+                                      player.setLoopMode(LoopMode.playlist);
+                                    },
+                                    icon: Icon(
+                                      Icons.repeat_one,
+                                      color: textWhite,
+                                      size: 30.sp,
+                                    )),
+                              );
+                      },
+                    ),
                     Container(
                       decoration: BoxDecoration(
                           color: Colors.transparent,
@@ -274,7 +269,7 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
                           },
                     icon: playing.index == 0
                         ? const SizedBox()
-                        : Icon(
+                        : const Icon(
                             Icons.skip_previous_rounded,
                             color: textWhite,
                           ),
@@ -306,7 +301,7 @@ class _NowPlayingState extends State<NowPlaying> with TickerProviderStateMixin {
                           onPressed: () {
                             player.next();
                           },
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.skip_next_rounded,
                             color: textWhite,
                           ),

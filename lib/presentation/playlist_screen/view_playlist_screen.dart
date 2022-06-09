@@ -7,14 +7,10 @@ import 'package:music/presentation/splash_screen/splash_Screen.dart';
 import 'package:music/presentation/playlist_screen/view_songs_playlist.dart';
 import 'package:music/presentation/playlist_screen/widget/form_playlist_create.dart';
 
-class PlayListScreen extends StatefulWidget {
-  const PlayListScreen({Key? key}) : super(key: key);
+class PlayListScreen extends StatelessWidget {
+   PlayListScreen({Key? key}) : super(key: key);
 
-  @override
-  State<PlayListScreen> createState() => _PlayListScreenState();
-}
 
-class _PlayListScreenState extends State<PlayListScreen> {
   List playlistsName = [];
 
   @override
@@ -63,7 +59,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                       builder: ((context) => PlayListSongs(
                                           playlistName:
                                               playlistsName[index]))));
-                                  setState(() {});
+                                 
                                 },
                                 leading: Padding(
                                   padding:
@@ -178,10 +174,10 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                                         box.delete(
                                                             playlistsName[
                                                                 index]);
-                                                        setState(() {
+                                                       
                                                           playlistsName =
                                                               box.keys.toList();
-                                                        });
+                                                      
                                                       },
                                                     )
                                                   ],
