@@ -46,8 +46,7 @@ class MyApp extends StatelessWidget {
               BlocProvider(create: (context) => RepeatBloc()),
               BlocProvider(create: (context) => SearchCubit()),
               BlocProvider(create: (context) => ShuffleBloc()),
-              BlocProvider(
-                create: ((context) => FavoritesBloc()),
+              BlocProvider(create: ((context) => FavoritesBloc()),
               ),
               BlocProvider(
                 create: ((context) => PlaylistBloc()),
