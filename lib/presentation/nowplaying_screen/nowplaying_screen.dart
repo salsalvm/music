@@ -4,9 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:marquee/marquee.dart';
-import 'package:music/application/favorite/favorites_bloc.dart';
-import 'package:music/application/repeat/repeat_bloc.dart';
-import 'package:music/application/shuffle/shuffle_bloc.dart';
+import 'package:music/application/block/repeat/repeat_bloc.dart';
+import 'package:music/application/block/shuffle/shuffle_bloc.dart';
 import 'package:music/core/constant.dart';
 import 'package:music/domain/songmodel.dart';
 import 'package:music/presentation/favourites_screen/widget/favourite_icon_add.dart';
@@ -107,8 +106,8 @@ class NowPlaying extends StatelessWidget {
                                           BorderRadius.circular(50).r),
                                   child: IconButton(
                                     onPressed: () {
-                                      context.read<FavoritesBloc>().add(
-                                          FavIconPress(icon: Icons.shuffle));
+                                      context.read<ShuffleBloc>().add(
+                                          ShuffleIconPress(icon: Icons.shuffle));
                                       isShuffle = true;
                                       player.toggleShuffle();
                                     },
@@ -126,8 +125,8 @@ class NowPlaying extends StatelessWidget {
                                           BorderRadius.circular(50).r),
                                   child: IconButton(
                                     onPressed: () {
-                                      context.read<FavoritesBloc>().add(
-                                          FavIconPress(icon: Icons.favorite));
+                                      context.read<ShuffleBloc>().add(
+                                          ShuffleIconPress(icon: Icons.shuffle));
                                       isShuffle = false;
                                       player.setLoopMode(LoopMode.playlist);
                                     },
@@ -162,12 +161,7 @@ class NowPlaying extends StatelessWidget {
                           )
                         ],
                       ),
-                      // StatefulBuilder(
-                      //   builder: (BuildContext context,
-                      //       void Function(void Function()) setState) {
-                      //     return FavouriteIcon(songId: myAudio.metas.id!);
-                      //   },
-                      // ),
+                
                       FavouriteIcon(songId: myAudio.metas.id!)
                     ],
                   ),

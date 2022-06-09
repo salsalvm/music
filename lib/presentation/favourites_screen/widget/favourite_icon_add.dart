@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:music/application/favorite/favorites_bloc.dart';
+import 'package:music/application/block/favorites/favorites_bloc.dart';
 import 'package:music/presentation/favourites_screen/favourite_screen.dart';
 import 'package:music/presentation/splash_screen/splash_Screen.dart';
 

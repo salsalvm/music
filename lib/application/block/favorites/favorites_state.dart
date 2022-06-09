@@ -1,4 +1,4 @@
-part of 'favorites_bloc.dart';
+part of '../favorites/favorites_bloc.dart';
 
  class FavoritesState {
    final IconData icon;

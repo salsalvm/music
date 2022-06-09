@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:music/application/favorite/favorites_bloc.dart';
+import 'package:music/application/block/favorites/favorites_bloc.dart';
 import 'package:music/core/constant.dart';
 import 'package:music/domain/songmodel.dart';
 import 'package:music/presentation/splash_screen/splash_Screen.dart';

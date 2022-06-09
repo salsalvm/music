@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:music/application/favorite/favorites_bloc.dart';
-import 'package:music/application/playlist/playlist_bloc.dart';
-import 'package:music/application/repeat/repeat_bloc.dart';
-import 'package:music/application/search/search_cubit.dart';
-import 'package:music/application/shuffle/shuffle_bloc.dart';
+import 'package:music/application/block/favorites/favorites_bloc.dart';
+import 'package:music/application/block/playlist/playlist_bloc.dart';
+import 'package:music/application/block/repeat/repeat_bloc.dart';
+import 'package:music/application/block/shuffle/shuffle_bloc.dart';
+import 'package:music/application/cubit/search/search_cubit.dart';
 import 'package:music/core/constant.dart';
 import 'package:music/domain/songmodel.dart';
 import 'package:music/presentation/splash_screen/splash_Screen.dart';
@@ -46,7 +46,8 @@ class MyApp extends StatelessWidget {
               BlocProvider(create: (context) => RepeatBloc()),
               BlocProvider(create: (context) => SearchCubit()),
               BlocProvider(create: (context) => ShuffleBloc()),
-              BlocProvider(create: ((context) => FavoritesBloc()),
+              BlocProvider(
+                create: ((context) => FavoritesBloc()),
               ),
               BlocProvider(
                 create: ((context) => PlaylistBloc()),
