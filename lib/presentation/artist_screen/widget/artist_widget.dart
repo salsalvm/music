@@ -29,7 +29,7 @@ class ArtistyDetailed extends StatelessWidget {
             return Column(
               children: [
                 Container(
-                  color: Colors.amber,
+                  color: Colors.teal,
                   height: 400,
                   width: double.infinity,
                   child: ClipRRect(
