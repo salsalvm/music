@@ -44,7 +44,7 @@ class PlayListScreen extends StatelessWidget {
               valueListenable: box.listenable(),
               builder: (context, boxes, child) {
                 var playlistsName = box.keys.toList();
-                return playlistsName.isEmpty
+                return playlistsName.length == 3
                     ? const Center(
                         child: Text(
                           'No Playlist',

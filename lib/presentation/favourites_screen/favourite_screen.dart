@@ -12,10 +12,8 @@ import 'package:music/presentation/favourites_screen/widget/add_favourites_song.
 import 'package:music/presentation/widget/menu_popup_horiz.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-
 class FavouriteScreen extends StatelessWidget {
-   FavouriteScreen({Key? key}) : super(key: key);
-
+  FavouriteScreen({Key? key}) : super(key: key);
 
   List<Audio> favSong = [];
   @override
@@ -27,8 +25,8 @@ class FavouriteScreen extends StatelessWidget {
         return Stack(
           children: [
             favouritesSongs!.isEmpty
-                ?const SizedBox(
-                    child:  Center(
+                ? const SizedBox(
+                    child: Center(
                       child: Text(
                         'no favourites songs',
                         style: TextStyle(color: Colors.green),
@@ -69,6 +67,11 @@ class FavouriteScreen extends StatelessWidget {
                                         songId: favSong[index].metas.id!))));
                           },
                           leading: QueryArtworkWidget(
+                              nullArtworkWidget: const Icon(
+                                Icons.music_note,
+                                color: textWhite,
+                                size: 30,
+                              ),
                               id: favouritesSongs[index].id,
                               type: ArtworkType.AUDIO),
                           title: Padding(
@@ -86,7 +89,7 @@ class FavouriteScreen extends StatelessWidget {
                             padding: const EdgeInsets.only(left: 8.0).r,
                             child: Text(
                               favouritesSongs[index].artist,
-                              style:const TextStyle(color: textGrey),
+                              style: const TextStyle(color: textGrey),
                             ),
                           ),
                           trailing: Wrap(
@@ -121,7 +124,7 @@ class FavouriteScreen extends StatelessWidget {
                               height: 350.h, child: AddSongFavourites());
                         });
                   },
-                  child:const Icon(Icons.add, color: textWhite),
+                  child: const Icon(Icons.add, color: textWhite),
                 ),
               ),
             )

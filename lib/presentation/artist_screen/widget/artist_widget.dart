@@ -7,8 +7,8 @@ import 'package:music/presentation/home/widget/miniplayer.dart';
 import 'package:music/presentation/splash_screen/splash_Screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-class AlbumDetailed extends StatelessWidget {
-  AlbumDetailed({
+class ArtistyDetailed extends StatelessWidget {
+  ArtistyDetailed({
     Key? key,
     // required this.imageId,
     required this.albumId,

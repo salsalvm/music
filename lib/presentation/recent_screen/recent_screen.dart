@@ -70,6 +70,11 @@ class RecentSongs extends StatelessWidget {
                                         songId: recent[index].metas.id!))));
                           },
                           leading: QueryArtworkWidget(
+                              nullArtworkWidget: const Icon(
+                                Icons.music_note,
+                                color: textWhite,
+                                size: 30,
+                              ),
                               id: recentPlayedSong[index].id,
                               type: ArtworkType.AUDIO),
                           title: Padding(

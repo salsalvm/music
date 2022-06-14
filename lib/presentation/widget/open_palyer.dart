@@ -29,7 +29,8 @@ class OpenPlayer {
             .where((element) => element.id.toString() == recent.id.toString())
             .isEmpty
         ? addToRecent(recentSongs, recent)
-        : sameIndexToRecent(recentSongs, recent);
+        : null;
+    // sameIndexToRecent(recentSongs, recent);
   }
 
   addToRecent(List recentSongs, recent) {

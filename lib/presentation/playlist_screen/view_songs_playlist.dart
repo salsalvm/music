@@ -84,6 +84,11 @@ class PlayListSongs extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(15).r),
                             child: ListTile(
                               leading: QueryArtworkWidget(
+                                  nullArtworkWidget: const Icon(
+                                    Icons.music_note,
+                                    color: textWhite,
+                                    size: 30,
+                                  ),
                                   artworkHeight: 60.h,
                                   artworkWidth: 60.w,
                                   id: playlistSongs[index].id!,

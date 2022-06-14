@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:music/core/constant.dart';
+import 'package:music/presentation/album_screen/widget/album_song_screen.dart';
+import 'package:music/presentation/artist_screen/widget/artist_widget.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 final OnAudioQuery audioQuery = OnAudioQuery();
 
@@ -27,6 +29,7 @@ class _ArtistListsState extends State<ArtistLists> {
               mainAxisSpacing: 0,
               childAspectRatio: 19 / 25),
           itemBuilder: (context, index) {
+
             return Padding(
               padding: const EdgeInsets.all(2.0),
               child: Card(
@@ -66,34 +69,46 @@ class _ArtistListsState extends State<ArtistLists> {
                               bottomLeft: Radius.circular(8),
                             ),
                             color: Colors.grey[850]),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(5, 5, 0, 0),
-                              child: Text(
-                                item.data![index].artist,
-                                overflow: TextOverflow.ellipsis,
-                                style: GoogleFonts.inter(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15,
-                                  color: Colors.white,
+                        child: GestureDetector(   onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AlbumDetailed(
+                          albumId: item.data![index].id,
+                          albumName: item.data![index].artist,
+                        ),
+                      ),
+                    );
+                  }, 
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(5, 5, 0, 0),
+                                child: Text(
+                                  item.data![index].artist,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: GoogleFonts.inter(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(5, 4, 0, 0),
-                              child: Text(
-                                item.data![index].numberOfTracks.toString() +
-                                    ' SONGS',
-                                style: GoogleFonts.inter(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 13,
-                                  color: Colors.grey,
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(5, 4, 0, 0),
+                                child: Text(
+                                  item.data![index].numberOfTracks.toString() +
+                                      ' SONGS',
+                                  style: GoogleFonts.inter(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 13,
+                                    color: Colors.grey,
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     )
