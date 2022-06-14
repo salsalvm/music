@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:music/core/constant.dart';
-import 'package:music/presentation/widget/mostplayed_screen/most_played_screen.dart';
+import 'package:music/presentation/album_screen/album_screen.dart';
+import 'package:music/presentation/artist_screen/artist_screen.dart';
+import 'package:music/presentation/artist_screen/widget/artist_widget.dart';
 import 'package:music/presentation/settings_screen/setting_screen.dart';
-import 'package:music/presentation/widget/album_screen/album_screen.dart';
 import 'package:music/presentation/playlist_screen/view_playlist_screen.dart';
+import 'package:on_audio_query/on_audio_query.dart';
 
 class StackItems extends StatelessWidget {
   const StackItems({Key? key}) : super(key: key);
@@ -86,9 +88,9 @@ class StackItems extends StatelessWidget {
                   builder: (context) =>  PlayListScreen()));
               HapticFeedback.lightImpact();
             }),
-            myTile(context, Icons.loop_sharp, 'Most Played Song', () {
+            myTile(context, Icons.people, 'Artist', () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: ((context) => const MostPlayedSong())));
+                  builder: ((context) =>  ArtistLists())));
             }),
             myTile(
                 context,

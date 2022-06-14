@@ -59,7 +59,7 @@ class SettingsScreen extends StatelessWidget {
               leadIcon: Icons.share,
               text: 'Share',
               onTap: () {
-                Share.share('check out my website https://example.com');
+                Share.share('https://play.google.com/store/apps/details?id=in.brototype.beatz');
               },
               trialing:const Icon(
                 Icons.arrow_right,
