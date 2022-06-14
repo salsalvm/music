@@ -79,7 +79,7 @@ class StackItems extends StatelessWidget {
               'Album',
               () {
                 Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const AlbumPage()));
+                    MaterialPageRoute(builder: (context) =>  AlbumPage()));
                 HapticFeedback.lightImpact();
               },
             ),

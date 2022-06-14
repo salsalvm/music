@@ -2,20 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:music/core/constant.dart';
 import 'package:music/presentation/album_screen/widget/album_song_screen.dart';
-import 'package:music/presentation/artist_screen/widget/artist_widget.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 final OnAudioQuery audioQuery = OnAudioQuery();
 
-class ArtistLists extends StatefulWidget {
-  const ArtistLists({Key? key}) : super(key: key);
+class ArtistLists extends StatelessWidget {
+   ArtistLists({Key? key}) : super(key: key);
 
-  @override
-  State<ArtistLists> createState() => _ArtistListsState();
-}
+
 
 List<ArtistModel> allArtists = [];
-
-class _ArtistListsState extends State<ArtistLists> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<ArtistModel>>(

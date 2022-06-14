@@ -5,7 +5,6 @@ import 'package:music/core/constant.dart';
 import 'package:music/presentation/artist_screen/artist_screen.dart';
 import 'package:music/presentation/home/widget/miniplayer.dart';
 import 'package:music/presentation/splash_screen/splash_Screen.dart';
-import 'package:music/presentation/widget/open_palyer.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class AlbumDetailed extends StatelessWidget {

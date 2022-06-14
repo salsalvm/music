@@ -5,16 +5,10 @@ import 'package:music/presentation/album_screen/widget/album_song_screen.dart';
 import 'package:music/presentation/artist_screen/artist_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-class AlbumPage extends StatefulWidget {
-  const AlbumPage({Key? key}) : super(key: key);
+class AlbumPage extends StatelessWidget {
+   AlbumPage({Key? key}) : super(key: key);
 
-  @override
-  State<AlbumPage> createState() => _AlbumPageState();
-}
-
-List<AlbumModel> allAlbums = [];
-
-class _AlbumPageState extends State<AlbumPage> {
+  List<AlbumModel> allAlbums = [];
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<AlbumModel>>(
