@@ -75,7 +75,7 @@ class SettingsScreen extends StatelessWidget {
                     Icons.music_note,
                   ),
                   applicationName: 'beatz',
-                  applicationVersion: '1.0.1');
+                  applicationVersion: '1.0.5');
             },
             trialing:const Icon(
               Icons.arrow_right,
