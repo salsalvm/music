@@ -15,13 +15,14 @@ import 'package:on_audio_query/on_audio_query.dart';
 class FavouriteScreen extends StatelessWidget {
   FavouriteScreen({Key? key}) : super(key: key);
 
-  List<Audio> favSong = [];
+  
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
       valueListenable: box.listenable(),
       builder: (context, value, child) {
         final favouritesSongs = box.get("favourites");
+        List<Audio> favSong = [];
         return Stack(
           children: [
             favouritesSongs!.isEmpty
