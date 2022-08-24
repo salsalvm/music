@@ -19,7 +19,7 @@ class PlayListSongs extends StatelessWidget {
   }) : super(key: key);
 
   List<Songs> playlistSongs = [];
-  List<Audio> playPlaylist = [];
+  
   @override
   Widget build(BuildContext context) {
     playlistSongs = box.get(playlistName)!.cast<Songs>();
@@ -66,6 +66,7 @@ class PlayListSongs extends StatelessWidget {
               valueListenable: box.listenable(),
               builder: (context, value, child) {
                 playlistSongs = box.get(playlistName)!.cast<Songs>();
+                List<Audio> playPlaylist = [];
                 // songCount
                 return playlistSongs.isEmpty
                     ? const Center(

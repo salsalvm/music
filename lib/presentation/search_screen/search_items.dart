@@ -94,23 +94,28 @@ class MySearch extends SearchDelegate {
                           borderRadius: BorderRadius.circular(15).r),
                       child: ListTile(
                         onTap: (() async {
+                          Navigator.pop(context);
                           await OpenPlayer(
-                                  fullSongs: [],
-                                  index: index,
-                                  songId: int.parse(fullSongs[index].metas.id!)
-                                      .toString())
-                              .openAssetPlayer(index: index, songs: fullSongs);
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: ((context) => NowPlaying(
-                                      allSongs: fullSongs,
-                                      index: 0,
-                                      songId: int.parse(fullSongs[index]
-                                              .metas
-                                              .id
-                                              .toString())
-                                          .toString()))));
+                            fullSongs: searched,
+                            index: index,
+                            songId: int.parse(
+                              searched[index].metas.id!,
+                            ).toString(),
+                          ).openAssetPlayer(
+                            index: index,
+                            songs: searched,
+                          );
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: ((context) => NowPlaying(
+                          //             allSongs: fullSongs,
+                          //             index: 0,
+                          //             songId: int.parse(fullSongs[index]
+                          //                     .metas
+                          //                     .id
+                          //                     .toString())
+                          //                 .toString()))));
                         }),
                         leading:
                             // Image.network('https://cdn.britannica.com/84/73184-004-E5A450B5/Sunflower-field-Fargo-North-Dakota.jpg'),
