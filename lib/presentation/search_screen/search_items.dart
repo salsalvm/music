@@ -56,7 +56,7 @@ class MySearch extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    return final searched = fullSongs
+     final searched = fullSongs
         .toList()
         .where((element) =>
             element.metas.title!.toLowerCase().contains(query.toLowerCase()))
