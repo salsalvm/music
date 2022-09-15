@@ -1,17 +1,34 @@
-# music
+# beatz
 
 A new Flutter project.
 
-## Getting Started
+ have successfully built a #music player named 'beatz' using Flutter. It's an offline music player having different features.The difficulties I faced as a self taught #developer helped me to find better solutions for my problems.
 
-This project is a starting point for a Flutter application.
+Special Thanks To Nikhil Kilivayil, Brototype Malayalam, Gokuldas V R , Harish Bhuvan , Sreejith Surendran , Josna Maria Babu and Anagha S Anand.
 
-A few resources to get you started if this is your first Flutter project:
+App Link : https://lnkd.in/ddaUCxJ7
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Source Code : https://lnkd.in/dcKWiCrA
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# music
+Features:-
+ - List all songs from Local Store 
+ - Fetch all song in internal storage using on_audio_query
+ - Search (deligates)
+ - Add Song into Playlist and Favourites
+ - Notification Control
+
+Technology Used:-
+ - Flutter
+ - Dart
+ - Hive
+ - flutter_bloc
+
+Packages:-
+ - assets_audio_player
+- on_audio_query
+ - hive_flutter
+ - build_runner
+ - hive_generator
+ 
+ regard,
+ Salsal.
